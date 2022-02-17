@@ -8,7 +8,8 @@
     "dev": "webpack serve --config webpack.config.dev.js",
     "build": "webpack --config webpack.config.prod.js",
     "lint": "eslint src/**/*.js",
-    "fix": "eslint src/**/*.js --fix"
+    "fix": "eslint src/**/*.js --fix",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -42,7 +43,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
-    "husky": "^7.0.4",
+    "husky": "^7.0.0",
     "lint-staged": "^12.3.4",
     "mini-css-extract-plugin": "^2.5.3",
     "prettier": "^2.5.1",
