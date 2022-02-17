@@ -1,13 +1,11 @@
 const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const Dotenv = require("dotenv-webpack");
-
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const { merge } = require("webpack-merge");
+const common = require("./webpack.common");
 
-module.exports = {
+module.exports = merge(common, {
   mode: "production",
-  entry: path.join(__dirname, "src", "index.js"),
   output: {
     path: path.resolve(__dirname, "build"),
   },
@@ -42,11 +40,5 @@ module.exports = {
   optimization: {
     minimizer: ["...", new CssMinimizerPlugin()],
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, "src", "index.html"),
-    }),
-    new Dotenv(),
-    new MiniCssExtractPlugin(),
-  ],
-};
+  plugins: [new MiniCssExtractPlugin()],
+});
