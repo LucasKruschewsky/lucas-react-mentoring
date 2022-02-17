@@ -26,6 +26,17 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        enforce: "pre",
+        use: ["source-map-loader"],
+      },
+      {
+        test: /\.css$/i,
+        exclude: /node_modules/,
+        use: ["style-loader", "css-loader"],
+      },
     ],
   },
   plugins: [
