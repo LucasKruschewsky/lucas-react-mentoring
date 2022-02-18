@@ -5,12 +5,23 @@ const Dotenv = require('dotenv-webpack');
 module.exports = {
   entry: path.join(__dirname, 'src', 'index.js'),
   resolve: {
+    modules: [path.resolve(__dirname, 'node_modules'), 'node_modules'],
     extensions: ['.js', '.jsx'],
+    symlinks: false,
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+      Images: path.resolve(__dirname, 'src', 'Images'),
+      Components: path.resolve(__dirname, 'src', 'Components'),
+    },
+  },
+  cache: {
+    type: 'filesystem',
   },
   module: {
     rules: [
       {
         test: /\.?(js|jsx)$/,
+        include: path.resolve(__dirname, 'src'),
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -20,11 +31,13 @@ module.exports = {
         },
       },
       {
-        test: /\.(jpg|png)/,
+        test: /\.(png|jpg|jpeg|gif)/,
+        include: path.resolve(__dirname, 'src', 'Images'),
         type: 'asset/resource',
       },
       {
         test: /\.svg$/i,
+        include: path.resolve(__dirname, 'src', 'Images'),
         issuer: /\.[jt]sx?$/,
         use: ['@svgr/webpack'],
       },

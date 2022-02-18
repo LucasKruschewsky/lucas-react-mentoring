@@ -25,5 +25,16 @@
     "quotes": [2, "single"],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "max-len": [2, { "code": 80 }]
+  },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["Images", "./src/Images"],
+          ["Components", "./src/Components"]
+        ],
+        "extensions": [".js", ".jsx"]
+      }
+    }
   }
 }
