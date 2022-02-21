@@ -39,6 +39,9 @@ module.exports = merge(common, {
     minimize: true,
     minimizer: [new CssMinimizerPlugin(), new TerserPlugin()],
     moduleIds: 'deterministic',
+    splitChunks: {
+      chunks: 'all',
+    },
   },
   plugins: [
     new MiniCssExtractPlugin({
