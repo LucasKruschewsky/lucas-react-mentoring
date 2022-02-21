@@ -4,12 +4,11 @@ import AppContainer from 'Styles/AppContainer';
 const Logo = styled.p`
   color: rgb(var(--primary));
   font-size: var(--body-1);
-  font-weight: 100;
   user-select: none;
   cursor: pointer;
 
   & > b {
-    font-weight: 800;
+    font-weight: bold;
   }
 `;
 

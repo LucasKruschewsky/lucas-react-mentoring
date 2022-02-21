@@ -9,7 +9,7 @@ const BannerContainer = styled.div`
   background-size: cover;
 
   & > div {
-    padding: 6rem 8rem;
+    padding: 6.5rem 8rem;
     display: flex;
     flex-direction: column;
   }
