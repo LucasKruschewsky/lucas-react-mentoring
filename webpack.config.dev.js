@@ -1,6 +1,5 @@
 const path = require('path');
 const { merge } = require('webpack-merge');
-const webpack = require('webpack');
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 // Interactive UI at port 8888
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
@@ -38,10 +37,7 @@ const mergedConfig = merge(common, {
       },
     ],
   },
-  plugins: [
-    new BundleAnalyzerPlugin({ openAnalyzer: false }),
-    new webpack.HotModuleReplacementPlugin(),
-  ],
+  plugins: [new BundleAnalyzerPlugin({ openAnalyzer: false })],
 });
 
 module.exports = smp.wrap(mergedConfig);
