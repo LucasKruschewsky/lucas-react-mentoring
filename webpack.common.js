@@ -12,6 +12,7 @@ module.exports = {
       '@': path.resolve(__dirname, 'src'),
       Images: path.resolve(__dirname, 'src', 'Images'),
       Components: path.resolve(__dirname, 'src', 'Components'),
+      Styles: path.resolve(__dirname, 'src', 'GlobalStyles'),
     },
   },
   cache: {

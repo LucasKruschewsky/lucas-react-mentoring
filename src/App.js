@@ -1,11 +1,12 @@
 import React from 'react';
-import Test from 'Components/Test';
+import Navbar from 'Components/Navbar';
+import Homepage from './Pages/Homepage';
 
 export default function App() {
   return (
-    <div>
-      <h1>Hello World</h1>
-      <Test />
-    </div>
+    <>
+      <Navbar />
+      <Homepage />
+    </>
   );
 }
