@@ -23,7 +23,6 @@
   "homepage": "https://github.com/LucasKruschewsky/lucas-react-mentoring#readme",
   "dependencies": {
     "dotenv": "^16.0.0",
-    "dotenv-webpack": "^7.1.0",
     "glob": "^7.2.0",
     "html-webpack-plugin": "^5.5.0",
     "react": "^17.0.2",
@@ -38,6 +37,7 @@
     "babel-loader": "^8.2.3",
     "css-loader": "^6.6.0",
     "css-minimizer-webpack-plugin": "^3.4.1",
+    "dotenv-webpack": "^7.1.0",
     "eslint": "^8.9.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.3.0",

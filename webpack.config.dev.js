@@ -9,10 +9,6 @@ const smp = new SpeedMeasurePlugin();
 
 const mergedConfig = merge(common, {
   mode: 'development',
-  output: {
-    path: path.resolve(__dirname, 'dev'),
-    filename: './[name]-sourcemap.js',
-  },
   devtool: 'eval-cheap-source-map',
   devServer: {
     compress: true,
