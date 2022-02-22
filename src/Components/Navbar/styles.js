@@ -8,9 +8,15 @@ const NavContainer = styled(AppContainer)`
   justify-content: space-between;
   align-items: center;
 
+  transition: background 0.5s ease-in-out;
+
   position: fixed;
   left: 0;
   right: 0;
+
+  &.navbarBackground {
+    background-color: rgb(var(--secondary-light));
+  }
 `;
 
 export default NavContainer;
