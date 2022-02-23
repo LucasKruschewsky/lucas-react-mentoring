@@ -30,8 +30,8 @@
     "import/resolver": {
       "alias": {
         "map": [
-          ["Images", "./src/Images"],
-          ["Components", "./src/Components"],
+          ["Images", "./src/images"],
+          ["Components", "./src/components"],
           ["@", "./src"]
         ],
         "extensions": [".js", ".jsx"]

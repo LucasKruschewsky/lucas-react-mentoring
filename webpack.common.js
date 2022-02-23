@@ -1,6 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
+require('dotenv').config();
 
 module.exports = {
   entry: path.join(__dirname, 'src', 'index.js'),
@@ -10,8 +10,8 @@ module.exports = {
     symlinks: false,
     alias: {
       '@': path.resolve(__dirname, 'src'),
-      Images: path.resolve(__dirname, 'src', 'Images'),
-      Components: path.resolve(__dirname, 'src', 'Components'),
+      Images: path.resolve(__dirname, 'src', 'images'),
+      Components: path.resolve(__dirname, 'src', 'components'),
     },
   },
   cache: {
@@ -32,12 +32,12 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|jpeg|gif)/,
-        include: path.resolve(__dirname, 'src', 'Images'),
+        include: path.resolve(__dirname, 'src', 'images'),
         type: 'asset/resource',
       },
       {
         test: /\.svg$/i,
-        include: path.resolve(__dirname, 'src', 'Images'),
+        include: path.resolve(__dirname, 'src', 'images'),
         issuer: /\.[jt]sx?$/,
         use: ['@svgr/webpack'],
       },
@@ -47,6 +47,5 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'src', 'index.html'),
     }),
-    new Dotenv(),
   ],
 };

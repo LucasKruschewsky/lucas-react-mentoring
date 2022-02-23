@@ -3,14 +3,27 @@ const { merge } = require('webpack-merge');
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 // Interactive UI at port 8888
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const Dotenv = require('dotenv-webpack');
 const common = require('./webpack.common');
 
 const smp = new SpeedMeasurePlugin();
 
 const mergedConfig = merge(common, {
   mode: 'development',
+  output: {
+    path: path.resolve(__dirname, 'dev'),
+    filename: '[name]-sourcemap.js',
+    clean: true,
+  },
   devtool: 'eval-cheap-source-map',
   devServer: {
+    static: {
+      directory: path.join(__dirname, 'dev'),
+    },
+    devMiddleware: {
+      index: true,
+      writeToDisk: true,
+    },
     compress: true,
     port: 9000,
     open: true,
@@ -33,7 +46,7 @@ const mergedConfig = merge(common, {
       },
     ],
   },
-  plugins: [new BundleAnalyzerPlugin({ openAnalyzer: false })],
+  plugins: [new BundleAnalyzerPlugin({ openAnalyzer: false }), new Dotenv()],
 });
 
 module.exports = smp.wrap(mergedConfig);
