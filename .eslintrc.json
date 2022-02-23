@@ -24,7 +24,8 @@
     ],
     "quotes": [2, "single"],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "max-len": [2, { "code": 80 }]
+    "max-len": [2, { "code": 80 }],
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
   },
   "settings": {
     "import/resolver": {
