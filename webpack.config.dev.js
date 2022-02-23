@@ -3,7 +3,6 @@ const { merge } = require('webpack-merge');
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 // Interactive UI at port 8888
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const Dotenv = require('dotenv-webpack');
 const common = require('./webpack.common');
 
 const smp = new SpeedMeasurePlugin();
@@ -46,7 +45,7 @@ const mergedConfig = merge(common, {
       },
     ],
   },
-  plugins: [new BundleAnalyzerPlugin({ openAnalyzer: false }), new Dotenv()],
+  plugins: [new BundleAnalyzerPlugin({ openAnalyzer: false })],
 });
 
 module.exports = smp.wrap(mergedConfig);
