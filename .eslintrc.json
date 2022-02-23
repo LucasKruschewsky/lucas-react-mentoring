@@ -13,9 +13,30 @@
   },
   "plugins": ["react", "prettier"],
   "rules": {
-    "prettier/prettier": "error",
-    "quotes": [2, "double"],
+    "prettier/prettier": [
+      "error",
+      {
+        "tabWidth": 2,
+        "semi": true,
+        "trailingComma": "es5",
+        "singleQuote": true
+      }
+    ],
+    "quotes": [2, "single"],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "max-len": [2, { "code": 80 }]
+    "max-len": [2, { "code": 80 }],
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
+  },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["Images", "./src/images"],
+          ["Components", "./src/components"],
+          ["@", "./src"]
+        ],
+        "extensions": [".js", ".jsx"]
+      }
+    }
   }
 }
