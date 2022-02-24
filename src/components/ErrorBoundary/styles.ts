@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import AppContainer from 'Styles/AppContainer';
+import { AppContainer } from '../../globalStyles/AppContainer';
 
 const ErrorInnerContainer = styled(AppContainer)`
   background-color: rgb(var(--white));

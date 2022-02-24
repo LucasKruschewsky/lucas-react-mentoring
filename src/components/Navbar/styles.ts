@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import AppContainer from 'Styles/AppContainer';
+import { AppContainer } from '../../globalStyles/AppContainer';
 
 const NavContainer = styled(AppContainer)`
   padding-bottom: 1rem;

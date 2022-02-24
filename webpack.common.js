@@ -7,7 +7,7 @@ module.exports = {
   entry: path.join(__dirname, 'src', 'index.js'),
   resolve: {
     modules: [path.resolve(__dirname, 'node_modules'), 'node_modules'],
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
     symlinks: false,
     alias: {
       '@': path.resolve(__dirname, 'src'),
@@ -31,6 +31,11 @@ module.exports = {
             presets: ['@babel/preset-env', '@babel/preset-react'],
           },
         },
+      },
+      {
+        test: /\.?(ts|tsx)$/,
+        include: path.resolve(__dirname, 'src'),
+        loader: 'awesome-typescript-loader',
       },
       {
         test: /\.(png|jpg|jpeg|gif)/,

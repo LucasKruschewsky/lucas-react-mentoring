@@ -11,4 +11,4 @@ const Logo = styled.p`
   }
 `;
 
-export default Logo;
+export { Logo };

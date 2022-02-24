@@ -1,6 +1,15 @@
 import styled from 'styled-components';
 
-const buttonStyles = {
+interface Props {
+  buttonStyle: 'transparent' | 'default';
+}
+
+interface buttonStylesInterface {
+  transparent: string;
+  default: string;
+}
+
+const buttonStyles: buttonStylesInterface = {
   transparent: `
   background-color: rgba(var(--secondary), 0.8);
   color: rgb(var(--primary));
@@ -18,7 +27,7 @@ const buttonStyles = {
   `,
 };
 
-const applyButtonStyle = (buttonStyle) =>
+const applyButtonStyle = (buttonStyle: Props['buttonStyle']): string =>
   buttonStyles[buttonStyle] ? buttonStyles[buttonStyle] : buttonStyles.default;
 
 const AppButton = styled.button`
@@ -30,7 +39,7 @@ const AppButton = styled.button`
 
   transition: all 0.2s ease-in-out;
 
-  ${(props) => applyButtonStyle(props.buttonStyle)}
+  ${(props: Props) => applyButtonStyle(props.buttonStyle)}
 `;
 
 export default AppButton;

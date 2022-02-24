@@ -16,4 +16,4 @@ const FooterContainer = styled.div`
   }
 `;
 
-export default FooterContainer;
+export { FooterContainer };

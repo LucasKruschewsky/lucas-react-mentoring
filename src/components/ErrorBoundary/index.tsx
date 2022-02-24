@@ -1,14 +1,28 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import * as React from 'react';
+import { Component } from 'react';
 import { ErrorInnerContainer, ErroOuterContainer } from './styles';
 
-export default class ErrorBoundary extends Component {
-  constructor(props) {
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error: Error;
+  errorInfo: React.ErrorInfo;
+}
+
+interface ErrorBoundaryProps {}
+
+export default class ErrorBoundary extends Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
+  constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false, error: null, errorInfo: null };
   }
 
-  componentDidCatch(error, errorInfo) {
+  componentDidCatch(
+    error: ErrorBoundaryState['error'],
+    errorInfo: ErrorBoundaryState['errorInfo']
+  ) {
     this.setState({
       hasError: true,
       error,
@@ -35,7 +49,3 @@ export default class ErrorBoundary extends Component {
     return children;
   }
 }
-
-ErrorBoundary.propTypes = {
-  children: PropTypes.element.isRequired,
-};

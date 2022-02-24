@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import AppContainer from 'Styles/AppContainer';
-import Movie1 from 'Images/moovie-1.png';
-import Movie2 from 'Images/moovie-2.png';
-import Movie3 from 'Images/moovie-3.png';
+import * as React from 'react';
+import { useState } from 'react';
+import { AppContainer } from '../../globalStyles/AppContainer';
+import * as Movie1 from '../../images/movie-1.png';
+import * as Movie2 from '../../images/movie-2.png';
+import * as Movie3 from '../../images/movie-3.png';
 import ArrowDown from 'Images/ArrowDown.png';
 import {
   FiltersSection,
@@ -16,6 +17,9 @@ import MovieCard from '../MovieCard';
 export default function MovieList() {
   const [activeFilter, setActiveFilter] = useState('All');
 
+  React.useEffect(() => {
+    console.log(Movie1);
+  });
   // Mocked data
   const genreFilterList = ['All', 'Documentary', 'Comedy', 'Horror', 'Crime'];
   const moviesList = [
