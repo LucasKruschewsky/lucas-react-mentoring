@@ -12,10 +12,6 @@ interface Props {
 }
 
 export default function MovieCard(props: Props): JSX.Element {
-  useEffect(() => {
-    console.log(props.movie.image);
-  });
-
   return (
     <MovieCardContainer>
       <img src={props.movie.image} alt={`${props.movie.name} banner`} />

@@ -17,9 +17,6 @@ import MovieCard from '../MovieCard';
 export default function MovieList() {
   const [activeFilter, setActiveFilter] = useState('All');
 
-  React.useEffect(() => {
-    console.log(Movie1);
-  });
   // Mocked data
   const genreFilterList = ['All', 'Documentary', 'Comedy', 'Horror', 'Crime'];
   const moviesList = [
