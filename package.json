@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack serve --config webpack.config.dev.js",
     "build": "webpack --config webpack.config.prod.js",
-    "lint": "eslint 'src/**/*.{tsx,ts}'",
-    "fix": "eslint --fix 'src/**/*.{tsx,ts}'",
+    "lint": "eslint 'src/**/*.{js,jsx,tsx,ts}'",
+    "fix": "eslint --fix 'src/**/*.{js,jsx,tsx,ts}'",
     "prepare": "husky install"
   },
   "repository": {
