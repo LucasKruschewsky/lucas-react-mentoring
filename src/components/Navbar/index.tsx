@@ -8,7 +8,7 @@ import NavContainer from './styles';
 export default function Navbar(): JSX.Element {
   const NavContainerRef = React.useRef<HTMLDivElement>();
 
-  const handleNavbarBackground = () => {
+  const handleNavbarBackground = (): void => {
     if (
       window.scrollY > 0 &&
       !NavContainerRef?.current.classList.contains('navbarBackground')

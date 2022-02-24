@@ -14,7 +14,7 @@ import {
 } from './styles';
 import MovieCard from '../MovieCard';
 
-export default function MovieList() {
+export default function MovieList(): JSX.Element {
   const [activeFilter, setActiveFilter] = useState('All');
 
   // Mocked data

@@ -22,7 +22,7 @@ export default class ErrorBoundary extends Component<
   componentDidCatch(
     error: ErrorBoundaryState['error'],
     errorInfo: ErrorBoundaryState['errorInfo']
-  ) {
+  ): void {
     this.setState({
       hasError: true,
       error,
@@ -30,7 +30,7 @@ export default class ErrorBoundary extends Component<
     });
   }
 
-  render() {
+  render(): React.ReactNode {
     const { children } = this.props;
     const { hasError, error, errorInfo } = this.state;
 
