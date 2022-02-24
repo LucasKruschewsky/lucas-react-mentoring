@@ -1,7 +1,7 @@
 import * as React from 'react';
-import HomepageBanner from '../components/HomepageBanner';
-import MovieList from '../components/MovieList';
-import ErrorBoundary from '../components/ErrorBoundary';
+import MovieList from 'Components/MovieList';
+import ErrorBoundary from 'Components/ErrorBoundary';
+import HomepageBanner from 'Components/HomepageBanner';
 
 export default function Homepage(): JSX.Element {
   return (

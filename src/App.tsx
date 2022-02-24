@@ -1,9 +1,9 @@
 import * as React from 'react';
 import Navbar from 'Components/Navbar';
-import Homepage from './pages/Homepage';
 import Footer from 'Components/Footer';
+import Homepage from './pages/Homepage';
 
-export default function App(): JSX.Element {
+export default function App() {
   return (
     <>
       <Navbar />

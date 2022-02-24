@@ -27,8 +27,11 @@ const buttonStyles: buttonStylesInterface = {
   `,
 };
 
-const applyButtonStyle = (buttonStyle: Props['buttonStyle']): string =>
-  buttonStyles[buttonStyle] ? buttonStyles[buttonStyle] : buttonStyles.default;
+function applyButtonStyle(buttonStyle: Props['buttonStyle']): string {
+  return buttonStyles[buttonStyle]
+    ? buttonStyles[buttonStyle]
+    : buttonStyles.default;
+}
 
 const AppButton = styled.button`
   text-transform: uppercase;

@@ -4,7 +4,7 @@ interface Props {
   cols: number;
 }
 
-const numberOfCols = (cols: number) => cols;
+const numberOfCols = (cols: number): number => cols;
 
 const GridAutoCols = styled.div`
   display: grid;
