@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import GridAutoCols from '../../globalStyles/GridAutoCols';
+import GridAutoCols from 'Styles/GridAutoCols';
 
 const FiltersSection = styled.div`
   display: flex;

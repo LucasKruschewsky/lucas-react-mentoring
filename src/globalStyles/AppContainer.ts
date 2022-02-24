@@ -6,4 +6,4 @@ const AppContainer = styled.div`
   padding-left: 4rem;
 `;
 
-export { AppContainer };
+export default AppContainer;

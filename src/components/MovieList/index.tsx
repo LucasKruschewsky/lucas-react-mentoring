@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { AppContainer } from '../../globalStyles/AppContainer';
-import * as Movie1 from '../../images/movie-1.png';
-import * as Movie2 from '../../images/movie-2.png';
-import * as Movie3 from '../../images/movie-3.png';
-import ArrowDown from 'Images/ArrowDown.png';
+import AppContainer from 'Styles/AppContainer';
+import * as Movie1 from 'Images/movie-1.png';
+import * as Movie2 from 'Images/movie-2.png';
+import * as Movie3 from 'Images/movie-3.png';
+import * as ArrowDown from 'Images/ArrowDown.png';
 import {
   FiltersSection,
   GenreFilters,

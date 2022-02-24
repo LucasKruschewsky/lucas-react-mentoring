@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import * as BannerImage from '../../images/HomepageHero.png';
+import * as BannerImage from 'Images/HomepageHero.png';
 
 const BannerContainer = styled.div`
   height: 396px;

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import AppButton from '../../globalStyles/AppButton';
+import AppButton from 'Styles/AppButton';
 import { BannerContainer, SearchTitle, SearchInputAndButton } from './styles';
 
 export default function HomepageBanner(): JSX.Element {

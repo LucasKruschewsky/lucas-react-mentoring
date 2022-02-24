@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { createRef, useEffect } from 'react';
+import { useEffect } from 'react';
 import * as _ from 'lodash';
-import AppButton from '../../globalStyles/AppButton';
-import AppLogo from '../AppLogo';
+import AppButton from 'Styles/AppButton';
+import AppLogo from 'Components/AppLogo';
 import NavContainer from './styles';
 
 export default function Navbar(): JSX.Element {
