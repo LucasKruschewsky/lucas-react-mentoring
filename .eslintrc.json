@@ -55,7 +55,8 @@
     "import/resolver": {
       "webpack": {
         "config": "webpack.common.js"
-      }
+      },
+      "typescript": {}
     }
   }
 }
