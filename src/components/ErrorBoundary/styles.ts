@@ -17,8 +17,8 @@ const ErrorInnerContainer = styled(AppContainer)`
   }
 `;
 
-const ErroOuterContainer = styled(AppContainer)`
+const ErrorOuterContainer = styled(AppContainer)`
   margin-top: 3rem;
 `;
 
-export { ErrorInnerContainer, ErroOuterContainer };
+export { ErrorInnerContainer, ErrorOuterContainer };

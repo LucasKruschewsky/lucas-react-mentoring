@@ -3,14 +3,13 @@ import MovieList from 'Components/MovieList';
 import ErrorBoundary from 'Components/ErrorBoundary';
 import HomepageBanner from 'Components/HomepageBanner';
 
-export default function Homepage(): JSX.Element {
-  return (
-    <>
-      <HomepageBanner />
+const Homepage: React.FunctionComponent = () => (
+  <>
+    <HomepageBanner />
+    <ErrorBoundary>
+      <MovieList />
+    </ErrorBoundary>
+  </>
+);
 
-      <ErrorBoundary>
-        <MovieList />
-      </ErrorBoundary>
-    </>
-  );
-}
+export default Homepage;

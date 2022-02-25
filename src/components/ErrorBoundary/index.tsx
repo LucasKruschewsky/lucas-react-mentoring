@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { ErrorInnerContainer, ErroOuterContainer } from './styles';
+import { ErrorInnerContainer, ErrorOuterContainer } from './styles';
 
 interface ErrorBoundaryState {
   hasError: boolean;
@@ -36,13 +36,13 @@ export default class ErrorBoundary extends Component<
 
     if (hasError) {
       return (
-        <ErroOuterContainer>
+        <ErrorOuterContainer>
           <ErrorInnerContainer>
             <h1>Whoops, something went wrong...</h1>
             <p>{error && error.toString()}</p>
             <p> {errorInfo.componentStack}</p>
           </ErrorInnerContainer>
-        </ErroOuterContainer>
+        </ErrorOuterContainer>
       );
     }
 

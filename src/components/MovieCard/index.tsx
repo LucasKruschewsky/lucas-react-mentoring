@@ -1,28 +1,22 @@
 import * as React from 'react';
 import { MovieCardContainer, MovieInfo } from './styles';
+import { IPropsMovieCard } from './types';
 
-interface Props {
-  movie: {
-    image: string;
-    name: string;
-    genre: string;
-    year: number;
-  };
-}
-
-export default function MovieCard(props: Props): React.ReactElement {
-  const { movie } = props;
+const MovieCard: React.FunctionComponent<IPropsMovieCard> = ({ movie }) => {
+  const { image, genre, name, year } = movie;
 
   return (
     <MovieCardContainer>
-      <img src={movie.image} alt={`${movie.name} banner`} />
+      <img src={image} alt={`${name} banner`} />
       <MovieInfo>
         <div>
-          <h1>{movie.name}</h1>
-          <p>{movie.genre}</p>
+          <h1>{name}</h1>
+          <p>{genre}</p>
         </div>
-        <p>{movie.year}</p>
+        <p>{year}</p>
       </MovieInfo>
     </MovieCardContainer>
   );
-}
+};
+
+export default MovieCard;
