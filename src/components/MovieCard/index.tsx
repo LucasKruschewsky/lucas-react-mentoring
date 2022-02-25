@@ -10,7 +10,7 @@ interface Props {
   };
 }
 
-export default function MovieCard(props: Props): JSX.Element {
+export default function MovieCard(props: Props): React.ReactElement {
   const { movie } = props;
 
   return (

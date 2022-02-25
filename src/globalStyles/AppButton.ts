@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface Props {
-  buttonStyle: 'transparent' | 'default';
+  buttonStyle?: 'transparent' | 'default';
 }
 
 interface buttonStylesInterface {

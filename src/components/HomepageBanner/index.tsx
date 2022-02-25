@@ -2,7 +2,7 @@ import * as React from 'react';
 import AppButton from 'Styles/AppButton';
 import { BannerContainer, SearchTitle, SearchInputAndButton } from './styles';
 
-export default function HomepageBanner(): JSX.Element {
+export default function HomepageBanner(): React.ReactElement {
   return (
     <BannerContainer>
       <div>
@@ -13,7 +13,7 @@ export default function HomepageBanner(): JSX.Element {
             type="text"
             placeholder="What do you want to watch?"
           />
-          <AppButton buttonStyle="default"> Search </AppButton>
+          <AppButton> Search </AppButton>
         </SearchInputAndButton>
       </div>
     </BannerContainer>
