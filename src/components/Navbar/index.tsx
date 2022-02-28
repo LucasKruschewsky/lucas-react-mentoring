@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useEffect, useRef } from 'react';
-import { throttle } from 'lodash';
+import throttle from '@/functions/throttle';
 import AppButton from 'Styles/AppButton';
 import AppLogo from 'Components/AppLogo';
 import NavContainer from './styles';
