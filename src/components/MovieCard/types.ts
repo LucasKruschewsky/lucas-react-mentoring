@@ -6,3 +6,8 @@ export interface IPropsMovieCard {
     year: number;
   };
 }
+
+export interface IStyleProps {
+  showOptionsIcon?: boolean;
+  showOptionsContainer?: boolean;
+}

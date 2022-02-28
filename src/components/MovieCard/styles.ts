@@ -1,8 +1,5 @@
 import styled from 'styled-components';
-
-interface IProps {
-  showOptions: boolean;
-}
+import { IStyleProps } from './types';
 
 const MovieCardContainer = styled.div`
   position: relative;
@@ -27,8 +24,8 @@ const MovieCardContainer = styled.div`
 
     transition: all 0.1s ease-in-out;
 
-    ${(props: IProps) =>
-      props.showOptions
+    ${(props: IStyleProps) =>
+      props.showOptionsIcon
         ? 'visibility: visible; opacity: 1;'
         : 'visibility: hidden'}
   }
@@ -60,4 +57,43 @@ const MovieInfo = styled.div`
   }
 `;
 
-export { MovieCardContainer, MovieInfo };
+const MovieOptionsMenu = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  position: absolute;
+  z-index: 100;
+
+  width: 50%;
+  color: rgb(var(--white));
+  top: 2%;
+  right: 4%;
+  background-color: rgb(var(--secondary-dark));
+  font-size: 16px;
+
+  transition: all 0.1s ease-in-out;
+
+  ${(props: IStyleProps) =>
+    props.showOptionsContainer
+      ? 'opacity: 1; pointer-events: all;'
+      : 'opacity: 0; pointer-events: none;'}
+
+  svg {
+    place-self: end;
+    cursor: pointer;
+  }
+
+  div {
+    padding: 0.5rem 1rem;
+    transition: all 0.1s ease-in-out;
+    margin: 0.3rem 0;
+    user-select: none;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(var(--primary));
+    }
+  }
+`;
+
+export { MovieCardContainer, MovieInfo, MovieOptionsMenu };
