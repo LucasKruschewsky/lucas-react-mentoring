@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { BsThreeDotsVertical, BsX } from 'react-icons/bs';
-import { ClickToCloseDiv } from 'Styles/ClickToCloseDiv';
+import HandleClickOut from 'Components/HandleClickOut';
 import { MovieCardContainer, MovieInfo, MovieOptionsMenu } from './styles';
 import { showMenuItems } from './helper';
 import { IPropsMovieCard } from './types';
@@ -22,14 +22,15 @@ const MovieCard: React.FunctionComponent<IPropsMovieCard> = ({ movie }) => {
         onMouseEnter={() => setIsMouseOver(true)}
         onClick={() => setIsOptionsMenuOpen(true)}
       />
-      <MovieOptionsMenu showOptionsContainer={isOptionsMenuOpen}>
-        <BsX onClick={() => setIsOptionsMenuOpen(false)} />
-        {showMenuItems}
-      </MovieOptionsMenu>
-      <ClickToCloseDiv
-        onClick={() => setIsOptionsMenuOpen(false)}
-        show={isOptionsMenuOpen}
-      />
+      <HandleClickOut
+        clickCallback={() => setIsOptionsMenuOpen(false)}
+        showClickHandler={isOptionsMenuOpen}
+      >
+        <MovieOptionsMenu showOptionsContainer={isOptionsMenuOpen}>
+          <BsX onClick={() => setIsOptionsMenuOpen(false)} />
+          {showMenuItems}
+        </MovieOptionsMenu>
+      </HandleClickOut>
       <MovieInfo>
         <div>
           <h1>{name}</h1>
