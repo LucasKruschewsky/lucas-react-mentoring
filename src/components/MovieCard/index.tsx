@@ -23,7 +23,7 @@ const MovieCard: React.FunctionComponent<IPropsMovieCard> = ({ movie }) => {
         onClick={() => setIsOptionsMenuOpen(true)}
       />
       <MovieOptionsMenu showOptionsContainer={isOptionsMenuOpen}>
-        <BsX onClick={() => setIsOptionsMenuOpen(true)} />
+        <BsX onClick={() => setIsOptionsMenuOpen(false)} />
         {showMenuItems}
       </MovieOptionsMenu>
       <ClickToCloseDiv
