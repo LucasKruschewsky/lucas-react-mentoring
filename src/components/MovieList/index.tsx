@@ -3,17 +3,17 @@ import { useState } from 'react';
 import AppContainer from 'Styles/AppContainer';
 import * as ArrowDown from 'Images/ArrowDown.png';
 import {
+  numberOfMoviesFound,
+  renderMovieCards,
+  showGenreFilters,
+} from './helper';
+import {
   FiltersSection,
   GenreFilters,
   MoviesFound,
   MoviesGrid,
   SortSection,
 } from './styles';
-import {
-  numberOfMoviesFound,
-  renderMovieCards,
-  showGenreFilters,
-} from './utils';
 
 const MovieList: React.FunctionComponent = () => {
   const [activeFilter, setActiveFilter] = useState('All');
