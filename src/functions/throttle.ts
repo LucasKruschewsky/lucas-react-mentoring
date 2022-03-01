@@ -1,4 +1,7 @@
-const throttle = (func: () => void, timeout: number): any => {
+const throttle = (
+  func: () => void,
+  timeout: number
+): EventListener | (() => void) => {
   let isTimeoutActive: boolean;
 
   return () => {
