@@ -39,13 +39,8 @@ export const ModalContainer = styled.div`
 
 export const ModalTitle = styled.h1`
   font-size: var(--title-1);
-  margin-bottom: 2.5rem;
-`;
-
-export const FormTest = styled.form`
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: 4fr 2fr;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
 `;
 
 export const ModalContent = styled.div``;

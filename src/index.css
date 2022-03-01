@@ -21,5 +21,9 @@
 body {
   min-height: 100vh;
   background-color: rgb(var(--secondary-dark));
+}
+
+body,
+textarea {
   font-family: Montserrat, Arial, Sans Serif;
 }
