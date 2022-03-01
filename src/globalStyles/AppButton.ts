@@ -4,12 +4,12 @@ interface IProps {
   buttonStyle?: 'transparent' | 'default';
 }
 
-interface IbuttonStyles {
+interface IButtonStyles {
   transparent: string;
   default: string;
 }
 
-const buttonStyles: IbuttonStyles = {
+const buttonStyles: IButtonStyles = {
   transparent: `
   background-color: rgba(var(--secondary), 0.8);
   color: rgb(var(--primary));
