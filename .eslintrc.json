@@ -4,6 +4,7 @@
     "es2021": true
   },
   "extends": ["plugin:react/recommended", "airbnb", "prettier"],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -11,7 +12,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "prettier"],
+  "plugins": ["react", "@typescript-eslint", "react-hooks", "prettier"],
   "rules": {
     "prettier/prettier": [
       "error",
@@ -22,21 +23,44 @@
         "singleQuote": true
       }
     ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "no-undef": "off",
+    "import/prefer-default-export": "off",
+    "react/prop-types": "off",
     "quotes": [2, "single"],
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "react/jsx-filename-extension": [
+      1,
+      { "extensions": [".js", ".jsx", "ts", "tsx"] }
+    ],
     "max-len": [2, { "code": 80 }],
-    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "import/no-unresolved": "error",
+    "@typescript-eslint/explicit-function-return-type": [
+      "error",
+      { "allowExpressions": true }
+    ],
+    "react/function-component-definition": [
+      2,
+      { "namedComponents": "arrow-function" }
+    ]
   },
   "settings": {
     "import/resolver": {
-      "alias": {
-        "map": [
-          ["Images", "./src/images"],
-          ["Components", "./src/components"],
-          ["@", "./src"]
-        ],
-        "extensions": [".js", ".jsx"]
-      }
+      "webpack": {
+        "config": "webpack.common.js"
+      },
+      "typescript": {}
     }
   }
 }

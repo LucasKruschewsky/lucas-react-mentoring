@@ -1,18 +1,19 @@
 const path = require('path');
 require('dotenv').config();
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
+require('dotenv').config();
 
 module.exports = {
-  entry: path.join(__dirname, 'src', 'index.js'),
+  entry: path.join(__dirname, 'src', 'index.tsx'),
   resolve: {
     modules: [path.resolve(__dirname, 'node_modules'), 'node_modules'],
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
     symlinks: false,
     alias: {
       '@': path.resolve(__dirname, 'src'),
       Images: path.resolve(__dirname, 'src', 'images'),
       Components: path.resolve(__dirname, 'src', 'components'),
+      Styles: path.resolve(__dirname, 'src', 'globalStyles'),
     },
   },
   cache: {
@@ -32,6 +33,11 @@ module.exports = {
         },
       },
       {
+        test: /\.?(ts|tsx)$/,
+        include: path.resolve(__dirname, 'src'),
+        loader: 'awesome-typescript-loader',
+      },
+      {
         test: /\.(png|jpg|jpeg|gif)/,
         include: path.resolve(__dirname, 'src', 'images'),
         type: 'asset/resource',
@@ -48,6 +54,5 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'src', 'index.html'),
     }),
-    new Dotenv(),
   ],
 };
