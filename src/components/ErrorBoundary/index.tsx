@@ -1,27 +1,17 @@
 import * as React from 'react';
 import { Component } from 'react';
+import { IProps, IState } from './types';
 import { ErrorInnerContainer, ErrorOuterContainer } from './styles';
 
-interface ErrorBoundaryState {
-  hasError: boolean;
-  error: Error;
-  errorInfo: React.ErrorInfo;
-}
-
-interface ErrorBoundaryProps {}
-
-export default class ErrorBoundary extends Component<
-  ErrorBoundaryProps,
-  ErrorBoundaryState
-> {
-  constructor(props: ErrorBoundaryProps) {
+export default class ErrorBoundary extends Component<IProps, IState> {
+  constructor(props: IProps) {
     super(props);
     this.state = { hasError: false, error: null, errorInfo: null };
   }
 
   componentDidCatch(
-    error: ErrorBoundaryState['error'],
-    errorInfo: ErrorBoundaryState['errorInfo']
+    error: IState['error'],
+    errorInfo: IState['errorInfo']
   ): void {
     this.setState({
       hasError: true,

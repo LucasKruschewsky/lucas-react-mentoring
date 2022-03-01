@@ -9,7 +9,7 @@ const renderMovieCards = moviesList.map((movie) => (
 ));
 
 const showGenreFilters = (
-  setStateFunction: Function,
+  setStateFunction: React.Dispatch<React.SetStateAction<string>>,
   stateValue: string
 ): React.ReactNode =>
   genreFilterList.map((item) => (
