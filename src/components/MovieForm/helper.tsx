@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Input, Label, TextArea, Select } from 'Styles/InputAndLabel';
+import { Input, Label, TextArea, Select } from 'Global/styled/InputAndLabel';
 import { IMovieFormFields, IMovieFormProps } from './types';
 
 export const showFormTitle = (type: IMovieFormProps['type']): string => {

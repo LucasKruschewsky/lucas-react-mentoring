@@ -1,6 +1,6 @@
-import * as React from 'react';
+import { ISetStateBoolean } from 'Global/types/globalTypes';
 
 export interface IHomepageProps {
-  setIsDeleteMovieOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsEditMovieOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsDeleteMovieOpen: ISetStateBoolean;
+  setIsEditMovieOpen: ISetStateBoolean;
 }

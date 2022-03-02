@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useEffect, useRef } from 'react';
 import throttle from '@/functions/throttle';
-import AppButton from 'Styles/AppButton';
+import AppButton from 'Global/styled/AppButton';
 import AppLogo from 'Components/AppLogo';
 import { INavbarProps } from './types';
 import NavContainer from './styles';

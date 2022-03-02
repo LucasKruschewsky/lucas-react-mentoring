@@ -1,19 +1,20 @@
 import * as React from 'react';
+import { ISetStateBoolean } from 'Global/types/globalTypes';
 
 export const menuItems: string[] = ['Edit', 'Delete'];
 
 export const OpenModalFromMenuItem = (
-  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
-  setMovieMenuOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setModalOpen: ISetStateBoolean,
+  setMovieMenuOpen: ISetStateBoolean
 ): void => {
   setMovieMenuOpen(false);
   setModalOpen(true);
 };
 
 export const ShowMenuItems = (
-  setIsDeleteMovieOpen: React.Dispatch<React.SetStateAction<boolean>>,
-  setIsEditMovieOpen: React.Dispatch<React.SetStateAction<boolean>>,
-  setMovieMenuOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setIsDeleteMovieOpen: ISetStateBoolean,
+  setIsEditMovieOpen: ISetStateBoolean,
+  setMovieMenuOpen: ISetStateBoolean
 ): React.ReactElement[] =>
   menuItems.map((item) => {
     if (item === 'Edit') {

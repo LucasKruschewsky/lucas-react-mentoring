@@ -1,5 +1,5 @@
-import { SetStateAction } from 'react';
+import { ISetStateBoolean } from 'Global/types/globalTypes';
 
 export interface INavbarProps {
-  setIsAddMovieOpen: React.Dispatch<SetStateAction<boolean>>;
+  setIsAddMovieOpen: ISetStateBoolean;
 }

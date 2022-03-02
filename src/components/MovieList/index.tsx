@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import AppContainer from 'Styles/AppContainer';
+import AppContainer from 'Global/styled/AppContainer';
 import * as ArrowDown from 'Images/ArrowDown.png';
 import MovieCard from 'Components/MovieCard';
 import { moviesList } from '@/data/MockData';

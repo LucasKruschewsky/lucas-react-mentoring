@@ -1,5 +1,5 @@
 import * as React from 'react';
-import AppButton from 'Styles/AppButton';
+import AppButton from 'Global/styled/AppButton';
 import { IMovieFormProps } from './types';
 import { Form, ButtonRow, Title } from './style';
 import { showFormTitle, addAndEditFormFields } from './helper';
