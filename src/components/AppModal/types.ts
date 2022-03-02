@@ -1,6 +1,6 @@
 import React = require('react');
 
-export interface IProps {
+export interface IAppModalProps {
   children?: React.ReactNode;
   title?: string;
   closeModal: React.MouseEventHandler | (() => void);

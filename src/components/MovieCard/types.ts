@@ -1,4 +1,4 @@
-export interface IPropsMovieCard {
+export interface IMovieCardProps {
   movie: {
     image: string;
     name: string;
@@ -7,7 +7,10 @@ export interface IPropsMovieCard {
   };
 }
 
-export interface IStyleProps {
+export interface IMovieCardContainer {
   showOptionsIcon?: boolean;
+}
+
+export interface IMovieCardOptionsMenuProps {
   showOptionsContainer?: boolean;
 }

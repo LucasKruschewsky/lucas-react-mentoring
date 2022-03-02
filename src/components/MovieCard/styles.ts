@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { IStyleProps } from './types';
+import { IMovieCardContainer, IMovieCardOptionsMenuProps } from './types';
 
-const MovieCardContainer = styled.div`
+const MovieCardContainer = styled.div<IMovieCardContainer>`
   position: relative;
   display: flex;
   justify-content: center;
@@ -24,8 +24,8 @@ const MovieCardContainer = styled.div`
 
     transition: all 0.1s ease-in-out;
 
-    ${(props: IStyleProps) =>
-      props.showOptionsIcon
+    ${({ showOptionsIcon }) =>
+      showOptionsIcon
         ? 'visibility: visible; opacity: 1;'
         : 'visibility: hidden'}
   }
@@ -57,7 +57,7 @@ const MovieInfo = styled.div`
   }
 `;
 
-const MovieOptionsMenu = styled.div`
+const MovieOptionsMenu = styled.div<IMovieCardOptionsMenuProps>`
   display: flex;
   flex-direction: column;
 
@@ -73,8 +73,8 @@ const MovieOptionsMenu = styled.div`
 
   transition: all 0.1s ease-in-out;
 
-  ${(props: IStyleProps) =>
-    props.showOptionsContainer
+  ${({ showOptionsContainer }) =>
+    showOptionsContainer
       ? 'opacity: 1; pointer-events: all;'
       : 'opacity: 0; pointer-events: none;'}
 

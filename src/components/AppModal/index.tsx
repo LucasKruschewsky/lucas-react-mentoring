@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { BsX } from 'react-icons/bs';
 import HandleClickOut from 'Components/HandleClickOut';
-import { IProps } from './types';
+import { IAppModalProps } from './types';
 import {
   ModalBackground,
   ModalContainer,
@@ -10,7 +10,7 @@ import {
   ModalContent,
 } from './styles';
 
-const AppModal: React.FunctionComponent<IProps> = ({
+const AppModal: React.FunctionComponent<IAppModalProps> = ({
   children,
   title,
   closeModal,

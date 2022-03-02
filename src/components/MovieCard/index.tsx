@@ -3,9 +3,9 @@ import { BsThreeDotsVertical, BsX } from 'react-icons/bs';
 import HandleClickOut from 'Components/HandleClickOut';
 import { MovieCardContainer, MovieInfo, MovieOptionsMenu } from './styles';
 import { showMenuItems } from './helper';
-import { IPropsMovieCard } from './types';
+import { IMovieCardProps } from './types';
 
-const MovieCard: React.FunctionComponent<IPropsMovieCard> = ({ movie }) => {
+const MovieCard: React.FunctionComponent<IMovieCardProps> = ({ movie }) => {
   const { image, genre, name, year } = movie;
   const [isMouseOver, setIsMouseOver] = React.useState(false);
   const [isOptionsMenuOpen, setIsOptionsMenuOpen] = React.useState(false);
