@@ -27,7 +27,7 @@ const App: React.FunctionComponent = () => {
         <AppModal closeModal={closeModal}>
           {isAddMovieOpen && <MovieForm type="add" />}
           {isEditMovieOpen && <MovieForm type="edit" />}
-          {isDeleteMovieOpen && <MovieForm type="edit" />}
+          {isDeleteMovieOpen && <MovieForm type="delete" />}
         </AppModal>
       )}
     </>
