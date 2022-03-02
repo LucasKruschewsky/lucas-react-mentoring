@@ -2,11 +2,10 @@ import * as React from 'react';
 import { useState } from 'react';
 import AppContainer from 'Styles/AppContainer';
 import * as ArrowDown from 'Images/ArrowDown.png';
-import {
-  numberOfMoviesFound,
-  renderMovieCards,
-  showGenreFilters,
-} from './helper';
+import MovieCard from 'Components/MovieCard';
+import { moviesList } from '@/data/MockData';
+import { numberOfMoviesFound, showGenreFilters } from './helper';
+import { IMovieListProps } from './types';
 import {
   FiltersSection,
   GenreFilters,
@@ -15,7 +14,10 @@ import {
   SortSection,
 } from './styles';
 
-const MovieList: React.FunctionComponent = () => {
+const MovieList: React.FunctionComponent<IMovieListProps> = ({
+  setIsDeleteMovieOpen,
+  setIsEditMovieOpen,
+}) => {
   const [activeFilter, setActiveFilter] = useState('All');
 
   const genreFilters = showGenreFilters(setActiveFilter, activeFilter);
@@ -32,7 +34,16 @@ const MovieList: React.FunctionComponent = () => {
         </SortSection>
       </FiltersSection>
       <MoviesFound>{numberOfMoviesFound} Movies Found</MoviesFound>
-      <MoviesGrid cols={3}>{renderMovieCards}</MoviesGrid>
+      <MoviesGrid cols={3}>
+        {moviesList.map((movie) => (
+          <MovieCard
+            setIsDeleteMovieOpen={setIsDeleteMovieOpen}
+            setIsEditMovieOpen={setIsEditMovieOpen}
+            key={movie.id}
+            movie={movie}
+          />
+        ))}
+      </MoviesGrid>
     </AppContainer>
   );
 };

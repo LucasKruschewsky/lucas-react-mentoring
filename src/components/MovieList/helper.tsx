@@ -1,12 +1,7 @@
 import * as React from 'react';
 import { genreFilterList, moviesList } from '@/data/MockData';
-import MovieCard from 'Components/MovieCard';
 
 const numberOfMoviesFound = moviesList.length;
-
-const renderMovieCards = moviesList.map((movie) => (
-  <MovieCard key={movie.id} movie={movie} />
-));
 
 const showGenreFilters = (
   setStateFunction: React.Dispatch<React.SetStateAction<string>>,
@@ -23,4 +18,4 @@ const showGenreFilters = (
     </button>
   ));
 
-export { numberOfMoviesFound, renderMovieCards, showGenreFilters };
+export { numberOfMoviesFound, showGenreFilters };

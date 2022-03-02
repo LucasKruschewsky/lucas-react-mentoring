@@ -2,10 +2,14 @@ import * as React from 'react';
 import { BsThreeDotsVertical, BsX } from 'react-icons/bs';
 import HandleClickOut from 'Components/HandleClickOut';
 import { MovieCardContainer, MovieInfo, MovieOptionsMenu } from './styles';
-import { showMenuItems } from './helper';
+import { ShowMenuItems } from './helper';
 import { IMovieCardProps } from './types';
 
-const MovieCard: React.FunctionComponent<IMovieCardProps> = ({ movie }) => {
+const MovieCard: React.FunctionComponent<IMovieCardProps> = ({
+  movie,
+  setIsDeleteMovieOpen,
+  setIsEditMovieOpen,
+}) => {
   const { image, genre, name, year } = movie;
   const [isMouseOver, setIsMouseOver] = React.useState(false);
   const [isOptionsMenuOpen, setIsOptionsMenuOpen] = React.useState(false);
@@ -29,7 +33,11 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({ movie }) => {
       >
         <MovieOptionsMenu showOptionsContainer={isOptionsMenuOpen}>
           <BsX onClick={() => setIsOptionsMenuOpen(false)} />
-          {showMenuItems}
+          {ShowMenuItems(
+            setIsDeleteMovieOpen,
+            setIsEditMovieOpen,
+            setIsOptionsMenuOpen
+          )}
         </MovieOptionsMenu>
       </HandleClickOut>
       <MovieInfo>

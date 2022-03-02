@@ -7,7 +7,7 @@ import { showFormTitle, addAndEditFormFields } from './helper';
 const MovieForm: React.FunctionComponent<IMovieFormProps> = ({ type }) => (
   <>
     <Title>{showFormTitle(type)}</Title>
-    {type === ('add' || 'edit') && (
+    {(type === 'add' || type === 'edit') && (
       <Form>
         {addAndEditFormFields}
         <ButtonRow>

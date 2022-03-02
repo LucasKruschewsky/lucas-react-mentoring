@@ -1,4 +1,6 @@
-export interface IMovieCardProps {
+import { IHomepageProps } from '@/pages/Homepage/types';
+
+export interface IMovieCardProps extends IHomepageProps {
   movie: {
     image: string;
     name: string;

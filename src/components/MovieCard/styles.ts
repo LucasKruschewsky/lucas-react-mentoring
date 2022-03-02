@@ -65,7 +65,6 @@ const MovieOptionsMenu = styled.div<IMovieCardOptionsMenuProps>`
   z-index: 100;
 
   width: 50%;
-  color: rgb(var(--white));
   top: 2%;
   right: 4%;
   background-color: rgb(var(--secondary-dark));
@@ -79,11 +78,17 @@ const MovieOptionsMenu = styled.div<IMovieCardOptionsMenuProps>`
       : 'opacity: 0; pointer-events: none;'}
 
   svg {
+    color: rgb(var(--white));
     place-self: end;
     cursor: pointer;
+    transform: scale(1.5);
+    transform-origin: top right;
   }
 
-  div {
+  button {
+    color: rgb(var(--white));
+    text-align: left;
+    font-size: 16px;
     padding: 0.5rem 1rem;
     transition: all 0.1s ease-in-out;
     margin: 0.3rem 0;

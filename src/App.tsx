@@ -21,7 +21,10 @@ const App: React.FunctionComponent = () => {
   return (
     <>
       <Navbar setIsAddMovieOpen={setIsAddMovieOpen} />
-      <Homepage />
+      <Homepage
+        setIsDeleteMovieOpen={setIsDeleteMovieOpen}
+        setIsEditMovieOpen={setIsEditMovieOpen}
+      />
       <Footer />
       {isModalOpen && (
         <AppModal closeModal={closeModal}>
