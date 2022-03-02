@@ -3,10 +3,13 @@ import { useEffect, useRef } from 'react';
 import throttle from '@/functions/throttle';
 import AppButton from 'Styles/AppButton';
 import AppLogo from 'Components/AppLogo';
+import { INavbarProps } from './types';
 import NavContainer from './styles';
 import { handleNavbarBackground } from './utils';
 
-const Navbar: React.FunctionComponent = () => {
+const Navbar: React.FunctionComponent<INavbarProps> = ({
+  setIsAddMovieOpen,
+}) => {
   const NavContainerRef = useRef<HTMLDivElement>();
 
   useEffect(() => {
@@ -27,7 +30,11 @@ const Navbar: React.FunctionComponent = () => {
   return (
     <NavContainer ref={NavContainerRef}>
       <AppLogo />
-      <AppButton buttonStyle="transparent" type="button">
+      <AppButton
+        onClick={() => setIsAddMovieOpen(true)}
+        buttonStyle="transparent"
+        type="button"
+      >
         + Add Movie
       </AppButton>
     </NavContainer>

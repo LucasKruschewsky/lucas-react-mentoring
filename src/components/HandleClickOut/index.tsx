@@ -1,14 +1,18 @@
 import * as React from 'react';
-import { IProps } from './types';
+import { IHandleClickOutProps } from './types';
 import { ClickHandler } from './styles';
 
-const HandleClickOut: React.FunctionComponent<IProps> = ({
+const HandleClickOut: React.FunctionComponent<IHandleClickOutProps> = ({
   children,
   showClickHandler,
   clickCallback,
 }): React.ReactElement => (
   <>
-    <ClickHandler onClick={clickCallback} show={showClickHandler} />
+    <ClickHandler
+      backgroundColor="dark"
+      onClick={clickCallback}
+      show={showClickHandler}
+    />
     {children}
   </>
 );

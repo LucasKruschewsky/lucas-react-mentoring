@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
 export const ModalBackground = styled.div`
-  position: absolute;
+  pointer-events: none;
+
+  position: fixed;
   right: 0;
   left: 0;
   top: 0;
@@ -12,11 +14,11 @@ export const ModalBackground = styled.div`
 
   justify-content: center;
   align-items: center;
-
-  background-color: rgba(var(--secondary), 0.75);
 `;
 
 export const ModalContainer = styled.div`
+  pointer-events: all;
+
   position: relative;
   background-color: rgb(var(--secondary-dark));
   display: flex;
