@@ -1,17 +1,16 @@
 import { MouseEventHandler } from 'react';
 
-export interface IHandleClickOutProps {
-  children: React.ReactElement;
-  showClickHandler: boolean;
-  clickCallback: MouseEventHandler;
-}
-
-export interface IHandleClickOutStyleProps {
-  show: boolean;
-  backgroundColor: 'transparent' | 'dark';
-}
-
 export interface IHandleClickOutBackground {
   transparent: string;
   dark: string;
+}
+
+export interface IHandleClickOutStyle {
+  showClickHandler: boolean;
+  backgroundColor: 'transparent' | 'dark';
+  clickCallback: MouseEventHandler | (() => void);
+}
+
+export interface IHandleClickOutProps extends IHandleClickOutStyle {
+  children: React.ReactElement;
 }

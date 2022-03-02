@@ -16,7 +16,11 @@ const AppModal: React.FunctionComponent<IProps> = ({
   closeModal,
 }) =>
   ReactDOM.createPortal(
-    <HandleClickOut showClickHandler clickCallback={closeModal}>
+    <HandleClickOut
+      backgroundColor="dark"
+      showClickHandler
+      clickCallback={closeModal}
+    >
       <ModalBackground>
         <ModalContainer>
           <ModalTitle>{title}</ModalTitle>

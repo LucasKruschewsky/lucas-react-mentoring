@@ -5,13 +5,14 @@ import { ClickHandler } from './styles';
 const HandleClickOut: React.FunctionComponent<IHandleClickOutProps> = ({
   children,
   showClickHandler,
+  backgroundColor,
   clickCallback,
 }): React.ReactElement => (
   <>
     <ClickHandler
-      backgroundColor="dark"
-      onClick={clickCallback}
-      show={showClickHandler}
+      showClickHandler={showClickHandler}
+      backgroundColor={backgroundColor}
+      clickCallback={clickCallback}
     />
     {children}
   </>

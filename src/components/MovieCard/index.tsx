@@ -23,6 +23,7 @@ const MovieCard: React.FunctionComponent<IPropsMovieCard> = ({ movie }) => {
         onClick={() => setIsOptionsMenuOpen(true)}
       />
       <HandleClickOut
+        backgroundColor="transparent"
         clickCallback={() => setIsOptionsMenuOpen(false)}
         showClickHandler={isOptionsMenuOpen}
       >

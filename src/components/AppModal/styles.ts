@@ -4,6 +4,7 @@ export const ModalBackground = styled.div`
   pointer-events: none;
 
   position: fixed;
+  z-index: 100;
   right: 0;
   left: 0;
   top: 0;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { IHandleClickOutBackground, IHandleClickOutStyleProps } from './types';
+import { IHandleClickOutBackground, IHandleClickOutStyle } from './types';
 
 const BackgroundStyles: IHandleClickOutBackground = {
   transparent: `
@@ -10,17 +10,17 @@ const BackgroundStyles: IHandleClickOutBackground = {
   `,
 };
 
-export const ClickHandler = styled.div`
+export const ClickHandler = styled.div<IHandleClickOutStyle>`
+  z-index: 99;
   position: fixed;
   top: 0;
   right: 0;
   left: 0;
   bottom: 0;
-  background-color: ${({ backgroundColor }) =>
-    BackgroundStyles[backgroundColor]};
+  background-color: ${(props) => BackgroundStyles[props.backgroundColor]};
 
-  ${(props: IHandleClickOutStyleProps) =>
-    props.show
+  ${(props) =>
+    props.showClickHandler
       ? 'display: block; pointer-events: all;'
       : 'display: none; pointer-events: none;'}
 `;
