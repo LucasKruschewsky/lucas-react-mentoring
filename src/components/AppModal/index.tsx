@@ -3,16 +3,10 @@ import * as ReactDOM from 'react-dom';
 import { BsX } from 'react-icons/bs';
 import HandleClickOut from 'Components/HandleClickOut';
 import { IAppModalProps } from './types';
-import {
-  ModalBackground,
-  ModalContainer,
-  ModalTitle,
-  ModalContent,
-} from './styles';
+import { ModalBackground, ModalContainer, ModalContent } from './styles';
 
 const AppModal: React.FunctionComponent<IAppModalProps> = ({
   children,
-  title,
   closeModal,
 }) =>
   ReactDOM.createPortal(
@@ -23,7 +17,6 @@ const AppModal: React.FunctionComponent<IAppModalProps> = ({
     >
       <ModalBackground>
         <ModalContainer>
-          <ModalTitle>{title}</ModalTitle>
           <ModalContent>{children}</ModalContent>
           <BsX onClick={closeModal} />
         </ModalContainer>

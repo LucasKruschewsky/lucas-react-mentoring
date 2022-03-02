@@ -40,10 +40,4 @@ export const ModalContainer = styled.div`
   }
 `;
 
-export const ModalTitle = styled.h1`
-  font-size: var(--title-1);
-  margin-bottom: 2rem;
-  text-transform: uppercase;
-`;
-
 export const ModalContent = styled.div``;

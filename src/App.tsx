@@ -3,21 +3,33 @@ import Navbar from 'Components/Navbar';
 import Footer from 'Components/Footer';
 import Homepage from '@/pages/Homepage';
 import AppModal from 'Components/AppModal';
-import AddMovieForm from 'Components/AddMovieForm';
+import MovieForm from 'Components/MovieForm';
 
 const App: React.FunctionComponent = () => {
   const [isAddMovieOpen, setIsAddMovieOpen] = React.useState(false);
+  const [isEditMovieOpen, setIsEditMovieOpen] = React.useState(false);
+  const [isDeleteMovieOpen, setIsDeleteMovieOpen] = React.useState(false);
+
+  const isModalOpen = isAddMovieOpen || isEditMovieOpen || isDeleteMovieOpen;
+
+  const closeModal = (): void => {
+    setIsAddMovieOpen(false);
+    setIsEditMovieOpen(false);
+    setIsDeleteMovieOpen(false);
+  };
 
   return (
     <>
       <Navbar setIsAddMovieOpen={setIsAddMovieOpen} />
       <Homepage />
-      {isAddMovieOpen && (
-        <AppModal closeModal={() => setIsAddMovieOpen(false)}>
-          <AddMovieForm />
+      <Footer />
+      {isModalOpen && (
+        <AppModal closeModal={closeModal}>
+          {isAddMovieOpen && <MovieForm type="add" />}
+          {isEditMovieOpen && <MovieForm type="edit" />}
+          {isDeleteMovieOpen && <MovieForm type="edit" />}
         </AppModal>
       )}
-      <Footer />
     </>
   );
 };

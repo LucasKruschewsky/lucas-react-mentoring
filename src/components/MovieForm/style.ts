@@ -21,3 +21,9 @@ export const ButtonRow = styled.div`
     min-width: 25%;
   }
 `;
+
+export const Title = styled.h1`
+  font-size: var(--title-1);
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+`;

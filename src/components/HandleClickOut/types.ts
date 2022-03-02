@@ -8,9 +8,9 @@ export interface IHandleClickOutBackground {
 export interface IHandleClickOutStyle {
   showClickHandler: boolean;
   backgroundColor: 'transparent' | 'dark';
-  clickCallback: MouseEventHandler | (() => void);
 }
 
 export interface IHandleClickOutProps extends IHandleClickOutStyle {
   children: React.ReactElement;
+  clickCallback: MouseEventHandler | (() => void);
 }

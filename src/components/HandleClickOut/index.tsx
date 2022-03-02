@@ -12,7 +12,7 @@ const HandleClickOut: React.FunctionComponent<IHandleClickOutProps> = ({
     <ClickHandler
       showClickHandler={showClickHandler}
       backgroundColor={backgroundColor}
-      clickCallback={clickCallback}
+      onClick={clickCallback}
     />
     {children}
   </>
