@@ -16,6 +16,9 @@ module.exports = {
       Global: path.resolve(__dirname, 'src', 'global'),
     },
   },
+  output: {
+    assetModuleFilename: 'images/[name][ext]',
+  },
   cache: {
     type: 'filesystem',
   },
