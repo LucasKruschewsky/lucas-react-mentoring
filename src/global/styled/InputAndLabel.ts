@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import 'Images/ArrowDown.png';
 
 const inputCommonStyle: string = `
   border-radius: 4px;
@@ -24,7 +25,8 @@ export const Input = styled.input`
 `;
 
 export const Select = styled.select`
-  background: url(images/ArrowDown.png) no-repeat right;
+  background: url(images/ArrowDown.png) no-repeat;
+  background-position: 97% 50%;
   background-color: rgba(var(--secondary), 0.8);
 
   ${inputCommonStyle}
