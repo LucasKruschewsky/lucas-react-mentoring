@@ -11,7 +11,7 @@ export const OpenModalFromMenuItem = (
   setModalOpen(true);
 };
 
-export const ShowMenuItems = (
+export const buildMenuItems = (
   setIsDeleteMovieOpen: ISetStateBoolean,
   setIsEditMovieOpen: ISetStateBoolean,
   setMovieMenuOpen: ISetStateBoolean

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { BsThreeDotsVertical, BsX } from 'react-icons/bs';
 import HandleClickOut from 'Components/HandleClickOut';
 import { MovieCardContainer, MovieInfo, MovieOptionsMenu } from './styles';
-import { ShowMenuItems } from './helper';
+import { buildMenuItems } from './helper';
 import { IMovieCardProps } from './types';
 
 const MovieCard: React.FunctionComponent<IMovieCardProps> = ({
@@ -14,30 +14,47 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({
   const [isMouseOver, setIsMouseOver] = React.useState(false);
   const [isOptionsMenuOpen, setIsOptionsMenuOpen] = React.useState(false);
 
+  const optionsMenuItems = React.useMemo(
+    () =>
+      buildMenuItems(
+        setIsDeleteMovieOpen,
+        setIsEditMovieOpen,
+        setIsOptionsMenuOpen
+      ),
+    [setIsDeleteMovieOpen, setIsEditMovieOpen]
+  );
+
+  const showHoverEffect = React.useCallback(() => setIsMouseOver(true), []);
+  const hideHoverEffect = React.useCallback(() => setIsMouseOver(false), []);
+  const openOptionsMenu = React.useCallback(
+    () => setIsOptionsMenuOpen(true),
+    []
+  );
+  const closeOptionsMenu = React.useCallback(
+    () => setIsOptionsMenuOpen(false),
+    []
+  );
+
   return (
     <MovieCardContainer showOptionsIcon={isMouseOver}>
       <img
-        onMouseEnter={() => setIsMouseOver(true)}
-        onMouseLeave={() => setIsMouseOver(false)}
+        onMouseEnter={showHoverEffect}
+        onMouseLeave={hideHoverEffect}
         src={image}
         alt={`${name} banner`}
       />
       <BsThreeDotsVertical
-        onMouseEnter={() => setIsMouseOver(true)}
-        onClick={() => setIsOptionsMenuOpen(true)}
+        onMouseEnter={showHoverEffect}
+        onClick={openOptionsMenu}
       />
       <HandleClickOut
         backgroundColor="transparent"
-        clickCallback={() => setIsOptionsMenuOpen(false)}
+        clickCallback={closeOptionsMenu}
         showClickHandler={isOptionsMenuOpen}
       >
         <MovieOptionsMenu showOptionsContainer={isOptionsMenuOpen}>
-          <BsX onClick={() => setIsOptionsMenuOpen(false)} />
-          {ShowMenuItems(
-            setIsDeleteMovieOpen,
-            setIsEditMovieOpen,
-            setIsOptionsMenuOpen
-          )}
+          <BsX onClick={closeOptionsMenu} />
+          {optionsMenuItems}
         </MovieOptionsMenu>
       </HandleClickOut>
       <MovieInfo>

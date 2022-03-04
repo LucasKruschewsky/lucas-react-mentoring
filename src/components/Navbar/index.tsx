@@ -12,6 +12,11 @@ const Navbar: React.FunctionComponent<INavbarProps> = ({
 }) => {
   const NavContainerRef = useRef<HTMLDivElement>();
 
+  const openAddMovieForm = React.useCallback(
+    () => setIsAddMovieOpen(true),
+    [setIsAddMovieOpen]
+  );
+
   useEffect(() => {
     const NavContainerClasses: DOMTokenList =
       NavContainerRef?.current.classList;
@@ -31,7 +36,7 @@ const Navbar: React.FunctionComponent<INavbarProps> = ({
     <NavContainer ref={NavContainerRef}>
       <AppLogo />
       <AppButton
-        onClick={() => setIsAddMovieOpen(true)}
+        onClick={openAddMovieForm}
         buttonStyle="transparent"
         type="button"
       >
