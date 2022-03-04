@@ -15,11 +15,11 @@ const App: React.FunctionComponent = () => {
     [isAddMovieOpen, isEditMovieOpen, isDeleteMovieOpen]
   );
 
-  const closeModal = (): void => {
+  const closeModal = React.useCallback(() => {
     setIsAddMovieOpen(false);
     setIsEditMovieOpen(false);
     setIsDeleteMovieOpen(false);
-  };
+  }, []);
 
   return (
     <>
