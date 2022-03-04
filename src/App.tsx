@@ -9,11 +9,11 @@ const App: React.FunctionComponent = () => {
   const [isAddMovieOpen, setIsAddMovieOpen] = React.useState(false);
   const [isEditMovieOpen, setIsEditMovieOpen] = React.useState(false);
   const [isDeleteMovieOpen, setIsDeleteMovieOpen] = React.useState(false);
-  const [isModalOpen, setIsModalOpen] = React.useState(null);
 
-  React.useEffect(() => {
-    setIsModalOpen(isAddMovieOpen || isEditMovieOpen || isDeleteMovieOpen);
-  }, [isAddMovieOpen, isEditMovieOpen, isDeleteMovieOpen]);
+  const isModalOpen = React.useMemo(
+    () => isAddMovieOpen || isEditMovieOpen || isDeleteMovieOpen,
+    [isAddMovieOpen, isEditMovieOpen, isDeleteMovieOpen]
+  );
 
   const closeModal = (): void => {
     setIsAddMovieOpen(false);
