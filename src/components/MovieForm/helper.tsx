@@ -54,7 +54,7 @@ export const addAndEditFormFields = movieFormFields.addAndEdit.map(
   (field): React.ReactElement => {
     if (field.type === 'textarea') {
       return (
-        <Label id="add-movie-textarea">
+        <Label key={`${field.label}-${field.type}`} id="add-movie-textarea">
           {field.label}
           <TextArea rows={7} placeholder={field.placeholder} />
         </Label>
@@ -63,7 +63,7 @@ export const addAndEditFormFields = movieFormFields.addAndEdit.map(
 
     if (field.type === 'select') {
       return (
-        <Label>
+        <Label key={`${field.label}-${field.type}`}>
           {field.label}
           <Select defaultValue="default-disabled-value">
             <option value="default-disabled-value" disabled>
@@ -76,7 +76,7 @@ export const addAndEditFormFields = movieFormFields.addAndEdit.map(
 
     // Default return for type text/date
     return (
-      <Label>
+      <Label key={`${field.label}-${field.type}`}>
         {field.label}
         <Input type={field.type} placeholder={field.placeholder} />
       </Label>
