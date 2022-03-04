@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { Dispatch, SetStateAction } from 'react';
 import MovieCard from 'Components/MovieCard';
 import { ISetStateBoolean } from 'Global/types/globalTypes';
-import { genreFilterList, moviesList, IMoviesListData } from '@/data/MockData';
+import { IMoviesListData } from '@/data/MockedDataTypes';
+import { genreFilterList, moviesList } from '@/data/MockData';
+import { timesSortedState, sortedMoviesListState } from './types';
 
 const numberOfMoviesFound = moviesList.length;
 
@@ -36,10 +37,8 @@ const showMovies = (
   ));
 
 const sortMovies = (
-  timesSorted: number,
-  setTimesSorted: Dispatch<SetStateAction<number>>,
-  sortedMoviesList: IMoviesListData[],
-  setSortedMoviesList: Dispatch<SetStateAction<IMoviesListData[]>>
+  { timesSorted, setTimesSorted }: timesSortedState,
+  { sortedMoviesList, setSortedMoviesList }: sortedMoviesListState
 ): void => {
   if (timesSorted === 0) {
     setSortedMoviesList([...sortedMoviesList].sort((a, b) => a.year - b.year));

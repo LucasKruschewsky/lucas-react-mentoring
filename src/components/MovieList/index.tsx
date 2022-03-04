@@ -23,6 +23,7 @@ const MovieList: React.FunctionComponent<IMovieListProps> = ({
   setIsEditMovieOpen,
 }) => {
   const [activeFilter, setActiveFilter] = useState('All');
+
   const [timesSorted, setTimesSorted] = useState(0);
   const [sortedMoviesList, setSortedMoviesList] = useState(moviesList);
 
@@ -39,10 +40,8 @@ const MovieList: React.FunctionComponent<IMovieListProps> = ({
 
   const sortMoviesCallback = React.useCallback((): any => {
     sortMovies(
-      timesSorted,
-      setTimesSorted,
-      sortedMoviesList,
-      setSortedMoviesList
+      { timesSorted, setTimesSorted },
+      { sortedMoviesList, setSortedMoviesList }
     );
   }, [timesSorted, sortedMoviesList]);
 
