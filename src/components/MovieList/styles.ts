@@ -38,19 +38,22 @@ const SortSection = styled.div`
   font-size: 16px;
 
   p {
-    margin-right: 2rem;
+    height: fit-content;
+    margin: auto;
     opacity: 0.6;
     user-select: none;
   }
 
-  div {
+  button {
+    font-size: 16px;
+    text-transform: uppercase;
     display: flex;
     align-items: center;
     cursor: pointer;
 
     img,
     svg {
-      margin-left: 1rem;
+      margin-left: 0.5rem;
     }
   }
 `;
