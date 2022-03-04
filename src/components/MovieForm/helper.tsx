@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Input, Label, TextArea, Select } from 'Global/styled/InputAndLabel';
-import { IMovieFormFields, IMovieFormProps } from './types';
+import { movieFormFields } from '@/data/MockData';
+import { IMovieFormProps } from './types';
 
 export const showFormTitle = (type: IMovieFormProps['type']): string => {
   if (type === 'add') return 'Add Movie';
@@ -8,46 +9,6 @@ export const showFormTitle = (type: IMovieFormProps['type']): string => {
   if (type === 'delete') return 'Delete Movie';
 
   return 'Form Title';
-};
-
-export const movieFormFields: IMovieFormFields = {
-  addAndEdit: [
-    {
-      label: 'Title',
-      type: 'text',
-      placeholder: 'Movie Title',
-    },
-    {
-      label: 'Release Date',
-      type: 'date',
-      placeholder: 'Select Date',
-    },
-    {
-      label: 'Movie Url',
-      type: 'text',
-      placeholder: 'https://',
-    },
-    {
-      label: 'Rating',
-      type: 'text',
-      placeholder: '7.8',
-    },
-    {
-      label: 'Genre',
-      type: 'select',
-      placeholder: 'Select Genre',
-    },
-    {
-      label: 'Runtime',
-      type: 'text',
-      placeholder: 'minutes',
-    },
-    {
-      label: 'Overview',
-      type: 'textarea',
-      placeholder: 'Movie Description',
-    },
-  ],
 };
 
 export const addAndEditFormFields = movieFormFields.addAndEdit.map(
