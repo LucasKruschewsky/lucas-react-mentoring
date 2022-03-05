@@ -38,10 +38,11 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({ movie }) => {
     setIsDeleteMovieOpen(false);
     setIsEditMovieOpen(false);
   }, []);
-  const isModalOpen = React.useMemo(
+  const showModal = React.useMemo(
     () => isEditMovieOpen || isDeleteMovieOpen,
     [isEditMovieOpen, isDeleteMovieOpen]
   );
+
   return (
     <MovieCardContainer showOptionsIcon={isMouseOver}>
       <img
@@ -71,12 +72,10 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({ movie }) => {
         </div>
         <p>{year}</p>
       </MovieInfo>
-      {isModalOpen && (
-        <AppModal closeModal={closeModal}>
-          {isEditMovieOpen && <MovieForm type="edit" />}
-          {isDeleteMovieOpen && <MovieForm type="delete" />}
-        </AppModal>
-      )}
+      <AppModal showModal={showModal} closeModal={closeModal}>
+        {isEditMovieOpen && <MovieForm type="edit" />}
+        {isDeleteMovieOpen && <MovieForm type="delete" />}
+      </AppModal>
     </MovieCardContainer>
   );
 };

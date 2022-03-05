@@ -7,21 +7,26 @@ import { ModalBackground, ModalContainer, ModalContent } from './styles';
 
 const AppModal: React.FunctionComponent<IAppModalProps> = ({
   children,
+  showModal,
   closeModal,
 }) =>
   ReactDOM.createPortal(
-    <HandleClickOut
-      backgroundColor="dark"
-      showClickHandler
-      clickCallback={closeModal}
-    >
-      <ModalBackground>
-        <ModalContainer>
-          <ModalContent>{children}</ModalContent>
-          <BsX onClick={closeModal} />
-        </ModalContainer>
-      </ModalBackground>
-    </HandleClickOut>,
+    <div>
+      {showModal ? (
+        <HandleClickOut
+          backgroundColor="dark"
+          showClickHandler
+          clickCallback={closeModal}
+        >
+          <ModalBackground>
+            <ModalContainer>
+              <ModalContent>{children}</ModalContent>
+              <BsX onClick={closeModal} />
+            </ModalContainer>
+          </ModalBackground>
+        </HandleClickOut>
+      ) : null}
+    </div>,
     document.getElementById('app-modal')
   );
 

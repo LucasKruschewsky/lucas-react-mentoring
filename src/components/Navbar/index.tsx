@@ -48,11 +48,9 @@ const Navbar: React.FunctionComponent<INavbarProps> = () => {
       >
         + Add Movie
       </AppButton>
-      {isAddMovieOpen && (
-        <AppModal closeModal={closeAddMovieForm}>
-          <MovieForm type="add" />
-        </AppModal>
-      )}
+      <AppModal showModal={isAddMovieOpen} closeModal={closeAddMovieForm}>
+        <MovieForm type="add" />
+      </AppModal>
     </NavContainer>
   );
 };
