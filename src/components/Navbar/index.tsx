@@ -3,18 +3,24 @@ import { useEffect, useRef } from 'react';
 import throttle from '@/functions/throttle';
 import AppButton from 'Global/styled/AppButton';
 import AppLogo from 'Components/AppLogo';
+import AppModal from 'Components/AppModal';
+import MovieForm from 'Components/MovieForm';
 import { INavbarProps } from './types';
 import NavContainer from './styles';
 import { handleNavbarBackground } from './utils';
 
-const Navbar: React.FunctionComponent<INavbarProps> = ({
-  setIsAddMovieOpen,
-}) => {
+const Navbar: React.FunctionComponent<INavbarProps> = () => {
+  const [isAddMovieOpen, setIsAddMovieOpen] = React.useState(false);
   const NavContainerRef = useRef<HTMLDivElement>();
 
   const openAddMovieForm = React.useCallback(
     () => setIsAddMovieOpen(true),
     [setIsAddMovieOpen]
+  );
+
+  const closeAddMovieForm = React.useCallback(
+    () => setIsAddMovieOpen(false),
+    []
   );
 
   useEffect(() => {
@@ -42,6 +48,11 @@ const Navbar: React.FunctionComponent<INavbarProps> = ({
       >
         + Add Movie
       </AppButton>
+      {isAddMovieOpen && (
+        <AppModal closeModal={closeAddMovieForm}>
+          <MovieForm type="add" />
+        </AppModal>
+      )}
     </NavContainer>
   );
 };

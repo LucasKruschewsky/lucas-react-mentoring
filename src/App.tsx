@@ -6,24 +6,22 @@ import AppModal from 'Components/AppModal';
 import MovieForm from 'Components/MovieForm';
 
 const App: React.FunctionComponent = () => {
-  const [isAddMovieOpen, setIsAddMovieOpen] = React.useState(false);
   const [isEditMovieOpen, setIsEditMovieOpen] = React.useState(false);
   const [isDeleteMovieOpen, setIsDeleteMovieOpen] = React.useState(false);
 
   const isModalOpen = React.useMemo(
-    () => isAddMovieOpen || isEditMovieOpen || isDeleteMovieOpen,
-    [isAddMovieOpen, isEditMovieOpen, isDeleteMovieOpen]
+    () => isEditMovieOpen || isDeleteMovieOpen,
+    [isEditMovieOpen, isDeleteMovieOpen]
   );
 
   const closeModal = React.useCallback(() => {
-    setIsAddMovieOpen(false);
     setIsEditMovieOpen(false);
     setIsDeleteMovieOpen(false);
   }, []);
 
   return (
     <>
-      <Navbar setIsAddMovieOpen={setIsAddMovieOpen} />
+      <Navbar />
       <Homepage
         setIsDeleteMovieOpen={setIsDeleteMovieOpen}
         setIsEditMovieOpen={setIsEditMovieOpen}
@@ -31,7 +29,6 @@ const App: React.FunctionComponent = () => {
       <Footer />
       {isModalOpen && (
         <AppModal closeModal={closeModal}>
-          {isAddMovieOpen && <MovieForm type="add" />}
           {isEditMovieOpen && <MovieForm type="edit" />}
           {isDeleteMovieOpen && <MovieForm type="delete" />}
         </AppModal>
