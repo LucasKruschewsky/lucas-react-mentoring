@@ -1,6 +1,5 @@
 import * as React from 'react';
 import MovieCard from 'Components/MovieCard';
-import { ISetStateBoolean } from 'Global/types/globalTypes';
 import { IMoviesListData } from '@/data/MockedDataTypes';
 import { genreFilterList, moviesList } from '@/data/MockData';
 import { timesSortedState, sortedMoviesListState } from './types';
@@ -22,19 +21,8 @@ const showGenreFilters = (
     </button>
   ));
 
-const showMovies = (
-  sortedMovies: IMoviesListData[],
-  setIsDeleteMovieOpen: ISetStateBoolean,
-  setIsEditMovieOpen: ISetStateBoolean
-): React.ReactElement[] =>
-  sortedMovies?.map((movie: any) => (
-    <MovieCard
-      setIsDeleteMovieOpen={setIsDeleteMovieOpen}
-      setIsEditMovieOpen={setIsEditMovieOpen}
-      key={movie.id}
-      movie={movie}
-    />
-  ));
+const showMovies = (sortedMovies: IMoviesListData[]): React.ReactElement[] =>
+  sortedMovies?.map((movie: any) => <MovieCard key={movie.id} movie={movie} />);
 
 const sortMovies = (
   { timesSorted, setTimesSorted }: timesSortedState,

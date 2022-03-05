@@ -18,10 +18,7 @@ import {
   SortSection,
 } from './styles';
 
-const MovieList: React.FunctionComponent<IMovieListProps> = ({
-  setIsDeleteMovieOpen,
-  setIsEditMovieOpen,
-}) => {
+const MovieList: React.FunctionComponent<IMovieListProps> = () => {
   const [activeFilter, setActiveFilter] = useState('All');
 
   const [timesSorted, setTimesSorted] = useState(0);
@@ -33,9 +30,8 @@ const MovieList: React.FunctionComponent<IMovieListProps> = ({
   );
 
   const moviesListSorted = React.useMemo(
-    () =>
-      showMovies(sortedMoviesList, setIsDeleteMovieOpen, setIsEditMovieOpen),
-    [sortedMoviesList, setIsDeleteMovieOpen, setIsEditMovieOpen]
+    () => showMovies(sortedMoviesList),
+    [sortedMoviesList]
   );
 
   const sortMoviesCallback = React.useCallback((): any => {

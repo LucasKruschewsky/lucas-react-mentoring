@@ -1,18 +1,18 @@
 import * as React from 'react';
 import { BsThreeDotsVertical, BsX } from 'react-icons/bs';
 import HandleClickOut from 'Components/HandleClickOut';
+import AppModal from 'Components/AppModal';
+import MovieForm from 'Components/MovieForm';
 import { MovieCardContainer, MovieInfo, MovieOptionsMenu } from './styles';
 import { buildMenuItems } from './helper';
 import { IMovieCardProps } from './types';
 
-const MovieCard: React.FunctionComponent<IMovieCardProps> = ({
-  movie,
-  setIsDeleteMovieOpen,
-  setIsEditMovieOpen,
-}) => {
+const MovieCard: React.FunctionComponent<IMovieCardProps> = ({ movie }) => {
   const { image, genre, name, year } = movie;
   const [isMouseOver, setIsMouseOver] = React.useState(false);
   const [isOptionsMenuOpen, setIsOptionsMenuOpen] = React.useState(false);
+  const [isEditMovieOpen, setIsEditMovieOpen] = React.useState(false);
+  const [isDeleteMovieOpen, setIsDeleteMovieOpen] = React.useState(false);
 
   const optionsMenuItems = React.useMemo(
     () =>
@@ -34,7 +34,14 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({
     () => setIsOptionsMenuOpen(false),
     []
   );
-
+  const closeModal = React.useCallback(() => {
+    setIsDeleteMovieOpen(false);
+    setIsEditMovieOpen(false);
+  }, []);
+  const isModalOpen = React.useMemo(
+    () => isEditMovieOpen || isDeleteMovieOpen,
+    [isEditMovieOpen, isDeleteMovieOpen]
+  );
   return (
     <MovieCardContainer showOptionsIcon={isMouseOver}>
       <img
@@ -64,6 +71,12 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({
         </div>
         <p>{year}</p>
       </MovieInfo>
+      {isModalOpen && (
+        <AppModal closeModal={closeModal}>
+          {isEditMovieOpen && <MovieForm type="edit" />}
+          {isDeleteMovieOpen && <MovieForm type="delete" />}
+        </AppModal>
+      )}
     </MovieCardContainer>
   );
 };
