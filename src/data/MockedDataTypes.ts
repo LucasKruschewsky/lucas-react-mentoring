@@ -12,7 +12,7 @@ export interface IMoviesListData {
   name: string;
   genre: string;
   year: number;
-  image: any;
+  image: HTMLImageElement;
   id: number;
 }
 

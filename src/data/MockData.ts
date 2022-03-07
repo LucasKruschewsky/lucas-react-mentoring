@@ -19,14 +19,14 @@ const moviesList: IMoviesListData[] = [
   {
     name: 'Bohemian Rhapsody',
     genre: 'Comedy',
-    year: 2003,
+    year: 2004,
     image: Movie2,
     id: 2,
   },
   {
     name: 'Pulp Fiction',
     genre: 'Crime',
-    year: 2004,
+    year: 2003,
     image: Movie1,
     id: 1,
   },

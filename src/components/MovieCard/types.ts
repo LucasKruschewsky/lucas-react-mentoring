@@ -1,6 +1,6 @@
 export interface IMovieCardProps {
   movie: {
-    image: string;
+    image: HTMLImageElement;
     name: string;
     genre: string;
     year: number;

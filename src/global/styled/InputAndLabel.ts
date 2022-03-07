@@ -8,7 +8,6 @@ const inputCommonStyle: string = `
   color: rgb(var(--white));
   font-size: var(--body1);
   border: none;
-  margin-top: 0.7rem;
   height: 100%;
 
   &:focus {
@@ -25,11 +24,12 @@ export const Input = styled.input`
 `;
 
 export const Select = styled.select`
+  ${inputCommonStyle}
+
   background: url(images/ArrowDown.png) no-repeat;
   background-position: 97% 50%;
   background-color: rgba(var(--secondary), 0.8);
-
-  ${inputCommonStyle}
+  padding: 0.7rem 1.5rem 0.7rem 0.7rem;
 `;
 
 export const TextArea = styled.textarea`
@@ -43,4 +43,9 @@ export const Label = styled.label`
   flex-direction: column;
   width: 100%;
   text-transform: uppercase;
+
+  /* Margin for label text */
+  p {
+    margin-bottom: 0.7rem;
+  }
 `;

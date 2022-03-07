@@ -42,6 +42,12 @@ const SortSection = styled.div`
     margin: auto;
     opacity: 0.6;
     user-select: none;
+    margin-right: 1.5rem;
+  }
+
+  select {
+    text-transform: uppercase;
+    font-size: 16px;
   }
 
   button {

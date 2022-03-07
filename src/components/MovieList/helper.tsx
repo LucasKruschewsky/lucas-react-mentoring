@@ -2,7 +2,7 @@ import * as React from 'react';
 import MovieCard from 'Components/MovieCard';
 import { IMoviesListData } from '@/data/MockedDataTypes';
 import { genreFilterList, moviesList } from '@/data/MockData';
-import { timesSortedState, sortedMoviesListState } from './types';
+import { sortedMoviesListState, TSortBy } from './types';
 
 const numberOfMoviesFound = moviesList.length;
 
@@ -22,26 +22,47 @@ const showGenreFilters = (
   ));
 
 const showMovies = (sortedMovies: IMoviesListData[]): React.ReactElement[] =>
-  sortedMovies?.map((movie: any) => <MovieCard key={movie.id} movie={movie} />);
+  sortedMovies?.map((movie: IMoviesListData) => (
+    <MovieCard key={movie.id} movie={movie} />
+  ));
 
 const sortMovies = (
-  { timesSorted, setTimesSorted }: timesSortedState,
+  sortBy: TSortBy,
   { sortedMoviesList, setSortedMoviesList }: sortedMoviesListState
 ): void => {
-  if (timesSorted === 0) {
-    setSortedMoviesList([...sortedMoviesList].sort((a, b) => a.year - b.year));
-    setTimesSorted(1);
-  }
-
-  if (timesSorted === 1) {
-    setSortedMoviesList([...sortedMoviesList].sort((a, b) => b.year - a.year));
-    setTimesSorted(2);
-  }
-
-  if (timesSorted === 2) {
-    setSortedMoviesList(moviesList);
-    setTimesSorted(0);
-  }
+  setSortedMoviesList(
+    [...sortedMoviesList].sort((a, b) => (a[sortBy] < b[sortBy] ? -1 : 0))
+  );
 };
 
-export { numberOfMoviesFound, showGenreFilters, showMovies, sortMovies };
+const sortOptionsDropdown = [
+  {
+    optGroupLabel: 'Select an option',
+    options: [
+      { value: 'year', label: 'Release Date' },
+      { value: 'name', label: 'A-Z' },
+    ],
+  },
+  {
+    optGroupLabel: 'Remove Filters',
+    options: [{ value: 'remove-filters', label: 'Clear All' }],
+  },
+];
+
+const sortOptions = (): React.ReactElement[] =>
+  sortOptionsDropdown.map((group) => (
+    <optgroup label={group.optGroupLabel}>
+      {group.options.map((option) => (
+        <option value={option.value}>{option.label}</option>
+      ))}
+    </optgroup>
+  ));
+
+export {
+  numberOfMoviesFound,
+  showGenreFilters,
+  showMovies,
+  sortMovies,
+  sortOptionsDropdown,
+  sortOptions,
+};

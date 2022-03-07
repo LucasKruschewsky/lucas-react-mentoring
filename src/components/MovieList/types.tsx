@@ -8,6 +8,8 @@ export interface timesSortedState {
   setTimesSorted: Dispatch<SetStateAction<number>>;
 }
 
+export type TSortBy = 'name' | 'year';
+
 export interface sortedMoviesListState {
   sortedMoviesList: IMoviesListData[];
   setSortedMoviesList: Dispatch<SetStateAction<IMoviesListData[]>>;

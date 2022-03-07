@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { useState } from 'react';
 import AppContainer from 'Global/styled/AppContainer';
-import * as ArrowDown from 'Images/ArrowDown.png';
 import { moviesList } from '@/data/MockData';
+import { Select } from 'Global/styled/InputAndLabel';
 import {
   numberOfMoviesFound,
   showGenreFilters,
   showMovies,
   sortMovies,
+  sortOptions,
 } from './helper';
 import { IMovieListProps } from './types';
 import {
@@ -20,26 +21,37 @@ import {
 
 const MovieList: React.FunctionComponent<IMovieListProps> = () => {
   const [activeFilter, setActiveFilter] = useState('All');
-
-  const [timesSorted, setTimesSorted] = useState(0);
-  const [sortedMoviesList, setSortedMoviesList] = useState(moviesList);
+  const [activeSort, setActiveSort] = useState('none');
+  const [sortedMoviesList, setSortedMoviesList] = useState([...moviesList]);
 
   const genreFilters = React.useMemo(
     () => showGenreFilters(setActiveFilter, activeFilter),
     [activeFilter]
   );
 
+  const buildSortOptions = React.useMemo(() => sortOptions(), []);
+
   const moviesListSorted = React.useMemo(
     () => showMovies(sortedMoviesList),
     [sortedMoviesList]
   );
 
-  const sortMoviesCallback = React.useCallback((): any => {
-    sortMovies(
-      { timesSorted, setTimesSorted },
-      { sortedMoviesList, setSortedMoviesList }
-    );
-  }, [timesSorted, sortedMoviesList]);
+  const removeFilters = React.useCallback(() => {
+    setActiveSort('none');
+    setSortedMoviesList(moviesList);
+  }, []);
+
+  const sortMoviesCallback = React.useCallback(
+    (e) => {
+      setActiveSort(e.target.value);
+      if (e.target.value === 'remove-filters') {
+        removeFilters();
+        return;
+      }
+      sortMovies(e.target.value, { sortedMoviesList, setSortedMoviesList });
+    },
+    [sortedMoviesList, removeFilters]
+  );
 
   return (
     <AppContainer>
@@ -47,9 +59,16 @@ const MovieList: React.FunctionComponent<IMovieListProps> = () => {
         <GenreFilters>{genreFilters}</GenreFilters>
         <SortSection>
           <p>Sort by</p>
-          <button type="button" onClick={sortMoviesCallback}>
-            Release Date <img src={ArrowDown} alt="Arrow Down" />
-          </button>
+          <Select
+            id="sort-movie-list-select"
+            onChange={sortMoviesCallback}
+            value={activeSort}
+          >
+            <option hidden value="none" disabled>
+              Select an option
+            </option>
+            {buildSortOptions}
+          </Select>
         </SortSection>
       </FiltersSection>
       <MoviesFound>{numberOfMoviesFound} Movies Found</MoviesFound>
