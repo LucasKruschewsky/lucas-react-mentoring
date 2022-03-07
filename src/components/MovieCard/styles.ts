@@ -7,8 +7,14 @@ const MovieCardContainer = styled.div<IMovieCardContainer>`
   justify-content: center;
   flex-direction: column;
 
-  & > img {
-    margin-bottom: 1.5rem;
+  button {
+    display: flex;
+    img {
+      margin-bottom: 1.5rem;
+      cursor: pointer;
+      width: max-content;
+      flex-grow: 1;
+    }
   }
 
   & > svg {

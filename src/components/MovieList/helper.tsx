@@ -21,9 +21,16 @@ const showGenreFilters = (
     </button>
   ));
 
-const showMovies = (sortedMovies: IMoviesListData[]): React.ReactElement[] =>
+const showMovies = (
+  sortedMovies: IMoviesListData[],
+  setSelectedMovie: React.Dispatch<React.SetStateAction<object>>
+): React.ReactElement[] =>
   sortedMovies?.map((movie: IMoviesListData) => (
-    <MovieCard key={movie.id} movie={movie} />
+    <MovieCard
+      setSelectedMovie={setSelectedMovie}
+      key={movie.id}
+      movie={movie}
+    />
   ));
 
 const sortMovies = (
@@ -51,9 +58,11 @@ const sortOptionsDropdown = [
 
 const sortOptions = (): React.ReactElement[] =>
   sortOptionsDropdown.map((group) => (
-    <optgroup label={group.optGroupLabel}>
+    <optgroup key={group.optGroupLabel} label={group.optGroupLabel}>
       {group.options.map((option) => (
-        <option value={option.value}>{option.label}</option>
+        <option key={option.value} value={option.value}>
+          {option.label}
+        </option>
       ))}
     </optgroup>
   ));

@@ -5,23 +5,21 @@ import AppButton from 'Global/styled/AppButton';
 import AppLogo from 'Components/AppLogo';
 import AppModal from 'Components/AppModal';
 import MovieForm from 'Components/MovieForm';
+import { FaSearch } from 'react-icons/fa';
 import { INavbarProps } from './types';
 import NavContainer from './styles';
 import { handleNavbarBackground } from './utils';
 
-const Navbar: React.FunctionComponent<INavbarProps> = () => {
+const Navbar: React.FunctionComponent<INavbarProps> = ({
+  selectedMovie,
+  setSelectedMovie,
+}) => {
   const [isAddMovieOpen, setIsAddMovieOpen] = React.useState(false);
   const NavContainerRef = useRef<HTMLDivElement>();
 
-  const openAddMovieForm = React.useCallback(
-    () => setIsAddMovieOpen(true),
-    [setIsAddMovieOpen]
-  );
-
-  const closeAddMovieForm = React.useCallback(
-    () => setIsAddMovieOpen(false),
-    []
-  );
+  const openAddMovieForm = (): void => setIsAddMovieOpen(true);
+  const closeAddMovieForm = (): void => setIsAddMovieOpen(false);
+  const backToSearchBanner = (): void => setSelectedMovie(null);
 
   useEffect(() => {
     const NavContainerClasses: DOMTokenList =
@@ -41,13 +39,21 @@ const Navbar: React.FunctionComponent<INavbarProps> = () => {
   return (
     <NavContainer ref={NavContainerRef}>
       <AppLogo />
-      <AppButton
-        onClick={openAddMovieForm}
-        buttonStyle="transparent"
-        type="button"
-      >
-        + Add Movie
-      </AppButton>
+      {selectedMovie ? (
+        <AppButton onClick={backToSearchBanner} buttonStyle="defaultOutlined">
+          <FaSearch />
+          Search
+        </AppButton>
+      ) : (
+        <AppButton
+          onClick={openAddMovieForm}
+          buttonStyle="transparent"
+          type="button"
+        >
+          + Add Movie
+        </AppButton>
+      )}
+
       <AppModal showModal={isAddMovieOpen} closeModal={closeAddMovieForm}>
         <MovieForm type="add" />
       </AppModal>

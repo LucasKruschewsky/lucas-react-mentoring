@@ -1,6 +1,6 @@
-import * as Movie1 from 'Images/movie-1.png';
-import * as Movie2 from 'Images/movie-2.png';
-import * as Movie3 from 'Images/movie-3.png';
+import 'Images/movie-1.png';
+import 'Images/movie-2.png';
+import 'Images/movie-3.png';
 import {
   IMoviesListData,
   IMovieFormFields,
@@ -20,21 +20,30 @@ const moviesList: IMoviesListData[] = [
     name: 'Bohemian Rhapsody',
     genre: 'Comedy',
     year: 2004,
-    image: Movie2,
+    image: 'images/movie-2.png',
+    rating: 8.9,
+    duration: '2h 07min',
+    description: 'Movie 02 Description goes here',
     id: 2,
   },
   {
     name: 'Pulp Fiction',
     genre: 'Crime',
     year: 2003,
-    image: Movie1,
+    image: 'images/movie-1.png',
+    rating: 9.5,
+    duration: '2h 34min',
+    description: 'Movie 01 Description goes here',
     id: 1,
   },
   {
     name: 'Bill: Vol. 2',
     genre: 'Horror',
     year: 1994,
-    image: Movie3,
+    image: 'images/movie-3.png',
+    rating: 9.2,
+    duration: '1h 57min',
+    description: 'Movie 03 Description goes here',
     id: 3,
   },
 ];

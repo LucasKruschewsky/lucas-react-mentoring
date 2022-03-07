@@ -49,9 +49,17 @@ const AppButton = styled.button`
   cursor: pointer;
   border-color: transparent;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   transition: all 0.2s ease-in-out;
 
   ${(props: IProps) => applyButtonStyle(props.buttonStyle)}
+
+  svg, img {
+    margin-right: 0.5rem;
+  }
 `;
 
 export default AppButton;
