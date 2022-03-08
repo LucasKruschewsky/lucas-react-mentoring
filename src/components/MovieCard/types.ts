@@ -1,10 +1,7 @@
+import { IMoviesListData } from '@/data/MockedDataTypes';
+
 export interface IMovieCardProps {
-  movie: {
-    image: HTMLImageElement;
-    name: string;
-    genre: string;
-    year: number;
-  };
+  movie: IMoviesListData;
 }
 
 export interface IMovieCardContainer {

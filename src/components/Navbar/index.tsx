@@ -13,10 +13,7 @@ const Navbar: React.FunctionComponent<INavbarProps> = () => {
   const [isAddMovieOpen, setIsAddMovieOpen] = React.useState(false);
   const NavContainerRef = useRef<HTMLDivElement>();
 
-  const openAddMovieForm = React.useCallback(
-    () => setIsAddMovieOpen(true),
-    [setIsAddMovieOpen]
-  );
+  const openAddMovieForm = React.useCallback(() => setIsAddMovieOpen(true), []);
 
   const closeAddMovieForm = React.useCallback(
     () => setIsAddMovieOpen(false),
