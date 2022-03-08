@@ -17,9 +17,15 @@ const Navbar: React.FunctionComponent<INavbarProps> = ({
   const [isAddMovieOpen, setIsAddMovieOpen] = React.useState(false);
   const NavContainerRef = useRef<HTMLDivElement>();
 
-  const openAddMovieForm = (): void => setIsAddMovieOpen(true);
-  const closeAddMovieForm = (): void => setIsAddMovieOpen(false);
-  const backToSearchBanner = (): void => setSelectedMovie(null);
+  const openAddMovieForm = React.useCallback(() => setIsAddMovieOpen(true), []);
+  const closeAddMovieForm = React.useCallback(
+    () => setIsAddMovieOpen(false),
+    []
+  );
+  const backToSearchBanner = React.useCallback(
+    () => setSelectedMovie(null),
+    [setSelectedMovie]
+  );
 
   useEffect(() => {
     const NavContainerClasses: DOMTokenList =
