@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
 interface IProps {
-  buttonStyle?: 'transparent' | 'default';
+  buttonStyle?: 'transparent' | 'defaultOutlined' | 'default';
 }
 
 interface IButtonStyles {
   transparent: string;
+  defaultOutlined: string;
   default: string;
 }
 
@@ -17,6 +18,14 @@ const buttonStyles: IButtonStyles = {
     background-color: rgba(var(--secondary), 1);
   }
 `,
+  defaultOutlined: `
+  background-color: transparent;
+  color: rgb(var(--primary));
+  border: 1px solid rgb(var(--primary));
+  &:hover {
+    background-color: rgba(var(--white), 0.1);
+  }
+  `,
   default: `
   background-color: rgb(var(--primary));
   color: rgb(var(--white));

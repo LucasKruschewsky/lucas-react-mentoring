@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import AppContainer from '../../globalStyles/AppContainer';
+import AppContainer from 'Global/styled/AppContainer';
 
 const NavContainer = styled(AppContainer)`
   padding-bottom: 1rem;
@@ -7,6 +7,7 @@ const NavContainer = styled(AppContainer)`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 90;
 
   transition: background 0.5s ease-in-out;
 

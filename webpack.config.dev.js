@@ -17,14 +17,6 @@ const mergedConfig = merge(common, {
   },
   devtool: 'eval-cheap-source-map',
   devServer: {
-    static: {
-      directory: path.join(__dirname, 'dev'),
-    },
-    devMiddleware: {
-      index: true,
-      writeToDisk: true,
-    },
-    compress: true,
     port: 9000,
     open: true,
     hot: true,

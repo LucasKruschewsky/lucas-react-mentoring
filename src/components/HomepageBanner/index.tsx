@@ -1,5 +1,5 @@
 import * as React from 'react';
-import AppButton from 'Styles/AppButton';
+import AppButton from 'Global/styled/AppButton';
 import { BannerContainer, SearchTitle, SearchInputAndButton } from './styles';
 
 const HomepageBanner: React.FunctionComponent = () => (

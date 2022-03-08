@@ -12,7 +12,7 @@
     "paths": {
       "Images/*": ["src/images/*"],
       "Components/*": ["src/components/*"],
-      "Styles/*": ["src/globalStyles/*"],
+      "Global/*": ["src/global/*"],
       "@/*": ["src/*"]
     }
   },

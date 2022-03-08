@@ -1,8 +1,13 @@
-export interface IPropsMovieCard {
-  movie: {
-    image: string;
-    name: string;
-    genre: string;
-    year: number;
-  };
+import { IMoviesListData } from '@/data/MockedDataTypes';
+
+export interface IMovieCardProps {
+  movie: IMoviesListData;
+}
+
+export interface IMovieCardContainer {
+  showOptionsIcon?: boolean;
+}
+
+export interface IMovieCardOptionsMenuProps {
+  showOptionsContainer?: boolean;
 }

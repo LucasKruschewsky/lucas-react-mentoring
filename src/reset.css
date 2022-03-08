@@ -129,4 +129,14 @@ button {
   padding: 0;
   border-color: transparent;
 }
+
+input,
+textarea,
+select,
+option {
+  border: none;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
 /* ---------- END OF RESET CSS ---------- */

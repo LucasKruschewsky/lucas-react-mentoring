@@ -1,17 +1,20 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { IProps, IState } from './types';
+import { IErrorBoundaryProps, IErrorBoundaryState } from './types';
 import { ErrorInnerContainer, ErrorOuterContainer } from './styles';
 
-export default class ErrorBoundary extends Component<IProps, IState> {
-  constructor(props: IProps) {
+export default class ErrorBoundary extends Component<
+  IErrorBoundaryProps,
+  IErrorBoundaryState
+> {
+  constructor(props: IErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false, error: null, errorInfo: null };
   }
 
   componentDidCatch(
-    error: IState['error'],
-    errorInfo: IState['errorInfo']
+    error: IErrorBoundaryState['error'],
+    errorInfo: IErrorBoundaryState['errorInfo']
   ): void {
     this.setState({
       hasError: true,

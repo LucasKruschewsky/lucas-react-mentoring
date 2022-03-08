@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import GridAutoCols from 'Styles/GridAutoCols';
+import GridAutoCols from 'Global/styled/GridAutoCols';
 
 const FiltersSection = styled.div`
   display: flex;
@@ -38,19 +38,28 @@ const SortSection = styled.div`
   font-size: 16px;
 
   p {
-    margin-right: 2rem;
+    height: fit-content;
+    margin: auto;
     opacity: 0.6;
     user-select: none;
+    margin-right: 1.5rem;
   }
 
-  div {
+  select {
+    text-transform: uppercase;
+    font-size: 16px;
+  }
+
+  button {
+    font-size: 16px;
+    text-transform: uppercase;
     display: flex;
     align-items: center;
     cursor: pointer;
 
     img,
     svg {
-      margin-left: 1rem;
+      margin-left: 0.5rem;
     }
   }
 `;
