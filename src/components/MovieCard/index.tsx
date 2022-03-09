@@ -2,17 +2,21 @@ import * as React from 'react';
 import { BsThreeDotsVertical, BsX } from 'react-icons/bs';
 import HandleClickOut from 'Components/HandleClickOut';
 import { useDeleteModal, useEditModal } from '@/hooks/useModal';
+import { useSelectMovie } from '@/hooks/useSelectedMovie';
 import { MovieCardContainer, MovieInfo, MovieOptionsMenu } from './styles';
 import { buildMenuItems } from './helper';
 import { IMovieCardProps } from './types';
 
-const MovieCard: React.FunctionComponent<IMovieCardProps> = ({
-  movie,
-  setSelectedMovie,
-}) => {
+const MovieCard: React.FunctionComponent<IMovieCardProps> = ({ movie }) => {
   const { image, genre, name, year } = movie;
   const [isMouseOver, setIsMouseOver] = React.useState(false);
   const [isOptionsMenuOpen, setIsOptionsMenuOpen] = React.useState(false);
+
+  const setSelectedMovie = useSelectMovie();
+  const selectMovie = React.useCallback(
+    () => setSelectedMovie(movie),
+    [movie, setSelectedMovie]
+  );
 
   const openDeleteModal = useDeleteModal();
   const openEditModal = useEditModal();
@@ -22,12 +26,22 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({
     [openDeleteModal, openEditModal]
   );
 
-  const showHoverEffect = (): void => setIsMouseOver(true);
-  const hideHoverEffect = (): void => setIsMouseOver(false);
-  const openOptionsMenu = (): void => setIsOptionsMenuOpen(true);
-  const closeOptionsMenu = (): void => setIsOptionsMenuOpen(false);
-
-  const selectMovie = (): void => setSelectedMovie(movie);
+  const showHoverEffect = React.useCallback(
+    (): void => setIsMouseOver(true),
+    []
+  );
+  const hideHoverEffect = React.useCallback(
+    (): void => setIsMouseOver(false),
+    []
+  );
+  const openOptionsMenu = React.useCallback(
+    (): void => setIsOptionsMenuOpen(true),
+    []
+  );
+  const closeOptionsMenu = React.useCallback(
+    (): void => setIsOptionsMenuOpen(false),
+    []
+  );
 
   return (
     <MovieCardContainer showOptionsIcon={isMouseOver}>

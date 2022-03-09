@@ -21,16 +21,9 @@ const showGenreFilters = (
     </button>
   ));
 
-const showMovies = (
-  sortedMovies: IMoviesListData[],
-  setSelectedMovie: React.Dispatch<React.SetStateAction<object>>
-): React.ReactElement[] =>
+const showMovies = (sortedMovies: IMoviesListData[]): React.ReactElement[] =>
   sortedMovies?.map((movie: IMoviesListData) => (
-    <MovieCard
-      setSelectedMovie={setSelectedMovie}
-      key={movie.id}
-      movie={movie}
-    />
+    <MovieCard key={movie.id} movie={movie} />
   ));
 
 const sortMovies = (

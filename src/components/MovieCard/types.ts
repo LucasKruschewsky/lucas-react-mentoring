@@ -2,7 +2,6 @@ import { IMoviesListData } from '@/data/MockedDataTypes';
 
 export interface IMovieCardProps {
   movie: IMoviesListData;
-  setSelectedMovie: React.Dispatch<React.SetStateAction<object>>;
 }
 
 export interface IMovieCardContainer {
