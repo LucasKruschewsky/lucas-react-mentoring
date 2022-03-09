@@ -3,6 +3,7 @@ import { useState } from 'react';
 import AppContainer from 'Global/styled/AppContainer';
 import { moviesList } from '@/data/MockData';
 import { Select } from 'Global/styled/InputAndLabel';
+import { useSelectMovie } from '@/hooks/useSelectedMovie';
 import {
   numberOfMoviesFound,
   showGenreFilters,
@@ -19,12 +20,11 @@ import {
   SortSection,
 } from './styles';
 
-const MovieList: React.FunctionComponent<IMovieListProps> = ({
-  setSelectedMovie,
-}) => {
+const MovieList: React.FunctionComponent<IMovieListProps> = () => {
   const [activeFilter, setActiveFilter] = useState('All');
   const [activeSort, setActiveSort] = useState('none');
   const [sortedMoviesList, setSortedMoviesList] = useState([...moviesList]);
+  const selectMovie = useSelectMovie();
 
   const genreFilters = React.useMemo(
     () => showGenreFilters(setActiveFilter, activeFilter),
@@ -34,8 +34,8 @@ const MovieList: React.FunctionComponent<IMovieListProps> = ({
   const buildSortOptions = React.useMemo(() => sortOptions(), []);
 
   const moviesListSorted = React.useMemo(
-    () => showMovies(sortedMoviesList, setSelectedMovie),
-    [sortedMoviesList, setSelectedMovie]
+    () => showMovies(sortedMoviesList, selectMovie),
+    [sortedMoviesList, selectMovie]
   );
 
   const removeFilters = React.useCallback(() => {

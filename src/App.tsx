@@ -2,23 +2,14 @@ import * as React from 'react';
 import Navbar from 'Components/Navbar';
 import Footer from 'Components/Footer';
 import Homepage from '@/pages/Homepage';
+import { SelectedMovieProvider } from './hooks/useSelectedMovie';
 
-const App: React.FunctionComponent = () => {
-  const [selectedMovie, setSelectedMovie] = React.useState(null);
-
-  return (
-    <>
-      <Navbar
-        selectedMovie={selectedMovie}
-        setSelectedMovie={setSelectedMovie}
-      />
-      <Homepage
-        selectedMovie={selectedMovie}
-        setSelectedMovie={setSelectedMovie}
-      />
-      <Footer />
-    </>
-  );
-};
+const App: React.FunctionComponent = () => (
+  <SelectedMovieProvider>
+    <Navbar />
+    <Homepage />
+    <Footer />
+  </SelectedMovieProvider>
+);
 
 export default App;

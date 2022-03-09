@@ -1,9 +1,7 @@
 import { IMoviesListData } from '@/data/MockedDataTypes';
 import { Dispatch, SetStateAction } from 'react';
 
-export interface IMovieListProps {
-  setSelectedMovie: Dispatch<SetStateAction<object>>;
-}
+export interface IMovieListProps {}
 
 export type TSortBy = 'name' | 'year';
 

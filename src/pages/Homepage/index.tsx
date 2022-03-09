@@ -4,14 +4,11 @@ import ErrorBoundary from 'Components/ErrorBoundary';
 import HomepageBanner from 'Components/HomepageBanner';
 import { IHomepageProps } from './types';
 
-const Homepage: React.FunctionComponent<IHomepageProps> = ({
-  selectedMovie,
-  setSelectedMovie,
-}) => (
+const Homepage: React.FunctionComponent<IHomepageProps> = () => (
   <>
-    <HomepageBanner selectedMovie={selectedMovie} />
+    <HomepageBanner />
     <ErrorBoundary>
-      <MovieList setSelectedMovie={setSelectedMovie} />
+      <MovieList />
     </ErrorBoundary>
   </>
 );
