@@ -3,28 +3,23 @@ import { useEffect, useRef } from 'react';
 import throttle from '@/functions/throttle';
 import AppButton from 'Global/styled/AppButton';
 import AppLogo from 'Components/AppLogo';
-import AppModal from 'Components/AppModal';
-import MovieForm from 'Components/MovieForm';
+
 import { FaSearch } from 'react-icons/fa';
 import {
   useCurrentMovie,
   useRemoveSelectedMovie,
 } from '@/hooks/useSelectedMovie';
+import { useAddModal } from '@/hooks/useModal';
 import { INavbarProps } from './types';
 import NavContainer from './styles';
 import { handleNavbarBackground } from './utils';
 
 const Navbar: React.FunctionComponent<INavbarProps> = () => {
-  const [isAddMovieOpen, setIsAddMovieOpen] = React.useState(false);
   const NavContainerRef = useRef<HTMLDivElement>();
   const currentMovie = useCurrentMovie();
   const removeSelectedMovie = useRemoveSelectedMovie();
 
-  const openAddMovieForm = React.useCallback(() => setIsAddMovieOpen(true), []);
-  const closeAddMovieForm = React.useCallback(
-    () => setIsAddMovieOpen(false),
-    []
-  );
+  const openAddModal = useAddModal();
 
   useEffect(() => {
     const NavContainerClasses: DOMTokenList =
@@ -51,17 +46,13 @@ const Navbar: React.FunctionComponent<INavbarProps> = () => {
         </AppButton>
       ) : (
         <AppButton
-          onClick={openAddMovieForm}
+          onClick={openAddModal}
           buttonStyle="transparent"
           type="button"
         >
           + Add Movie
         </AppButton>
       )}
-
-      <AppModal showModal={isAddMovieOpen} closeModal={closeAddMovieForm}>
-        <MovieForm type="add" />
-      </AppModal>
     </NavContainer>
   );
 };

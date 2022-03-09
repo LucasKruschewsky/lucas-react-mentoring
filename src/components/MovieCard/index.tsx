@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { BsThreeDotsVertical, BsX } from 'react-icons/bs';
 import HandleClickOut from 'Components/HandleClickOut';
-import AppModal from 'Components/AppModal';
-import MovieForm from 'Components/MovieForm';
+import { useDeleteModal, useEditModal } from '@/hooks/useModal';
 import { MovieCardContainer, MovieInfo, MovieOptionsMenu } from './styles';
 import { buildMenuItems } from './helper';
 import { IMovieCardProps } from './types';
@@ -14,31 +13,19 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({
   const { image, genre, name, year } = movie;
   const [isMouseOver, setIsMouseOver] = React.useState(false);
   const [isOptionsMenuOpen, setIsOptionsMenuOpen] = React.useState(false);
-  const [isEditMovieOpen, setIsEditMovieOpen] = React.useState(false);
-  const [isDeleteMovieOpen, setIsDeleteMovieOpen] = React.useState(false);
+
+  const openDeleteModal = useDeleteModal();
+  const openEditModal = useEditModal();
 
   const optionsMenuItems = React.useMemo(
-    () =>
-      buildMenuItems(
-        setIsDeleteMovieOpen,
-        setIsEditMovieOpen,
-        setIsOptionsMenuOpen
-      ),
-    [setIsDeleteMovieOpen, setIsEditMovieOpen]
+    () => buildMenuItems(openDeleteModal, openEditModal, setIsOptionsMenuOpen),
+    [openDeleteModal, openEditModal]
   );
 
   const showHoverEffect = (): void => setIsMouseOver(true);
   const hideHoverEffect = (): void => setIsMouseOver(false);
   const openOptionsMenu = (): void => setIsOptionsMenuOpen(true);
   const closeOptionsMenu = (): void => setIsOptionsMenuOpen(false);
-  const closeModal = (): void => {
-    setIsDeleteMovieOpen(false);
-    setIsEditMovieOpen(false);
-  };
-  const showModal = React.useMemo(
-    () => isEditMovieOpen || isDeleteMovieOpen,
-    [isEditMovieOpen, isDeleteMovieOpen]
-  );
 
   const selectMovie = (): void => setSelectedMovie(movie);
 
@@ -73,10 +60,6 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({
         </div>
         <p>{year}</p>
       </MovieInfo>
-      <AppModal showModal={showModal} closeModal={closeModal}>
-        {isEditMovieOpen && <MovieForm type="edit" />}
-        {isDeleteMovieOpen && <MovieForm type="delete" />}
-      </AppModal>
     </MovieCardContainer>
   );
 };
