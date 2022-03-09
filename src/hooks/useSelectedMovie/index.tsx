@@ -1,6 +1,7 @@
-import { IMoviesListData } from '@/data/MockedDataTypes';
 import * as React from 'react';
-import { createContext, useCallback, useReducer } from 'react';
+import { SelectedMovieContext } from '@/context/contexts';
+import { IMoviesListData } from '@/data/MockedDataTypes';
+import { useCallback, useReducer } from 'react';
 import {
   REMOVE_SELECTED_MOVIE,
   selectedMovieReducer,
@@ -8,13 +9,7 @@ import {
 } from './reducer';
 import { IUseSelectedMovieReturn } from './types';
 
-const SelectedMovieContext = createContext<IUseSelectedMovieReturn>({
-  currentMovie: null,
-  setSelectedMovie: () => {},
-  removeSelectedMovie: () => {},
-});
-
-const useSelectedMovieManager = (
+export const useSelectedMovieManager = (
   defaultSelectedMovie: IMoviesListData
 ): IUseSelectedMovieReturn => {
   const [currentMovie, dispatch] = useReducer(
@@ -37,14 +32,6 @@ const useSelectedMovieManager = (
 
   return { currentMovie, setSelectedMovie, removeSelectedMovie };
 };
-
-export const SelectedMovieProvider: React.FunctionComponent = ({
-  children,
-}) => (
-  <SelectedMovieContext.Provider value={useSelectedMovieManager(null)}>
-    {children}
-  </SelectedMovieContext.Provider>
-);
 
 export const useCurrentMovie = (): IMoviesListData => {
   const { currentMovie } = React.useContext(SelectedMovieContext);
