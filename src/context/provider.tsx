@@ -34,12 +34,12 @@ export const AppContextProvider: React.FunctionComponent = ({ children }) => {
   );
 
   return (
-    <UseCurrentModalContext.Provider value={useCurrentModal}>
-      <UseModalFunctionsContext.Provider value={useModalFunction}>
-        <SelectedMovieContext.Provider value={useSelectedMovieManager(null)}>
+    <UseModalFunctionsContext.Provider value={useModalFunction}>
+      <SelectedMovieContext.Provider value={useSelectedMovieManager(null)}>
+        <UseCurrentModalContext.Provider value={useCurrentModal}>
           {children}
-        </SelectedMovieContext.Provider>
-      </UseModalFunctionsContext.Provider>
-    </UseCurrentModalContext.Provider>
+        </UseCurrentModalContext.Provider>
+      </SelectedMovieContext.Provider>
+    </UseModalFunctionsContext.Provider>
   );
 };
