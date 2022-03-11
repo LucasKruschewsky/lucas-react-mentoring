@@ -14,6 +14,6 @@ export function selectedMovieReducer(
     case REMOVE_SELECTED_MOVIE:
       return null;
     default:
-      throw new Error('Wrong action type');
+      return state;
   }
 }

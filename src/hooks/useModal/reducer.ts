@@ -13,6 +13,6 @@ export const useModalReducer = (
     case CLOSE_MODAL:
       return null;
     default:
-      throw new Error('Wrong action type');
+      return state;
   }
 };
