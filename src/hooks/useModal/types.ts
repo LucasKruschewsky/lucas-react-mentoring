@@ -5,10 +5,17 @@ export interface IUseModalAction {
 
 export type TUseModalState = IUseModalAction['payload'];
 
-export interface IUseModalReturn {
+export interface IUseCurrentModalContext {
   currentModal: IUseModalAction['payload'];
+}
+
+export interface IUseModalFunctionsContext {
   openAddModal: () => void;
   openEditModal: () => void;
   openDeleteModal: () => void;
   closeModal: () => void;
 }
+
+export interface IUseModalReturn
+  extends IUseModalFunctionsContext,
+    IUseCurrentModalContext {}

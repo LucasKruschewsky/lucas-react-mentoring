@@ -1,6 +1,9 @@
 import { createContext } from 'react';
 import { IUseSelectedMovieReturn } from '@/hooks/useSelectedMovie/types';
-import { IUseModalReturn } from '@/hooks/useModal/types';
+import {
+  IUseCurrentModalContext,
+  IUseModalFunctionsContext,
+} from '@/hooks/useModal/types';
 
 export const SelectedMovieContext = createContext<IUseSelectedMovieReturn>({
   currentMovie: null,
@@ -8,10 +11,14 @@ export const SelectedMovieContext = createContext<IUseSelectedMovieReturn>({
   removeSelectedMovie: () => {},
 });
 
-export const UseModalContext = createContext<IUseModalReturn>({
+export const UseCurrentModalContext = createContext<IUseCurrentModalContext>({
   currentModal: null,
-  openAddModal: () => {},
-  openEditModal: () => {},
-  openDeleteModal: () => {},
-  closeModal: () => {},
 });
+
+export const UseModalFunctionsContext =
+  createContext<IUseModalFunctionsContext>({
+    openAddModal: () => {},
+    openEditModal: () => {},
+    openDeleteModal: () => {},
+    closeModal: () => {},
+  });

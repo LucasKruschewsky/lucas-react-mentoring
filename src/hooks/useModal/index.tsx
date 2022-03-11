@@ -1,37 +1,40 @@
 import * as React from 'react';
-import { UseModalContext } from '@/context/contexts';
+import {
+  UseCurrentModalContext,
+  UseModalFunctionsContext,
+} from '@/context/contexts';
 import { CLOSE_MODAL, OPEN_MODAL, useModalReducer } from './reducer';
-import { IUseModalReturn } from './types';
+import { IUseCurrentModalContext, IUseModalReturn } from './types';
 
 export const useModal = (): IUseModalReturn => {
   const [currentModal, dispatch] = React.useReducer(useModalReducer, null);
 
-  const openAddModal = (): void => {
+  const openAddModal = React.useCallback((): void => {
     dispatch({
       type: OPEN_MODAL,
       payload: 'add',
     });
-  };
+  }, []);
 
-  const openEditModal = (): void => {
+  const openEditModal = React.useCallback((): void => {
     dispatch({
       type: OPEN_MODAL,
       payload: 'edit',
     });
-  };
+  }, []);
 
-  const openDeleteModal = (): void => {
+  const openDeleteModal = React.useCallback((): void => {
     dispatch({
       type: OPEN_MODAL,
       payload: 'delete',
     });
-  };
+  }, []);
 
-  const closeModal = (): void => {
+  const closeModal = React.useCallback((): void => {
     dispatch({
       type: CLOSE_MODAL,
     });
-  };
+  }, []);
 
   return {
     currentModal,
@@ -42,32 +45,32 @@ export const useModal = (): IUseModalReturn => {
   };
 };
 
-export const useCurrentModal = (): IUseModalReturn['currentModal'] => {
-  const { currentModal } = React.useContext(UseModalContext);
+export const useCurrentModal = (): IUseCurrentModalContext['currentModal'] => {
+  const { currentModal } = React.useContext(UseCurrentModalContext);
 
   return currentModal;
 };
 
 export const useAddModal = (): IUseModalReturn['openAddModal'] => {
-  const { openAddModal } = React.useContext(UseModalContext);
+  const { openAddModal } = React.useContext(UseModalFunctionsContext);
 
   return openAddModal;
 };
 
 export const useEditModal = (): IUseModalReturn['openEditModal'] => {
-  const { openEditModal } = React.useContext(UseModalContext);
+  const { openEditModal } = React.useContext(UseModalFunctionsContext);
 
   return openEditModal;
 };
 
 export const useDeleteModal = (): IUseModalReturn['openDeleteModal'] => {
-  const { openDeleteModal } = React.useContext(UseModalContext);
+  const { openDeleteModal } = React.useContext(UseModalFunctionsContext);
 
   return openDeleteModal;
 };
 
 export const useCloseModal = (): IUseModalReturn['openDeleteModal'] => {
-  const { closeModal } = React.useContext(UseModalContext);
+  const { closeModal } = React.useContext(UseModalFunctionsContext);
 
   return closeModal;
 };
