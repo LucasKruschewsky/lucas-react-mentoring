@@ -1,13 +1,15 @@
+import { IStoreState } from '@/store/types';
 import * as React from 'react';
-import { useCurrentMovie } from '@/hooks/useSelectedMovie';
+import { connect } from 'react-redux';
 import { searchBanner, selectedMovieBanner } from './helper';
+import { IHomeBannerProps, IHomeBannerStateToProps } from './types';
 
-import { IHomeBannerProps } from './types';
+const HomepageBanner: React.FunctionComponent<IHomeBannerProps> = ({
+  selectedMovie,
+}) => (selectedMovie ? selectedMovieBanner(selectedMovie) : searchBanner);
 
-const HomepageBanner: React.FunctionComponent<IHomeBannerProps> = () => {
-  const currentMovie = useCurrentMovie();
+const mapStateToProps = (state: IStoreState): IHomeBannerStateToProps => ({
+  selectedMovie: state.selectedMovie,
+});
 
-  return currentMovie ? selectedMovieBanner(currentMovie) : searchBanner;
-};
-
-export default HomepageBanner;
+export default connect(mapStateToProps)(HomepageBanner);

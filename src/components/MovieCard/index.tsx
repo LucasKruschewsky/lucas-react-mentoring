@@ -2,18 +2,23 @@ import * as React from 'react';
 import { BsThreeDotsVertical, BsX } from 'react-icons/bs';
 import HandleClickOut from 'Components/HandleClickOut';
 import { useDeleteModal, useEditModal } from '@/hooks/useModal';
-import { useSelectMovie } from '@/hooks/useSelectedMovie';
+import { connect } from 'react-redux';
+import { selectMovie } from '@/store/modules/movie/actions';
+import { TStoreDispatch } from '@/store/types';
+import { IMoviesListData } from '@/data/MockedDataTypes';
 import { MovieCardContainer, MovieInfo, MovieOptionsMenu } from './styles';
 import { buildMenuItems } from './helper';
-import { IMovieCardProps } from './types';
+import { IMovieCardProps, IMovieCardStateToProps } from './types';
 
-const MovieCard: React.FunctionComponent<IMovieCardProps> = ({ movie }) => {
+const MovieCard: React.FunctionComponent<IMovieCardProps> = ({
+  movie,
+  setSelectedMovie,
+}) => {
   const { image, genre, name, year } = movie;
   const [isMouseOver, setIsMouseOver] = React.useState(false);
   const [isOptionsMenuOpen, setIsOptionsMenuOpen] = React.useState(false);
 
-  const setSelectedMovie = useSelectMovie();
-  const selectMovie = React.useCallback(
+  const chooseMovie = React.useCallback(
     () => setSelectedMovie(movie),
     [movie, setSelectedMovie]
   );
@@ -45,7 +50,7 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({ movie }) => {
 
   return (
     <MovieCardContainer showOptionsIcon={isMouseOver}>
-      <button onClick={selectMovie} type="button">
+      <button onClick={chooseMovie} type="button">
         <img
           onMouseEnter={showHoverEffect}
           onMouseLeave={hideHoverEffect}
@@ -78,4 +83,10 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({ movie }) => {
   );
 };
 
-export default MovieCard;
+const mapDispatchToProps = (
+  dispatch: TStoreDispatch
+): IMovieCardStateToProps => ({
+  setSelectedMovie: (movie: IMoviesListData) => dispatch(selectMovie(movie)),
+});
+
+export default connect(null, mapDispatchToProps)(MovieCard);

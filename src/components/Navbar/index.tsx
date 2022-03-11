@@ -3,21 +3,21 @@ import { useRef } from 'react';
 import AppButton from 'Global/styled/AppButton';
 import AppLogo from 'Components/AppLogo';
 import { FaSearch } from 'react-icons/fa';
-import {
-  useCurrentMovie,
-  useRemoveSelectedMovie,
-} from '@/hooks/useSelectedMovie';
 import { useAddModal } from '@/hooks/useModal';
 import { useGlobalEventListener } from '@/hooks/useGlobalEventListener';
 import { addCssClassOnScroll } from '@/functions/addCssClassOnScroll';
-import { INavbarProps } from './types';
+import { connect } from 'react-redux';
+import { removeSelectMovie } from '@/store/modules/movie/actions';
+import { IStoreState, TStoreDispatch } from '@/store/types';
+import { IMoviesListData } from '@/data/MockedDataTypes';
+import { INavbarProps, INavbarStateToProps } from './types';
 import NavContainer from './styles';
 
-const Navbar: React.FunctionComponent<INavbarProps> = () => {
+const Navbar: React.FunctionComponent<INavbarProps> = ({
+  removeSelectedMovie,
+  currentMovie,
+}) => {
   const NavContainerRef = useRef<HTMLDivElement>(null);
-  const currentMovie = useCurrentMovie();
-  const removeSelectedMovie = useRemoveSelectedMovie();
-
   const openAddModal = useAddModal();
   const handleNavbarBackground = React.useCallback(
     () =>
@@ -52,4 +52,14 @@ const Navbar: React.FunctionComponent<INavbarProps> = () => {
   );
 };
 
-export default Navbar;
+const mapStateToProps = (
+  state: IStoreState
+): { currentMovie: IMoviesListData } => ({
+  currentMovie: state.selectedMovie,
+});
+
+const mapDispatchToProps = (dispatch: TStoreDispatch): INavbarStateToProps => ({
+  removeSelectedMovie: () => dispatch(removeSelectMovie()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
