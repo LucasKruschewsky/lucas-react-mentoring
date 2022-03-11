@@ -1,11 +1,11 @@
 import { IMoviesListData } from '@/data/MockedDataTypes';
 import { ISelectMovieActions } from '@/store/modules/movie/types';
 
-export interface IMovieCardStateToProps {
+export interface IMovieCardStoreProps {
   setSelectedMovie?: (movie: IMoviesListData) => ISelectMovieActions;
 }
 
-export interface IMovieCardProps extends IMovieCardStateToProps {
+export interface IMovieCardProps extends IMovieCardStoreProps {
   movie: IMoviesListData;
 }
 

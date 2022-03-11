@@ -1,10 +1,10 @@
 import { IMoviesListData } from '@/data/MockedDataTypes';
 import { ISelectMovieActions } from '@/store/modules/movie/types';
 
-export interface INavbarStateToProps {
+export interface INavbarStoreProps {
   removeSelectedMovie?: () => ISelectMovieActions;
 }
 
-export interface INavbarProps extends INavbarStateToProps {
+export interface INavbarProps extends INavbarStoreProps {
   currentMovie?: IMoviesListData;
 }

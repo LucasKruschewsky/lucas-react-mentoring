@@ -8,7 +8,7 @@ import { TStoreDispatch } from '@/store/types';
 import { IMoviesListData } from '@/data/MockedDataTypes';
 import { MovieCardContainer, MovieInfo, MovieOptionsMenu } from './styles';
 import { buildMenuItems } from './helper';
-import { IMovieCardProps, IMovieCardStateToProps } from './types';
+import { IMovieCardProps, IMovieCardStoreProps } from './types';
 
 const MovieCard: React.FunctionComponent<IMovieCardProps> = ({
   movie,
@@ -85,7 +85,7 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({
 
 const mapDispatchToProps = (
   dispatch: TStoreDispatch
-): IMovieCardStateToProps => ({
+): IMovieCardStoreProps => ({
   setSelectedMovie: (movie: IMoviesListData) => dispatch(selectMovie(movie)),
 });
 

@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { removeSelectMovie } from '@/store/modules/movie/actions';
 import { IStoreState, TStoreDispatch } from '@/store/types';
 import { IMoviesListData } from '@/data/MockedDataTypes';
-import { INavbarProps, INavbarStateToProps } from './types';
+import { INavbarProps, INavbarStoreProps } from './types';
 import NavContainer from './styles';
 
 const Navbar: React.FunctionComponent<INavbarProps> = ({
@@ -58,7 +58,7 @@ const mapStateToProps = (
   currentMovie: state.selectedMovie,
 });
 
-const mapDispatchToProps = (dispatch: TStoreDispatch): INavbarStateToProps => ({
+const mapDispatchToProps = (dispatch: TStoreDispatch): INavbarStoreProps => ({
   removeSelectedMovie: () => dispatch(removeSelectMovie()),
 });
 
