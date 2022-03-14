@@ -33,20 +33,15 @@ export const buildMenuItems = (
       );
     }
 
-    if (item === 'Delete') {
-      return (
-        <button
-          type="button"
-          onClick={() =>
-            OpenModalFromMenuItem(openDeleteModal, setMovieMenuOpen)
-          }
-          className="movie-options-menu-item"
-          key={item}
-        >
-          {item}
-        </button>
-      );
-    }
-
-    return <div />;
+    // Return if item === 'Delete'
+    return (
+      <button
+        type="button"
+        onClick={() => OpenModalFromMenuItem(openDeleteModal, setMovieMenuOpen)}
+        className="movie-options-menu-item"
+        key={item}
+      >
+        {item}
+      </button>
+    );
   });
