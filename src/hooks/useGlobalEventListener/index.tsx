@@ -3,7 +3,7 @@ import throttle from '@/functions/throttle';
 
 export const useGlobalEventListener = (
   elementListener: Window | Document,
-  eventName: 'scroll' | 'resize',
+  eventName: keyof WindowEventMap | keyof DocumentEventMap,
   callbackFunction: () => void
 ): void => {
   React.useEffect(() => {
