@@ -3,11 +3,11 @@ import { useRef } from 'react';
 import AppButton from 'Global/styled/AppButton';
 import AppLogo from 'Components/AppLogo';
 import { FaSearch } from 'react-icons/fa';
-import { useAddModal } from '@/hooks/useModal';
 import { useGlobalEventListener } from '@/hooks/useGlobalEventListener';
 import { addCssClassOnScroll } from '@/functions/addCssClassOnScroll';
 import { connect } from 'react-redux';
 import { removeSelectMovie } from '@/store/modules/movie/actions';
+import { openModal } from '@/store/modules/modal/actions';
 import { IStoreState, TStoreDispatch } from '@/store/types';
 import { IMoviesListData } from '@/data/MockedDataTypes';
 import { INavbarProps, INavbarStoreProps } from './types';
@@ -15,10 +15,10 @@ import NavContainer from './styles';
 
 const Navbar: React.FunctionComponent<INavbarProps> = ({
   removeSelectedMovie,
+  openAddModal,
   currentMovie,
 }) => {
   const NavContainerRef = useRef<HTMLDivElement>(null);
-  const openAddModal = useAddModal();
   const handleNavbarBackground = React.useCallback(
     () =>
       addCssClassOnScroll(
@@ -60,6 +60,7 @@ const mapStateToProps = (
 
 const mapDispatchToProps = (dispatch: TStoreDispatch): INavbarStoreProps => ({
   removeSelectedMovie: () => dispatch(removeSelectMovie()),
+  openAddModal: () => dispatch(openModal('add')),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

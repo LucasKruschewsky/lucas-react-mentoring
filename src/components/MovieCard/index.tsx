@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { BsThreeDotsVertical, BsX } from 'react-icons/bs';
 import HandleClickOut from 'Components/HandleClickOut';
-import { useDeleteModal, useEditModal } from '@/hooks/useModal';
 import { connect } from 'react-redux';
 import { selectMovie } from '@/store/modules/movie/actions';
 import { TStoreDispatch } from '@/store/types';
 import { IMoviesListData } from '@/data/MockedDataTypes';
+import { openModal } from '@/store/modules/modal/actions';
 import { MovieCardContainer, MovieInfo, MovieOptionsMenu } from './styles';
 import { buildMenuItems } from './helper';
 import { IMovieCardProps, IMovieCardStoreProps } from './types';
@@ -13,6 +13,8 @@ import { IMovieCardProps, IMovieCardStoreProps } from './types';
 const MovieCard: React.FunctionComponent<IMovieCardProps> = ({
   movie,
   setSelectedMovie,
+  openDeleteModal,
+  openEditModal,
 }) => {
   const { image, genre, name, year } = movie;
   const [isMouseOver, setIsMouseOver] = React.useState(false);
@@ -22,9 +24,6 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({
     () => setSelectedMovie(movie),
     [movie, setSelectedMovie]
   );
-
-  const openDeleteModal = useDeleteModal();
-  const openEditModal = useEditModal();
 
   const optionsMenuItems = React.useMemo(
     () => buildMenuItems(openDeleteModal, openEditModal, setIsOptionsMenuOpen),
@@ -87,6 +86,8 @@ const mapDispatchToProps = (
   dispatch: TStoreDispatch
 ): IMovieCardStoreProps => ({
   setSelectedMovie: (movie: IMoviesListData) => dispatch(selectMovie(movie)),
+  openDeleteModal: () => dispatch(openModal('delete')),
+  openEditModal: () => dispatch(openModal('edit')),
 });
 
 export default connect(null, mapDispatchToProps)(MovieCard);

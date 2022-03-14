@@ -1,12 +1,12 @@
-export interface IUseModalAction {
+export interface IModalAction {
   type: 'OPEN_MODAL' | 'CLOSE_MODAL';
   payload?: 'add' | 'edit' | 'delete';
 }
 
-export type TUseModalState = IUseModalAction['payload'];
+export type TModalState = IModalAction['payload'];
 
-export interface IUseModalReturn {
-  currentModal: IUseModalAction['payload'];
+export interface IModalReturn {
+  currentModal: IModalAction['payload'];
   openAddModal: () => void;
   openEditModal: () => void;
   openDeleteModal: () => void;
