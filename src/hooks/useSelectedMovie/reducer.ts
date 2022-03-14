@@ -10,7 +10,7 @@ export function selectedMovieReducer(
 ): IMoviesListData {
   switch (action.type) {
     case SELECT_MOVIE:
-      return { ...action.payload };
+      return { ...state, ...action.payload };
     case REMOVE_SELECTED_MOVIE:
       return null;
     default:

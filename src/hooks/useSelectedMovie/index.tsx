@@ -9,13 +9,8 @@ import {
 } from './reducer';
 import { IUseSelectedMovieReturn } from './types';
 
-export const useSelectedMovieManager = (
-  defaultSelectedMovie: IMoviesListData
-): IUseSelectedMovieReturn => {
-  const [currentMovie, dispatch] = useReducer(
-    selectedMovieReducer,
-    defaultSelectedMovie
-  );
+export const useSelectedMovieManager = (): IUseSelectedMovieReturn => {
+  const [currentMovie, dispatch] = useReducer(selectedMovieReducer, null);
 
   const setSelectedMovie = useCallback((movie: IMoviesListData) => {
     dispatch({
