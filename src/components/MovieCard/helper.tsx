@@ -1,19 +1,22 @@
 import * as React from 'react';
 import { ISetStateBoolean } from 'Global/types/globalTypes';
+import { IUseModalReturn } from '@/hooks/useModal/types';
 
-export const menuItems: string[] = ['Edit', 'Delete'];
+export const menuItems: ['Edit', 'Delete'] = ['Edit', 'Delete'];
 
 export const OpenModalFromMenuItem = (
-  setModalOpen: ISetStateBoolean,
+  setModalOpen:
+    | IUseModalReturn['openEditModal']
+    | IUseModalReturn['openDeleteModal'],
   setMovieMenuOpen: ISetStateBoolean
 ): void => {
   setMovieMenuOpen(false);
-  setModalOpen(true);
+  setModalOpen();
 };
 
 export const buildMenuItems = (
-  setIsDeleteMovieOpen: ISetStateBoolean,
-  setIsEditMovieOpen: ISetStateBoolean,
+  openDeleteModal: IUseModalReturn['openDeleteModal'],
+  openEditModal: IUseModalReturn['openEditModal'],
   setMovieMenuOpen: ISetStateBoolean
 ): React.ReactElement[] =>
   menuItems.map((item) => {
@@ -21,9 +24,7 @@ export const buildMenuItems = (
       return (
         <button
           type="button"
-          onClick={() =>
-            OpenModalFromMenuItem(setIsEditMovieOpen, setMovieMenuOpen)
-          }
+          onClick={() => OpenModalFromMenuItem(openEditModal, setMovieMenuOpen)}
           className="movie-options-menu-item"
           key={item}
         >
@@ -32,20 +33,15 @@ export const buildMenuItems = (
       );
     }
 
-    if (item === 'Delete') {
-      return (
-        <button
-          type="button"
-          onClick={() =>
-            OpenModalFromMenuItem(setIsDeleteMovieOpen, setMovieMenuOpen)
-          }
-          className="movie-options-menu-item"
-          key={item}
-        >
-          {item}
-        </button>
-      );
-    }
-
-    return <div />;
+    // Return if item === 'Delete'
+    return (
+      <button
+        type="button"
+        onClick={() => OpenModalFromMenuItem(openDeleteModal, setMovieMenuOpen)}
+        className="movie-options-menu-item"
+        key={item}
+      >
+        {item}
+      </button>
+    );
   });

@@ -13,6 +13,9 @@ export interface IMoviesListData {
   genre: string;
   year: number;
   image: string;
+  rating: number;
+  duration: string;
+  description: string;
   id: number;
 }
 

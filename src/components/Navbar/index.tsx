@@ -1,53 +1,53 @@
 import * as React from 'react';
-import { useEffect, useRef } from 'react';
-import throttle from '@/functions/throttle';
+import { useRef } from 'react';
 import AppButton from 'Global/styled/AppButton';
 import AppLogo from 'Components/AppLogo';
-import AppModal from 'Components/AppModal';
-import MovieForm from 'Components/MovieForm';
+import { FaSearch } from 'react-icons/fa';
+import {
+  useCurrentMovie,
+  useRemoveSelectedMovie,
+} from '@/hooks/useSelectedMovie';
+import { useAddModal } from '@/hooks/useModal';
+import { useGlobalEventListener } from '@/hooks/useGlobalEventListener';
+import { addCssClassOnScroll } from '@/functions/addCssClassOnScroll';
 import { INavbarProps } from './types';
 import NavContainer from './styles';
-import { handleNavbarBackground } from './utils';
 
 const Navbar: React.FunctionComponent<INavbarProps> = () => {
-  const [isAddMovieOpen, setIsAddMovieOpen] = React.useState(false);
-  const NavContainerRef = useRef<HTMLDivElement>();
+  const NavContainerRef = useRef<HTMLDivElement>(null);
+  const currentMovie = useCurrentMovie();
+  const removeSelectedMovie = useRemoveSelectedMovie();
 
-  const openAddMovieForm = React.useCallback(() => setIsAddMovieOpen(true), []);
-
-  const closeAddMovieForm = React.useCallback(
-    () => setIsAddMovieOpen(false),
-    []
+  const openAddModal = useAddModal();
+  const handleNavbarBackground = React.useCallback(
+    () =>
+      addCssClassOnScroll(
+        NavContainerRef?.current?.classList,
+        'navbarBackground',
+        0
+      ),
+    [NavContainerRef]
   );
 
-  useEffect(() => {
-    const NavContainerClasses: DOMTokenList =
-      NavContainerRef?.current.classList;
-
-    window.addEventListener(
-      'scroll',
-      throttle(() => handleNavbarBackground(NavContainerClasses), 150)
-    );
-
-    return window.removeEventListener(
-      'scroll',
-      throttle(() => handleNavbarBackground(NavContainerClasses), 150)
-    );
-  }, []);
+  useGlobalEventListener(window, 'scroll', handleNavbarBackground);
 
   return (
     <NavContainer ref={NavContainerRef}>
       <AppLogo />
-      <AppButton
-        onClick={openAddMovieForm}
-        buttonStyle="transparent"
-        type="button"
-      >
-        + Add Movie
-      </AppButton>
-      <AppModal showModal={isAddMovieOpen} closeModal={closeAddMovieForm}>
-        <MovieForm type="add" />
-      </AppModal>
+      {currentMovie ? (
+        <AppButton onClick={removeSelectedMovie} buttonStyle="defaultOutlined">
+          <FaSearch />
+          Search
+        </AppButton>
+      ) : (
+        <AppButton
+          onClick={openAddModal}
+          buttonStyle="transparent"
+          type="button"
+        >
+          + Add Movie
+        </AppButton>
+      )}
     </NavContainer>
   );
 };

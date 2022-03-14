@@ -1,21 +1,13 @@
 import * as React from 'react';
-import AppButton from 'Global/styled/AppButton';
-import { BannerContainer, SearchTitle, SearchInputAndButton } from './styles';
+import { useCurrentMovie } from '@/hooks/useSelectedMovie';
+import { searchBanner, selectedMovieBanner } from './helper';
 
-const HomepageBanner: React.FunctionComponent = () => (
-  <BannerContainer>
-    <div>
-      <SearchTitle>Find Your Movie</SearchTitle>
-      <SearchInputAndButton>
-        <input
-          id="searchMovie"
-          type="text"
-          placeholder="What do you want to watch?"
-        />
-        <AppButton> Search </AppButton>
-      </SearchInputAndButton>
-    </div>
-  </BannerContainer>
-);
+import { IHomeBannerProps } from './types';
+
+const HomepageBanner: React.FunctionComponent<IHomeBannerProps> = () => {
+  const currentMovie = useCurrentMovie();
+
+  return currentMovie ? selectedMovieBanner(currentMovie) : searchBanner;
+};
 
 export default HomepageBanner;
