@@ -38,13 +38,9 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({
     (): void => setIsMouseOver(false),
     []
   );
-  const openOptionsMenu = React.useCallback(
-    (): void => setIsOptionsMenuOpen(true),
-    []
-  );
-  const closeOptionsMenu = React.useCallback(
-    (): void => setIsOptionsMenuOpen(false),
-    []
+  const toggleOptionsMenu = React.useCallback(
+    (): void => setIsOptionsMenuOpen(!isOptionsMenuOpen),
+    [isOptionsMenuOpen]
   );
 
   return (
@@ -59,15 +55,15 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({
       </button>
       <BsThreeDotsVertical
         onMouseEnter={showHoverEffect}
-        onClick={openOptionsMenu}
+        onClick={toggleOptionsMenu}
       />
       <HandleClickOut
         backgroundColor="transparent"
-        clickCallback={closeOptionsMenu}
+        clickCallback={toggleOptionsMenu}
         showClickHandler={isOptionsMenuOpen}
       >
         <MovieOptionsMenu showOptionsContainer={isOptionsMenuOpen}>
-          <BsX onClick={closeOptionsMenu} />
+          <BsX onClick={toggleOptionsMenu} />
           {optionsMenuItems}
         </MovieOptionsMenu>
       </HandleClickOut>

@@ -5,10 +5,17 @@ export interface IModalAction {
 
 export type TModalState = IModalAction['payload'];
 
-export interface IModalReturn {
+export interface ICurrentModalContext {
   currentModal: IModalAction['payload'];
+}
+
+export interface IModalFunctionsContext {
   openAddModal: () => void;
   openEditModal: () => void;
   openDeleteModal: () => void;
   closeModal: () => void;
 }
+
+export interface IModalReturn
+  extends IModalFunctionsContext,
+    ICurrentModalContext {}
