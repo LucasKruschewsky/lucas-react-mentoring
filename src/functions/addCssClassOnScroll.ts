@@ -1,6 +1,11 @@
-/**  Adds a CSS class (dynamicCssClass) 
-into Element ClassList (ElementCssClasses)
-when scroll position gets past scrollTrigger */
+/**
+ * Adds a CSS class (dynamicCssClass)
+ * into Element ClassList (ElementCssClasses)
+ * when scroll position gets past scrollTrigger
+ * @param ElementCssClasses
+ * @param dynamicCssClass
+ * @param scrollTrigger
+ */
 
 export const addCssClassOnScroll = (
   ElementCssClasses: DOMTokenList,

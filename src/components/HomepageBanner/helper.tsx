@@ -1,5 +1,7 @@
 import * as React from 'react';
 import AppButton from 'Global/styled/AppButton';
+import { parseDate } from '@/functions/parseDate';
+import { minutesToHours } from '@/functions/minutesToHours';
 import {
   SearchBannerContainer,
   SearchTitle,
@@ -31,19 +33,13 @@ export const searchBanner = (
 export const SelectedMovieBanner: React.FunctionComponent<
   IHomeBannerStoreProps
 > = ({ selectedMovie }) => {
-  const parsedRuntime = React.useCallback(() => {
-    const hours = Math.floor(selectedMovie.runtime / 60);
-    const mins = Math.floor(selectedMovie.runtime - 60 * hours);
-    return `${hours}h ${mins}min`;
-  }, [selectedMovie]);
+  const parsedRuntime = React.useMemo(
+    () => minutesToHours(selectedMovie.runtime),
+    [selectedMovie]
+  );
 
-  const parsedDate = React.useCallback(
-    () =>
-      new Date(selectedMovie.release_date).toLocaleDateString('en-UK', {
-        year: 'numeric',
-        month: 'numeric',
-        day: 'numeric',
-      }),
+  const parsedDate = React.useMemo(
+    () => parseDate(selectedMovie.release_date),
     [selectedMovie]
   );
 
@@ -64,8 +60,8 @@ export const SelectedMovieBanner: React.FunctionComponent<
           ))}
         </MovieGenre>
         <MovieYearAndDuration>
-          <p>{parsedDate()}</p>
-          <p>{parsedRuntime()}</p>
+          <p>{parsedDate}</p>
+          <p>{parsedRuntime}</p>
         </MovieYearAndDuration>
         <MovieDescription>{selectedMovie.overview}</MovieDescription>
       </div>

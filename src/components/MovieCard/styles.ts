@@ -9,6 +9,8 @@ const MovieCardContainer = styled.div<IMovieCardContainer>`
 
   button {
     display: flex;
+    flex-grow: 1;
+
     img {
       margin-bottom: 1.5rem;
       cursor: pointer;

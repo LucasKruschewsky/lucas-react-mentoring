@@ -3,6 +3,7 @@ import { BsThreeDotsVertical, BsX } from 'react-icons/bs';
 import HandleClickOut from 'Components/HandleClickOut';
 import { connect } from 'react-redux';
 import { selectMovie } from '@/store/modules/movie/actions';
+import { parseDate } from '@/functions/parseDate';
 import { TStoreDispatch } from '@/store/types';
 import { IMoviesListData } from '@/data/MockedDataTypes';
 import { openModal } from '@/store/modules/modal/actions';
@@ -43,6 +44,11 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({
     [isOptionsMenuOpen]
   );
 
+  const parsedDate = React.useMemo(
+    () => parseDate(release_date, 'year'),
+    [release_date]
+  );
+
   return (
     <MovieCardContainer showOptionsIcon={isMouseOver}>
       <button onClick={chooseMovie} type="button">
@@ -72,7 +78,7 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({
           <h1>{title}</h1>
           <p>{genres}</p>
         </div>
-        <p>{release_date}</p>
+        <p>{parsedDate}</p>
       </MovieInfo>
     </MovieCardContainer>
   );
