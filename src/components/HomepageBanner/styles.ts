@@ -51,6 +51,10 @@ export const SelectedMovieContainer = styled(AppContainer)`
     flex-grow: 1;
     margin-left: 1.5rem;
   }
+
+  img {
+    max-height: 60vh;
+  }
 `;
 
 export const MovieTitleAndRating = styled.div`
@@ -81,6 +85,13 @@ export const MovieGenre = styled.div`
   margin: 0 0 1rem;
   font-size: 14px;
   color: rgba(var(--white), 0.5);
+  display: flex;
+  flex-wrap: wrap;
+
+  p {
+    margin-right: 1rem;
+    margin-top: 0.5rem;
+  }
 `;
 
 export const MovieYearAndDuration = styled.div`

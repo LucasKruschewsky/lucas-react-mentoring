@@ -3,9 +3,9 @@ import { Dispatch, SetStateAction } from 'react';
 
 export interface IMovieListProps {}
 
-export type TSortBy = 'name' | 'year';
+export type TSortBy = 'title' | 'release_date';
 
 export interface sortedMoviesListState {
-  sortedMoviesList: IMoviesListData[];
+  moviesListApi: IMoviesListData[];
   setSortedMoviesList: Dispatch<SetStateAction<IMoviesListData[]>>;
 }

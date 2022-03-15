@@ -64,7 +64,8 @@
           "some": ["nesting", "id"]
         }
       }
-    ]
+    ],
+    "camelcase": 0
   },
   "settings": {
     "import/resolver": {

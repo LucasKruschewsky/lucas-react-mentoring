@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import AppContainer from 'Global/styled/AppContainer';
-import { moviesList } from '@/data/MockData';
+import { useAxiosRequest } from '@/hooks/useAxiosRequest';
 import { Select } from 'Global/styled/InputAndLabel';
 import {
   numberOfMoviesFound,
@@ -22,7 +22,10 @@ import {
 const MovieList: React.FunctionComponent<IMovieListProps> = () => {
   const [activeFilter, setActiveFilter] = useState('All');
   const [activeSort, setActiveSort] = useState('none');
-  const [sortedMoviesList, setSortedMoviesList] = useState([...moviesList]);
+  const [sortedMoviesList, setSortedMoviesList] = useState([]);
+  const [moviesListApi, setMoviesListApi] = useState([]);
+
+  useAxiosRequest('/movies', 'get', setMoviesListApi);
 
   const genreFilters = React.useMemo(
     () => showGenreFilters(setActiveFilter, activeFilter),
@@ -31,14 +34,17 @@ const MovieList: React.FunctionComponent<IMovieListProps> = () => {
 
   const buildSortOptions = React.useMemo(() => sortOptions(), []);
 
-  const moviesListSorted = React.useMemo(
-    () => showMovies(sortedMoviesList),
-    [sortedMoviesList]
+  const movieListItems = React.useMemo(
+    () =>
+      sortedMoviesList.length
+        ? showMovies(sortedMoviesList)
+        : showMovies(moviesListApi),
+    [moviesListApi, sortedMoviesList]
   );
 
   const removeFilters = React.useCallback(() => {
     setActiveSort('none');
-    setSortedMoviesList(moviesList);
+    setSortedMoviesList([]);
   }, []);
 
   const sortMoviesCallback = React.useCallback(
@@ -48,9 +54,9 @@ const MovieList: React.FunctionComponent<IMovieListProps> = () => {
         removeFilters();
         return;
       }
-      sortMovies(e.target.value, { sortedMoviesList, setSortedMoviesList });
+      sortMovies(e.target.value, { moviesListApi, setSortedMoviesList });
     },
-    [sortedMoviesList, removeFilters]
+    [moviesListApi, removeFilters]
   );
 
   return (
@@ -72,7 +78,7 @@ const MovieList: React.FunctionComponent<IMovieListProps> = () => {
         </SortSection>
       </FiltersSection>
       <MoviesFound>{numberOfMoviesFound} Movies Found</MoviesFound>
-      <MoviesGrid cols={3}>{moviesListSorted}</MoviesGrid>
+      <MoviesGrid cols={3}>{movieListItems}</MoviesGrid>
     </AppContainer>
   );
 };

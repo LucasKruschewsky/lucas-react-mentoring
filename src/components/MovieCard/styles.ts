@@ -12,7 +12,8 @@ const MovieCardContainer = styled.div<IMovieCardContainer>`
     img {
       margin-bottom: 1.5rem;
       cursor: pointer;
-      width: max-content;
+      max-width: 100%;
+      height: max-content;
       flex-grow: 1;
     }
   }

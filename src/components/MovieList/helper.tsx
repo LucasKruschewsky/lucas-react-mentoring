@@ -28,10 +28,10 @@ const showMovies = (sortedMovies: IMoviesListData[]): React.ReactElement[] =>
 
 const sortMovies = (
   sortBy: TSortBy,
-  { sortedMoviesList, setSortedMoviesList }: sortedMoviesListState
+  { moviesListApi, setSortedMoviesList }: sortedMoviesListState
 ): void => {
   setSortedMoviesList(
-    [...sortedMoviesList].sort((a, b) => (a[sortBy] < b[sortBy] ? -1 : 0))
+    [...moviesListApi].sort((a, b) => (a[sortBy] < b[sortBy] ? -1 : 0))
   );
 };
 
@@ -39,8 +39,8 @@ const sortOptionsDropdown = [
   {
     optGroupLabel: 'Select an option',
     options: [
-      { value: 'year', label: 'Release Date' },
-      { value: 'name', label: 'A-Z' },
+      { value: 'release_date', label: 'Release Date' },
+      { value: 'title', label: 'A-Z' },
     ],
   },
   {

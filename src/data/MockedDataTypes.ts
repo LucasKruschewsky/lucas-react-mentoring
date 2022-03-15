@@ -9,13 +9,13 @@ export interface IMovieFormFields {
 }
 
 export interface IMoviesListData {
-  name: string;
-  genre: string;
-  year: number;
-  image: string;
-  rating: number;
-  duration: string;
-  description: string;
+  title: string;
+  release_date: number;
+  genres: string[];
+  poster_path: string;
+  vote_average: number;
+  runtime: number;
+  overview: string;
   id: number;
 }
 

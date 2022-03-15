@@ -16,7 +16,7 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({
   openDeleteModal,
   openEditModal,
 }) => {
-  const { image, genre, name, year } = movie;
+  const { poster_path, genres, title, release_date } = movie;
   const [isMouseOver, setIsMouseOver] = React.useState(false);
   const [isOptionsMenuOpen, setIsOptionsMenuOpen] = React.useState(false);
 
@@ -49,8 +49,8 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({
         <img
           onMouseEnter={showHoverEffect}
           onMouseLeave={hideHoverEffect}
-          src={image}
-          alt={`${name} banner`}
+          src={poster_path}
+          alt={`${title} banner`}
         />
       </button>
       <BsThreeDotsVertical
@@ -69,10 +69,10 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({
       </HandleClickOut>
       <MovieInfo>
         <div>
-          <h1>{name}</h1>
-          <p>{genre}</p>
+          <h1>{title}</h1>
+          <p>{genres}</p>
         </div>
-        <p>{year}</p>
+        <p>{release_date}</p>
       </MovieInfo>
     </MovieCardContainer>
   );

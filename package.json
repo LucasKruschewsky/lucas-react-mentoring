@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/LucasKruschewsky/lucas-react-mentoring#readme",
   "dependencies": {
+    "axios": "^0.26.1",
     "dotenv": "^16.0.0",
     "glob": "^7.2.0",
     "react": "^17.0.2",
