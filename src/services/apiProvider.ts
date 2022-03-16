@@ -6,9 +6,11 @@ export const moviesApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: process.env.API_URL }),
   tagTypes: ['Movies'],
   endpoints: (builder) => ({
-    getAll: builder.query<IMoviesListData[], void>({
+    getAllMovies: builder.query<IMoviesListData[], void>({
       query: () => '/movies',
       providesTags: [{ type: 'Movies', id: 'LIST' }],
     }),
   }),
 });
+
+export const { useGetAllMoviesQuery } = moviesApi;
