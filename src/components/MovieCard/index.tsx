@@ -1,30 +1,34 @@
 import * as React from 'react';
 import { BsThreeDotsVertical, BsX } from 'react-icons/bs';
 import HandleClickOut from 'Components/HandleClickOut';
-import { connect } from 'react-redux';
-import { selectMovie } from '@/store/modules/movie/actions';
 import { parseDate } from '@/functions/parseDate';
-import { TStoreDispatch } from '@/store/types';
-import { IMoviesListData } from '@/data/MockedDataTypes';
-import { openModal } from '@/store/modules/modal/actions';
+import { useDispatch } from 'react-redux';
 import { genresMap } from 'Components/MovieList/helper';
+import { selectMovie } from '@/store/modules/movie';
+import { openModal } from '@/store/modules/modal';
 import { MovieCardContainer, MovieInfo, MovieOptionsMenu } from './styles';
 import { buildMenuItems } from './helper';
-import { IMovieCardProps, IMovieCardStoreProps } from './types';
+import { IMovieCardProps } from './types';
 
-const MovieCard: React.FunctionComponent<IMovieCardProps> = ({
-  movie,
-  setSelectedMovie,
-  openDeleteModal,
-  openEditModal,
-}) => {
+const MovieCard: React.FunctionComponent<IMovieCardProps> = ({ movie }) => {
   const { poster_path, genres, title, release_date, id } = movie;
   const [isMouseOver, setIsMouseOver] = React.useState(false);
   const [isOptionsMenuOpen, setIsOptionsMenuOpen] = React.useState(false);
+  const dispatch = useDispatch();
 
   const chooseMovie = React.useCallback(
-    () => setSelectedMovie(movie),
-    [movie, setSelectedMovie]
+    () => dispatch(selectMovie(movie)),
+    [movie, dispatch]
+  );
+
+  const openDeleteModal = React.useCallback(
+    () => dispatch(openModal('delete')),
+    [dispatch]
+  );
+
+  const openEditModal = React.useCallback(
+    () => dispatch(openModal('edit')),
+    [dispatch]
   );
 
   const optionsMenuItems = React.useMemo(
@@ -89,12 +93,4 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({
   );
 };
 
-const mapDispatchToProps = (
-  dispatch: TStoreDispatch
-): IMovieCardStoreProps => ({
-  setSelectedMovie: (movie: IMoviesListData) => dispatch(selectMovie(movie)),
-  openDeleteModal: () => dispatch(openModal('delete')),
-  openEditModal: () => dispatch(openModal('edit')),
-});
-
-export default connect(null, mapDispatchToProps)(MovieCard);
+export default MovieCard;

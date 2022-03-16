@@ -12,7 +12,7 @@ import {
   MovieYearAndDuration,
   MovieDescription,
 } from './styles';
-import { IHomeBannerStoreProps } from './types';
+import { IHomeBannerProps } from './types';
 
 export const searchBanner = (
   <SearchBannerContainer>
@@ -30,9 +30,9 @@ export const searchBanner = (
   </SearchBannerContainer>
 );
 
-export const SelectedMovieBanner: React.FunctionComponent<
-  IHomeBannerStoreProps
-> = ({ selectedMovie }) => {
+export const SelectedMovieBanner: React.FunctionComponent<IHomeBannerProps> = ({
+  selectedMovie,
+}) => {
   const parsedRuntime = React.useMemo(
     () => minutesToHours(selectedMovie.runtime),
     [selectedMovie]

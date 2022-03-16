@@ -1,6 +1,12 @@
-import { createStore } from 'redux';
-import rootReducer from './modules/rootReducer';
+import { configureStore } from '@reduxjs/toolkit';
+import { selectedMovieReducer } from './modules/movie';
+import { modalReducer } from './modules/modal';
 
-const store = createStore(rootReducer);
+const store = configureStore({
+  reducer: {
+    selectedMovie: selectedMovieReducer,
+    currentModal: modalReducer,
+  },
+});
 
 export default store;

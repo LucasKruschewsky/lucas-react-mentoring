@@ -5,19 +5,16 @@ import AppLogo from 'Components/AppLogo';
 import { FaSearch } from 'react-icons/fa';
 import { useGlobalEventListener } from '@/hooks/useGlobalEventListener';
 import { addCssClassOnScroll } from '@/functions/addCssClassOnScroll';
-import { connect } from 'react-redux';
-import { removeSelectMovie } from '@/store/modules/movie/actions';
-import { openModal } from '@/store/modules/modal/actions';
-import { IStoreState, TStoreDispatch } from '@/store/types';
-import { IMoviesListData } from '@/data/MockedDataTypes';
-import { INavbarProps, INavbarStoreProps } from './types';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeSelectedMovie } from '@/store/modules/movie';
+import { RootState } from '@/store/types';
+import { openModal } from '@/store/modules/modal';
+import { INavbarProps } from './types';
 import NavContainer from './styles';
 
-const Navbar: React.FunctionComponent<INavbarProps> = ({
-  removeSelectedMovie,
-  openAddModal,
-  currentMovie,
-}) => {
+const Navbar: React.FunctionComponent<INavbarProps> = () => {
+  const dispatch = useDispatch();
+  const currentMovie = useSelector((state: RootState) => state.selectedMovie);
   const NavContainerRef = useRef<HTMLDivElement>(null);
   const handleNavbarBackground = React.useCallback(
     () =>
@@ -28,6 +25,14 @@ const Navbar: React.FunctionComponent<INavbarProps> = ({
       ),
     [NavContainerRef]
   );
+  const unselectMovie: () => void = React.useCallback(
+    () => dispatch(removeSelectedMovie()),
+    [dispatch]
+  );
+  const openAddModal: () => void = React.useCallback(
+    () => dispatch(openModal('add')),
+    [dispatch]
+  );
 
   useGlobalEventListener(window, 'scroll', handleNavbarBackground);
 
@@ -35,7 +40,7 @@ const Navbar: React.FunctionComponent<INavbarProps> = ({
     <NavContainer ref={NavContainerRef}>
       <AppLogo />
       {currentMovie ? (
-        <AppButton onClick={removeSelectedMovie} buttonStyle="defaultOutlined">
+        <AppButton onClick={unselectMovie} buttonStyle="defaultOutlined">
           <FaSearch />
           Search
         </AppButton>
@@ -52,15 +57,4 @@ const Navbar: React.FunctionComponent<INavbarProps> = ({
   );
 };
 
-const mapStateToProps = (
-  state: IStoreState
-): { currentMovie: IMoviesListData } => ({
-  currentMovie: state.selectedMovie,
-});
-
-const mapDispatchToProps = (dispatch: TStoreDispatch): INavbarStoreProps => ({
-  removeSelectedMovie: () => dispatch(removeSelectMovie()),
-  openAddModal: () => dispatch(openModal('add')),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default Navbar;

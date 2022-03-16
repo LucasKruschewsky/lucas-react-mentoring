@@ -1,7 +1,5 @@
 import { IMoviesListData } from '@/data/MockedDataTypes';
 
-export interface IHomeBannerStoreProps {
+export interface IHomeBannerProps {
   selectedMovie?: IMoviesListData;
 }
-
-export interface IHomeBannerProps extends IHomeBannerStoreProps {}
