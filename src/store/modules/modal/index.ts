@@ -1,14 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { ICurrentModalAction, TCurrentModalState } from './types';
 
-type TCurrentModal = 'add' | 'edit' | 'delete' | null;
-
-const initialModalState = null as TCurrentModal;
+const initialModalState = null as TCurrentModalState;
 
 export const modalSlice = createSlice({
   name: 'currentModal',
   initialState: initialModalState,
   reducers: {
-    openModal: (state, action: { payload: TCurrentModal }) => action.payload,
+    openModal: (state, action: ICurrentModalAction) => action.payload,
     closeModal: () => null,
   },
 });

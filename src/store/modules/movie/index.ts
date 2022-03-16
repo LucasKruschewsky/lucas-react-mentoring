@@ -1,15 +1,13 @@
-import { IMoviesListData } from '@/data/MockedDataTypes';
 import { createSlice } from '@reduxjs/toolkit';
+import { ISelectedMovieAction, TSelectedMovieState } from './types';
 
-type TSelectedMovie = IMoviesListData | null;
-
-const selectedMovieInitialState = null as TSelectedMovie;
+const selectedMovieInitialState = null as TSelectedMovieState;
 
 export const selectedMovieSlice = createSlice({
   name: 'selectedMovie',
   initialState: selectedMovieInitialState,
   reducers: {
-    selectMovie: (state, action) => ({
+    selectMovie: (state, action: ISelectedMovieAction) => ({
       ...state,
       ...action.payload,
     }),
