@@ -1,10 +1,8 @@
 import * as React from 'react';
 import MovieCard from 'Components/MovieCard';
 import { IMoviesListData } from '@/data/MockedDataTypes';
-import { genreFilterList, moviesList } from '@/data/MockData';
+import { genreFilterList } from '@/data/MockData';
 import { sortedMoviesListState, TSortBy } from './types';
-
-const numberOfMoviesFound = moviesList.length;
 
 const showGenreFilters = (
   setStateFunction: React.Dispatch<React.SetStateAction<string>>,
@@ -20,6 +18,9 @@ const showGenreFilters = (
       {item}
     </button>
   ));
+
+const genresMap = (genres: string[]): React.ReactElement[] =>
+  genres.map((genre) => <p key={genre}>{genre}</p>);
 
 const showMovies = (sortedMovies: IMoviesListData[]): React.ReactElement[] =>
   sortedMovies?.map((movie: IMoviesListData) => (
@@ -61,7 +62,7 @@ const sortOptions = (): React.ReactElement[] =>
   ));
 
 export {
-  numberOfMoviesFound,
+  genresMap,
   showGenreFilters,
   showMovies,
   sortMovies,

@@ -53,8 +53,14 @@ const MovieInfo = styled.div`
       font-size: var(--body-1);
     }
 
-    p {
+    .movie-card-genres {
       font-size: 14px;
+      display: flex;
+      flex-wrap: wrap;
+
+      p {
+        margin-right: 0.5rem;
+      }
     }
   }
 

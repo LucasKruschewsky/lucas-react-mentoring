@@ -4,7 +4,6 @@ import AppContainer from 'Global/styled/AppContainer';
 import { useAxiosRequest } from '@/hooks/useAxiosRequest';
 import { Select } from 'Global/styled/InputAndLabel';
 import {
-  numberOfMoviesFound,
   showGenreFilters,
   showMovies,
   sortMovies,
@@ -77,7 +76,7 @@ const MovieList: React.FunctionComponent<IMovieListProps> = () => {
           </Select>
         </SortSection>
       </FiltersSection>
-      <MoviesFound>{numberOfMoviesFound} Movies Found</MoviesFound>
+      <MoviesFound>{moviesListApi.length} Movies Found</MoviesFound>
       <MoviesGrid cols={3}>{movieListItems}</MoviesGrid>
     </AppContainer>
   );

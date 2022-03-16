@@ -7,6 +7,7 @@ import { parseDate } from '@/functions/parseDate';
 import { TStoreDispatch } from '@/store/types';
 import { IMoviesListData } from '@/data/MockedDataTypes';
 import { openModal } from '@/store/modules/modal/actions';
+import { genresMap } from 'Components/MovieList/helper';
 import { MovieCardContainer, MovieInfo, MovieOptionsMenu } from './styles';
 import { buildMenuItems } from './helper';
 import { IMovieCardProps, IMovieCardStoreProps } from './types';
@@ -17,7 +18,7 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({
   openDeleteModal,
   openEditModal,
 }) => {
-  const { poster_path, genres, title, release_date } = movie;
+  const { poster_path, genres, title, release_date, id } = movie;
   const [isMouseOver, setIsMouseOver] = React.useState(false);
   const [isOptionsMenuOpen, setIsOptionsMenuOpen] = React.useState(false);
 
@@ -30,6 +31,8 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({
     () => buildMenuItems(openDeleteModal, openEditModal, setIsOptionsMenuOpen),
     [openDeleteModal, openEditModal]
   );
+
+  const genre = React.useMemo(() => genresMap(genres), [genres]);
 
   const showHoverEffect = React.useCallback(
     (): void => setIsMouseOver(true),
@@ -76,7 +79,9 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({
       <MovieInfo>
         <div>
           <h1>{title}</h1>
-          <p>{genres}</p>
+          <div className="movie-card-genres" id={`${id}-genres`}>
+            {genre}
+          </div>
         </div>
         <p>{parsedDate}</p>
       </MovieInfo>
