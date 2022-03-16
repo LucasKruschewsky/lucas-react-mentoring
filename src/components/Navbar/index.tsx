@@ -6,7 +6,7 @@ import { FaSearch } from 'react-icons/fa';
 import { useGlobalEventListener } from '@/hooks/useGlobalEventListener';
 import { addCssClassOnScroll } from '@/functions/addCssClassOnScroll';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeSelectedMovie } from '@/store/modules/movie';
+import { removeSelectedMovie } from '@/store/modules/selectedMovie';
 import { RootState } from '@/store/types';
 import { openModal } from '@/store/modules/modal';
 import { INavbarProps } from './types';

@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { useState } from 'react';
 import AppContainer from 'Global/styled/AppContainer';
-import { useAxiosRequest } from '@/hooks/useAxiosRequest';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/types';
 import { Select } from 'Global/styled/InputAndLabel';
 import {
   showGenreFilters,
@@ -22,9 +23,7 @@ const MovieList: React.FunctionComponent<IMovieListProps> = () => {
   const [activeFilter, setActiveFilter] = useState('All');
   const [activeSort, setActiveSort] = useState('none');
   const [sortedMoviesList, setSortedMoviesList] = useState([]);
-  const [moviesListApi, setMoviesListApi] = useState([]);
-
-  useAxiosRequest('/movies', 'get', setMoviesListApi);
+  const moviesListApi = useSelector((state: RootState) => state.movieList.list);
 
   const genreFilters = React.useMemo(
     () => showGenreFilters(setActiveFilter, activeFilter),
@@ -76,7 +75,7 @@ const MovieList: React.FunctionComponent<IMovieListProps> = () => {
           </Select>
         </SortSection>
       </FiltersSection>
-      <MoviesFound>{moviesListApi.length} Movies Found</MoviesFound>
+      <MoviesFound>{moviesListApi?.length} Movies Found</MoviesFound>
       <MoviesGrid cols={3}>{movieListItems}</MoviesGrid>
     </AppContainer>
   );

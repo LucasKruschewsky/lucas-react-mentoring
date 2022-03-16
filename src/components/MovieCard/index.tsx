@@ -4,7 +4,7 @@ import HandleClickOut from 'Components/HandleClickOut';
 import { parseDate } from '@/functions/parseDate';
 import { useDispatch } from 'react-redux';
 import { genresMap } from 'Components/MovieList/helper';
-import { selectMovie } from '@/store/modules/movie';
+import { selectMovie } from '@/store/modules/selectedMovie';
 import { openModal } from '@/store/modules/modal';
 import { MovieCardContainer, MovieInfo, MovieOptionsMenu } from './styles';
 import { buildMenuItems } from './helper';
