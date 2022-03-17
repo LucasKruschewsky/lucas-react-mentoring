@@ -34,6 +34,7 @@ const GenreFilters = styled.div`
 
 const SortSection = styled.div`
   display: flex;
+  align-items: center;
   text-transform: uppercase;
   font-size: 16px;
 
@@ -56,10 +57,16 @@ const SortSection = styled.div`
     display: flex;
     align-items: center;
     cursor: pointer;
+  }
 
-    img,
-    svg {
-      margin-left: 0.5rem;
+  img,
+  svg {
+    margin-left: 0.5rem;
+    cursor: pointer;
+
+    &#asc-desc-sort-icon {
+      transform: scale(1.5);
+      transform-origin: left;
     }
   }
 `;

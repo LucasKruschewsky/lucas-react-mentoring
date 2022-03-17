@@ -2,7 +2,6 @@ import * as React from 'react';
 import MovieCard from 'Components/MovieCard';
 import { IMoviesListData } from '@/data/MockedDataTypes';
 import { genreFilterList } from '@/data/MockData';
-import { sortedMoviesListState, TSortBy } from './types';
 
 const showGenreFilters = (
   setStateFunction: React.Dispatch<React.SetStateAction<string>>,
@@ -27,21 +26,13 @@ const showMovies = (sortedMovies: IMoviesListData[]): React.ReactElement[] =>
     <MovieCard key={movie.id} movie={movie} />
   ));
 
-const sortMovies = (
-  sortBy: TSortBy,
-  { moviesListApi, setSortedMoviesList }: sortedMoviesListState
-): void => {
-  setSortedMoviesList(
-    [...moviesListApi].sort((a, b) => (a[sortBy] < b[sortBy] ? -1 : 0))
-  );
-};
-
 const sortOptionsDropdown = [
   {
     optGroupLabel: 'Select an option',
     options: [
       { value: 'release_date', label: 'Release Date' },
       { value: 'title', label: 'A-Z' },
+      { value: 'vote_average', label: 'Rating' },
     ],
   },
   {
@@ -65,7 +56,6 @@ export {
   genresMap,
   showGenreFilters,
   showMovies,
-  sortMovies,
   sortOptionsDropdown,
   sortOptions,
 };

@@ -10,6 +10,17 @@ export const getAllMovies = createAsyncThunk(
   }
 );
 
+export const getSortedMovies = createAsyncThunk(
+  'movieList/getSortedMovies',
+  async ({ sortBy, sortOrder }: any) => {
+    const response = await api.get(
+      `/movies?sortBy=${sortBy}&sortOrder=${sortOrder}`
+    );
+
+    return response.data.data;
+  }
+);
+
 const movieListSlice = createSlice({
   name: 'movieList',
   initialState: {
@@ -29,6 +40,19 @@ const movieListSlice = createSlice({
         status: 'pending',
       }))
       .addCase(getAllMovies.rejected, (state) => ({
+        ...state,
+        status: 'failed',
+      }))
+      .addCase(getSortedMovies.fulfilled, (state, { payload }) => ({
+        ...state,
+        list: payload,
+        status: 'success',
+      }))
+      .addCase(getSortedMovies.pending, (state) => ({
+        ...state,
+        status: 'pending',
+      }))
+      .addCase(getSortedMovies.rejected, (state) => ({
         ...state,
         status: 'failed',
       }));

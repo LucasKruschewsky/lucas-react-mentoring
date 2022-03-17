@@ -1,15 +1,12 @@
 import * as React from 'react';
 import { useState } from 'react';
 import AppContainer from 'Global/styled/AppContainer';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { BsSortDown, BsSortUp } from 'react-icons/bs';
 import { RootState } from '@/store/types';
+import { getAllMovies, getSortedMovies } from '@/store/modules/movieList';
 import { Select } from 'Global/styled/InputAndLabel';
-import {
-  showGenreFilters,
-  showMovies,
-  sortMovies,
-  sortOptions,
-} from './helper';
+import { showGenreFilters, showMovies, sortOptions } from './helper';
 import { IMovieListProps } from './types';
 import {
   FiltersSection,
@@ -20,9 +17,10 @@ import {
 } from './styles';
 
 const MovieList: React.FunctionComponent<IMovieListProps> = () => {
+  const dispatch = useDispatch();
   const [activeFilter, setActiveFilter] = useState('All');
   const [activeSort, setActiveSort] = useState('none');
-  const [sortedMoviesList, setSortedMoviesList] = useState([]);
+  const [sortOrder, setSortOrder] = useState('desc');
   const moviesListApi = useSelector((state: RootState) => state.movieList.list);
 
   const genreFilters = React.useMemo(
@@ -33,28 +31,35 @@ const MovieList: React.FunctionComponent<IMovieListProps> = () => {
   const buildSortOptions = React.useMemo(() => sortOptions(), []);
 
   const movieListItems = React.useMemo(
-    () =>
-      sortedMoviesList.length
-        ? showMovies(sortedMoviesList)
-        : showMovies(moviesListApi),
-    [moviesListApi, sortedMoviesList]
+    () => showMovies(moviesListApi),
+    [moviesListApi]
   );
 
-  const removeFilters = React.useCallback(() => {
-    setActiveSort('none');
-    setSortedMoviesList([]);
-  }, []);
+  const toggleSortOrder = React.useCallback(() => {
+    if (sortOrder === 'asc') {
+      dispatch(getSortedMovies({ sortBy: activeSort, sortOrder: 'desc' }));
+      setSortOrder('desc');
+      return;
+    }
 
-  const sortMoviesCallback = React.useCallback(
-    (e) => {
-      setActiveSort(e.target.value);
+    // If sortOrder === 'desc'
+    dispatch(getSortedMovies({ sortBy: activeSort, sortOrder: 'asc' }));
+    setSortOrder('asc');
+  }, [sortOrder, dispatch, activeSort]);
+
+  const sortMovies = React.useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>): void => {
       if (e.target.value === 'remove-filters') {
-        removeFilters();
+        setActiveSort('none');
+        setSortOrder('desc');
+        dispatch(getAllMovies());
         return;
       }
-      sortMovies(e.target.value, { moviesListApi, setSortedMoviesList });
+
+      setActiveSort(e.target.value);
+      dispatch(getSortedMovies({ sortBy: e.target.value, sortOrder }));
     },
-    [moviesListApi, removeFilters]
+    [sortOrder, dispatch]
   );
 
   return (
@@ -65,7 +70,7 @@ const MovieList: React.FunctionComponent<IMovieListProps> = () => {
           <p>Sort by</p>
           <Select
             id="sort-movie-list-select"
-            onChange={sortMoviesCallback}
+            onChange={sortMovies}
             value={activeSort}
           >
             <option hidden value="none" disabled>
@@ -73,6 +78,11 @@ const MovieList: React.FunctionComponent<IMovieListProps> = () => {
             </option>
             {buildSortOptions}
           </Select>
+          {sortOrder === 'desc' ? (
+            <BsSortDown onClick={toggleSortOrder} id="asc-desc-sort-icon" />
+          ) : (
+            <BsSortUp onClick={toggleSortOrder} id="asc-desc-sort-icon" />
+          )}
         </SortSection>
       </FiltersSection>
       <MoviesFound>{moviesListApi?.length} Movies Found</MoviesFound>
