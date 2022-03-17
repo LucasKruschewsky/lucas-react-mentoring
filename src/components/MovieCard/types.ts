@@ -1,7 +1,7 @@
-import { IMoviesListData } from '@/data/MockedDataTypes';
+import { TMovieObject } from '@/store/modules/movieList/types';
 
 export interface IMovieCardProps {
-  movie: IMoviesListData;
+  movie: TMovieObject;
 }
 
 export interface IMovieCardContainer {

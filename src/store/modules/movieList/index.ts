@@ -1,5 +1,7 @@
 import { api } from '@/services/axiosConfig';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { requestUrlBuilder } from './helper';
+import { TGetFilteredMoviesParams } from './types';
 
 export const getAllMovies = createAsyncThunk(
   'movieList/getAllMovies',
@@ -10,11 +12,11 @@ export const getAllMovies = createAsyncThunk(
   }
 );
 
-export const getSortedMovies = createAsyncThunk(
-  'movieList/getSortedMovies',
-  async ({ sortBy, sortOrder }: any) => {
+export const getFilteredMovies = createAsyncThunk(
+  'movieList/getFilteredMovies',
+  async ({ sortBy, sortOrder, filterBy }: TGetFilteredMoviesParams) => {
     const response = await api.get(
-      `/movies?sortBy=${sortBy}&sortOrder=${sortOrder}`
+      requestUrlBuilder(sortBy, sortOrder, filterBy)
     );
 
     return response.data.data;
@@ -43,16 +45,16 @@ const movieListSlice = createSlice({
         ...state,
         status: 'failed',
       }))
-      .addCase(getSortedMovies.fulfilled, (state, { payload }) => ({
+      .addCase(getFilteredMovies.fulfilled, (state, { payload }) => ({
         ...state,
         list: payload,
         status: 'success',
       }))
-      .addCase(getSortedMovies.pending, (state) => ({
+      .addCase(getFilteredMovies.pending, (state) => ({
         ...state,
         status: 'pending',
       }))
-      .addCase(getSortedMovies.rejected, (state) => ({
+      .addCase(getFilteredMovies.rejected, (state) => ({
         ...state,
         status: 'failed',
       }));

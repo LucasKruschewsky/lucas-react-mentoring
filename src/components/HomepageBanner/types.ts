@@ -1,5 +1,5 @@
-import { IMoviesListData } from '@/data/MockedDataTypes';
+import { TMovieObject } from '@/store/modules/movieList/types';
 
 export interface IHomeBannerProps {
-  selectedMovie?: IMoviesListData;
+  selectedMovie?: TMovieObject;
 }

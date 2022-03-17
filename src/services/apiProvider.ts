@@ -1,4 +1,4 @@
-import { IMoviesListData } from '@/data/MockedDataTypes';
+import { TMovieList } from '@/store/modules/movieList/types';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const moviesApi = createApi({
@@ -6,7 +6,7 @@ export const moviesApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: process.env.API_URL }),
   tagTypes: ['Movies'],
   endpoints: (builder) => ({
-    getAllMovies: builder.query<{ data: IMoviesListData[] }, void>({
+    getAllMovies: builder.query<{ data: TMovieList }, void>({
       query: () => '/movies',
       providesTags: [{ type: 'Movies', id: 'LIST' }],
     }),

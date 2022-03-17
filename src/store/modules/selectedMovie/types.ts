@@ -1,7 +1,7 @@
-import { IMoviesListData } from '@/data/MockedDataTypes';
+import { TMovieObject } from '../movieList/types';
 
-export type TSelectedMovieState = IMoviesListData | null;
+export type TSelectedMovieState = TMovieObject | null;
 
 export interface ISelectedMovieAction {
-  payload: IMoviesListData;
+  payload: TMovieObject;
 }
