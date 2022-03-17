@@ -30,68 +30,27 @@ const MovieList: React.FunctionComponent<IMovieListProps> = () => {
 
   const toggleSortOrder = React.useCallback(() => {
     if (sortOrder === 'asc') {
-      dispatch(
-        getFilteredMovies({
-          sortBy: activeSort,
-          sortOrder: 'desc',
-          filterBy: activeFilter,
-        })
-      );
       setSortOrder('desc');
       return;
     }
 
     // If sortOrder === 'desc'
-    dispatch(
-      getFilteredMovies({
-        sortBy: activeSort,
-        sortOrder: 'asc',
-        filterBy: activeFilter,
-      })
-    );
     setSortOrder('asc');
-  }, [sortOrder, dispatch, activeSort, activeFilter]);
+  }, [sortOrder]);
 
-  const sortMovies = React.useCallback(
-    (event): void => {
-      if (event.target.value === 'remove-filters') {
-        setActiveSort('none');
-        setSortOrder('desc');
-        dispatch(
-          getFilteredMovies({
-            sortBy: 'none',
-            sortOrder: 'desc',
-            filterBy: activeFilter,
-          })
-        );
-        return;
-      }
+  const sortMovies = React.useCallback((event): void => {
+    if (event.target.value === 'remove-filters') {
+      setActiveSort('none');
+      setSortOrder('desc');
+      return;
+    }
 
-      setActiveSort(event.target.value);
-      dispatch(
-        getFilteredMovies({
-          sortBy: event.target.value,
-          sortOrder,
-          filterBy: activeFilter,
-        })
-      );
-    },
-    [sortOrder, dispatch, activeFilter]
-  );
+    setActiveSort(event.target.value);
+  }, []);
 
-  const filterMovies = React.useCallback(
-    (event) => {
-      setActiveFilter(event.target.value);
-      dispatch(
-        getFilteredMovies({
-          sortBy: activeSort,
-          sortOrder,
-          filterBy: event.target.value,
-        })
-      );
-    },
-    [dispatch, activeSort, sortOrder]
-  );
+  const filterMovies = React.useCallback((event) => {
+    setActiveFilter(event.target.value);
+  }, []);
 
   const genreFilters = React.useMemo(
     () =>
@@ -115,6 +74,16 @@ const MovieList: React.FunctionComponent<IMovieListProps> = () => {
   );
 
   const buildSortOptions = React.useMemo(() => sortOptions(), []);
+
+  React.useEffect(() => {
+    dispatch(
+      getFilteredMovies({
+        sortBy: activeSort,
+        sortOrder,
+        filterBy: activeFilter,
+      })
+    );
+  }, [activeFilter, activeSort, sortOrder, dispatch]);
 
   return (
     <AppContainer>

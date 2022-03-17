@@ -14,7 +14,7 @@ export const requestUrlBuilder = (
   filterBy: TMovieFilterBy
 ): string => {
   const sortByQuery = sortBy === 'none' ? '' : `sortBy=${sortBy}&`;
-  const sortOrderQuery = `sortOrder=${sortOrder}`;
+  const sortOrderQuery = sortBy === 'none' ? '' : `sortOrder=${sortOrder}`;
   const filterByQuery = filterBy === 'All' ? '' : `&filter=${filterBy}`;
 
   return `/movies?${sortByQuery}${sortOrderQuery}${filterByQuery}`;
