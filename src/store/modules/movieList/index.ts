@@ -1,5 +1,4 @@
 import { useAxiosRequest } from '@/hooks/useAxiosRequest';
-import { api } from '@/services/axiosConfig';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { requestUrlBuilder } from './helper';
 import { TGetFilteredMoviesParams } from './types';
@@ -16,8 +15,9 @@ export const getAllMovies = createAsyncThunk(
 export const getFilteredMovies = createAsyncThunk(
   'movieList/getFilteredMovies',
   async ({ sortBy, sortOrder, filterBy }: TGetFilteredMoviesParams) => {
-    const response = await api.get(
-      requestUrlBuilder(sortBy, sortOrder, filterBy)
+    const response = await useAxiosRequest(
+      requestUrlBuilder(sortBy, sortOrder, filterBy),
+      'get'
     );
 
     return response.data.data;
