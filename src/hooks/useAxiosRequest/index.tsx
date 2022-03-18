@@ -1,17 +1,13 @@
 import { api } from '@/services/axiosConfig';
-import * as React from 'react';
 import { TApiEndpoints, TApiMethods } from './types';
 
-export const useAxiosRequest = (
+export const useAxiosRequest = async (
   apiEndpoint: TApiEndpoints,
-  method: TApiMethods,
-  setComponentState: React.Dispatch<React.SetStateAction<object>>
-): void => {
-  React.useEffect(() => {
-    if (method === 'get') {
-      api
-        .get<any>(apiEndpoint)
-        .then((response) => setComponentState(response.data.data));
-    }
-  }, [method, apiEndpoint, setComponentState]);
+  method: TApiMethods
+): Promise<any> => {
+  if (method === 'get') {
+    return api.get<any>(apiEndpoint).then((response) => response);
+  }
+
+  throw new Error('Invalid method');
 };
