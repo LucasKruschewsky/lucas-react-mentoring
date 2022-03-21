@@ -10,6 +10,11 @@ export type TMovieObject = {
 };
 export type TMovieList = TMovieObject[];
 
+export type TMovieListState = {
+  list: TMovieList;
+  status: 'success' | 'pending' | 'failed';
+};
+
 export type TMovieSortOrder = 'asc' | 'desc';
 export type TMovieSortBy = 'none' | 'release_date' | 'vote_average' | 'title';
 

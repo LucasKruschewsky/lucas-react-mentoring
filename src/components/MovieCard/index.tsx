@@ -5,7 +5,6 @@ import { parseDate } from '@/functions/parseDate';
 import { useDispatch } from 'react-redux';
 import { genresMap } from 'Components/MovieList/helper';
 import { selectMovie } from '@/store/modules/selectedMovie';
-import { openModal } from '@/store/modules/modal';
 import { MovieCardContainer, MovieInfo, MovieOptionsMenu } from './styles';
 import { buildMenuItems } from './helper';
 import { IMovieCardProps } from './types';
@@ -21,19 +20,9 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({ movie }) => {
     [movie, dispatch]
   );
 
-  const openDeleteModal = React.useCallback(
-    () => dispatch(openModal('delete')),
-    [dispatch]
-  );
-
-  const openEditModal = React.useCallback(
-    () => dispatch(openModal('edit')),
-    [dispatch]
-  );
-
   const optionsMenuItems = React.useMemo(
-    () => buildMenuItems(openDeleteModal, openEditModal, setIsOptionsMenuOpen),
-    [openDeleteModal, openEditModal]
+    () => buildMenuItems(setIsOptionsMenuOpen, dispatch, id),
+    [dispatch, id]
   );
 
   const genre = React.useMemo(() => genresMap(genres), [genres]);

@@ -1,7 +1,7 @@
 import { useAxiosRequest } from '@/hooks/useAxiosRequest';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { requestUrlBuilder } from './helper';
-import { TGetFilteredMoviesParams } from './types';
+import { TGetFilteredMoviesParams, TMovieListState } from './types';
 
 export const getAllMovies = createAsyncThunk(
   'movieList/getAllMovies',
@@ -24,12 +24,14 @@ export const getFilteredMovies = createAsyncThunk(
   }
 );
 
+const movieListInitialState: TMovieListState = {
+  list: [],
+  status: null,
+};
+
 const movieListSlice = createSlice({
   name: 'movieList',
-  initialState: {
-    list: [],
-    status: null,
-  },
+  initialState: movieListInitialState,
   reducers: {},
   extraReducers: (builder) => {
     builder

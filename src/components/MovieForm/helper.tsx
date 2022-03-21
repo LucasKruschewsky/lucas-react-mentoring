@@ -123,3 +123,10 @@ export const addAndEditFormFields = movieFormFields.addAndEdit.map(
     );
   }
 );
+
+// Temporary handle submit form
+export const handleSubmitForm = (values: any, actions: any): void => {
+  console.log({ values, actions });
+  alert(JSON.stringify(values, null, 2));
+  actions.setSubmitting(false);
+};

@@ -1,5 +1,8 @@
+import { TMovieObject } from '@/store/modules/movieList/types';
+
 export interface IMovieFormProps {
   type: 'add' | 'edit' | 'delete';
+  movieId?: TMovieObject['id'];
 }
 
 export interface IMovieFormFields {
