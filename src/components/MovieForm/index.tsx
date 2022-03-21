@@ -38,7 +38,7 @@ const MovieForm: React.FunctionComponent<IMovieFormProps> = ({
               {addAndEditFormFields}
               <ButtonRow>
                 <AppButton buttonStyle="defaultOutlined">Reset</AppButton>
-                <AppButton>Submit</AppButton>
+                <AppButton type="submit">Submit</AppButton>
               </ButtonRow>
             </Form>
           </Formik>
@@ -48,7 +48,7 @@ const MovieForm: React.FunctionComponent<IMovieFormProps> = ({
         <FormContainer>
           <p>Are you sure you want to delete this movie?</p>
           <ButtonRow>
-            <AppButton>Confirm</AppButton>
+            <AppButton type="submit">Confirm</AppButton>
           </ButtonRow>
         </FormContainer>
       )}
