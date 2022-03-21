@@ -1,12 +1,14 @@
 import styled from 'styled-components';
 
-export const Form = styled.form`
-  display: grid;
-  grid-gap: 1.5rem 1rem;
-  grid-template-columns: 4fr 2fr;
+export const FormContainer = styled.div`
+  form {
+    display: grid;
+    grid-gap: 1.5rem 1rem;
+    grid-template-columns: 4fr 2fr;
 
-  #add-movie-textarea {
-    grid-column: 1 / -1;
+    #add-movie-textarea {
+      grid-column: 1 / -1;
+    }
   }
 `;
 

@@ -5,6 +5,7 @@ export interface IMovieFormProps {
 export interface IMovieFormFields {
   addAndEdit: {
     label: string;
+    name: string;
     type: 'text' | 'textarea' | 'select' | 'date';
     placeholder: string;
     options?: string[];

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BsSortDown, BsSortUp } from 'react-icons/bs';
 import { RootState } from '@/store/types';
 import { getFilteredMovies } from '@/store/modules/movieList';
-import { Select } from 'Global/styled/InputAndLabel';
+import { SelectWrapper } from 'Global/styled/InputAndLabel';
 import {
   TMovieFilterBy,
   TMovieSortBy,
@@ -91,16 +91,18 @@ const MovieList: React.FunctionComponent<IMovieListProps> = () => {
         <GenreFilters>{genreFilters}</GenreFilters>
         <SortSection>
           <p>Sort by</p>
-          <Select
-            id="sort-movie-list-select"
-            onChange={sortMovies}
-            value={activeSort}
-          >
-            <option hidden value="none" disabled>
-              Select an option
-            </option>
-            {buildSortOptions}
-          </Select>
+          <SelectWrapper>
+            <select
+              id="sort-movie-list-select"
+              onChange={sortMovies}
+              value={activeSort}
+            >
+              <option hidden value="none" disabled>
+                Select an option
+              </option>
+              {buildSortOptions}
+            </select>
+          </SelectWrapper>
           {sortOrder === 'desc' ? (
             <BsSortDown onClick={toggleSortOrder} id="asc-desc-sort-icon" />
           ) : (
