@@ -32,7 +32,8 @@
     "react-icons": "^4.3.1",
     "react-redux": "^7.2.6",
     "redux": "^4.1.2",
-    "styled-components": "^5.3.3"
+    "styled-components": "^5.3.3",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.17.4",

@@ -1,24 +1,44 @@
 import * as React from 'react';
+import * as Yup from 'yup';
+import { axiosRequest } from '@/functions/axiosRequest';
 import {
   InputWrapper,
   Label,
   TextAreaWrapper,
   SelectWrapper,
 } from 'Global/styled/InputAndLabel';
-import { Field } from 'formik';
+import {
+  Field,
+  FormikErrors,
+  FormikHelpers,
+  FormikTouched,
+  FormikValues,
+} from 'formik';
 import { TMovieObject } from '@/store/modules/movieList/types';
-import { IMovieFormFields, IMovieFormProps } from './types';
+import { TStoreDispatch } from '@/store/types';
+import { closeModal } from '@/store/modules/modal';
+import { getAllMovies } from '@/store/modules/movieList';
+import { IAddAndEditFields, IMovieFormFields, IMovieFormProps } from './types';
 
 export const emptyMovieObject: TMovieObject = {
   title: '',
+  vote_average: 0,
   release_date: '',
-  genres: [],
   poster_path: '',
-  vote_average: '',
-  runtime: '',
   overview: '',
-  id: '',
+  runtime: 0,
+  genres: ['Comedy', 'Drama', 'Romance'],
 };
+
+export const formValidationSchema = Yup.object().shape({
+  title: Yup.string().max(50, 'Title is too long').required(),
+  release_date: Yup.string().required(),
+  genres: Yup.array().of(Yup.string()),
+  poster_path: Yup.string().required(),
+  vote_average: Yup.number(),
+  runtime: Yup.number().required(),
+  overview: Yup.string().required(),
+});
 
 const movieFormFields: IMovieFormFields = {
   addAndEdit: [
@@ -43,7 +63,7 @@ const movieFormFields: IMovieFormFields = {
     {
       label: 'Rating',
       name: 'vote_average',
-      type: 'text',
+      type: 'number',
       placeholder: '7.8',
     },
     {
@@ -55,7 +75,7 @@ const movieFormFields: IMovieFormFields = {
     {
       label: 'Runtime',
       name: 'runtime',
-      type: 'text',
+      type: 'number',
       placeholder: 'minutes',
     },
     {
@@ -75,8 +95,20 @@ export const showFormTitle = (type: IMovieFormProps['type']): string => {
   return 'Form Title';
 };
 
-export const addAndEditFormFields = movieFormFields.addAndEdit.map(
-  (field): React.ReactElement => {
+export const displayFormikError = (
+  errors: FormikErrors<FormikValues>,
+  touched: FormikTouched<FormikValues>,
+  field: IAddAndEditFields
+): React.ReactElement =>
+  errors[field.name] && touched[field.name] ? (
+    <div className="formik-error-message">{errors[field.name]}</div>
+  ) : null;
+
+export const addAndEditFormFields = (
+  errors: FormikErrors<FormikValues>,
+  touched: FormikTouched<FormikValues>
+): React.ReactElement[] =>
+  movieFormFields.addAndEdit.map((field): React.ReactElement => {
     if (field.type === 'textarea') {
       return (
         <Label key={`${field.label}-${field.type}`} id="add-movie-textarea">
@@ -89,6 +121,9 @@ export const addAndEditFormFields = movieFormFields.addAndEdit.map(
               placeholder={field.placeholder}
             />
           </TextAreaWrapper>
+          {errors[field.name] && touched[field.name] ? (
+            <div className="formik-error-message">{errors[field.name]}</div>
+          ) : null}
         </Label>
       );
     }
@@ -104,6 +139,9 @@ export const addAndEditFormFields = movieFormFields.addAndEdit.map(
               </option>
             </Field>
           </SelectWrapper>
+          {errors[field.name] && touched[field.name] ? (
+            <div className="formik-error-message">{errors[field.name]}</div>
+          ) : null}
         </Label>
       );
     }
@@ -119,14 +157,50 @@ export const addAndEditFormFields = movieFormFields.addAndEdit.map(
             placeholder={field.placeholder}
           />
         </InputWrapper>
+        {errors[field.name] && touched[field.name] ? (
+          <div className="formik-error-message">{errors[field.name]}</div>
+        ) : null}
       </Label>
     );
-  }
-);
+  });
 
 // Temporary handle submit form
-export const handleSubmitForm = (values: any, actions: any): void => {
+// Try catch will be handled inside axiosRequest at some point
+export const handleSubmitCreateEdit = async (
+  values: TMovieObject,
+  actions: FormikHelpers<FormikValues>,
+  dispatch: TStoreDispatch
+): Promise<void> => {
+  try {
+    if (values.id) {
+      await axiosRequest('/movies', 'put', { ...values });
+    } else {
+      await axiosRequest('/movies', 'post', { ...values });
+    }
+
+    dispatch(closeModal());
+    dispatch(getAllMovies());
+    actions.setSubmitting(false);
+  } catch (e) {
+    console.log(e);
+    actions.setSubmitting(false);
+  }
+};
+
+export const handleSubmitDelete = async (
+  values: TMovieObject,
+  actions: FormikHelpers<FormikValues>,
+  dispatch: TStoreDispatch
+): Promise<void> => {
+  await axiosRequest(`/movies/${values.id}`, 'delete');
+  dispatch(closeModal());
+  dispatch(getAllMovies());
+  actions.setSubmitting(false);
+};
+
+// Example handle submit formik
+/**
   console.log({ values, actions });
   alert(JSON.stringify(values, null, 2));
   actions.setSubmitting(false);
-};
+ */

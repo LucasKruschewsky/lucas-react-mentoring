@@ -62,4 +62,10 @@ export const Label = styled.label`
   p {
     margin-bottom: 0.7rem;
   }
+
+  .formik-error-message {
+    margin-top: 1rem;
+    font-size: 12px;
+    text-decoration: underline;
+  }
 `;

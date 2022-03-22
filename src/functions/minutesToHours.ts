@@ -5,7 +5,7 @@
  * @returns string with minutes equivalent in hours
  */
 
-export const minutesToHours = (minutes: string): string => {
+export const minutesToHours = (minutes: string | number): string => {
   const hours = Math.floor(Number(minutes) / 60);
   const mins = Math.floor(Number(minutes) - 60 * hours);
   return `${hours}h ${mins}min`;

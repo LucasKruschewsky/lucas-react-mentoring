@@ -3,10 +3,10 @@ export type TMovieObject = {
   release_date: string;
   genres: string[];
   poster_path: string;
-  vote_average: string;
-  runtime: string;
+  vote_average: number;
+  runtime: number;
   overview: string;
-  id: number | '';
+  id?: number;
 };
 export type TMovieList = TMovieObject[];
 

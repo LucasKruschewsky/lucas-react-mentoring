@@ -5,13 +5,15 @@ export interface IMovieFormProps {
   movieId?: TMovieObject['id'];
 }
 
+export interface IAddAndEditFields {
+  label: string;
+  name: string;
+  type: 'text' | 'textarea' | 'select' | 'date' | 'number';
+  placeholder: string;
+  options?: string[];
+  id?: string;
+}
+
 export interface IMovieFormFields {
-  addAndEdit: {
-    label: string;
-    name: string;
-    type: 'text' | 'textarea' | 'select' | 'date';
-    placeholder: string;
-    options?: string[];
-    id?: string;
-  }[];
+  addAndEdit: IAddAndEditFields[];
 }
