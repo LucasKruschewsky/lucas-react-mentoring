@@ -1,7 +1,12 @@
 import { axiosRequest } from '@/functions/axiosRequest';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { ALL, DESC, NONE } from './constants';
 import { requestUrlBuilder } from './helper';
-import { TGetFilteredMoviesParams, TMovieListState } from './types';
+import {
+  IMovieListAction,
+  TGetFilteredMoviesParams,
+  TMovieListState,
+} from './types';
 
 export const getAllMovies = createAsyncThunk(
   'movieList/getAllMovies',
@@ -26,13 +31,23 @@ export const getFilteredMovies = createAsyncThunk(
 
 const movieListInitialState: TMovieListState = {
   list: [],
+  activeFilters: {
+    sortBy: NONE,
+    sortOrder: DESC,
+    filterBy: ALL,
+  },
   status: null,
 };
 
 const movieListSlice = createSlice({
   name: 'movieList',
   initialState: movieListInitialState,
-  reducers: {},
+  reducers: {
+    changeActiveMovieFilters: (state, action: IMovieListAction) => ({
+      ...state,
+      activeFilters: { ...state.activeFilters, ...action.payload },
+    }),
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getAllMovies.fulfilled, (state, { payload }) => ({
@@ -63,6 +78,9 @@ const movieListSlice = createSlice({
       }));
   },
 });
+
+// Action creators
+export const { changeActiveMovieFilters } = movieListSlice.actions;
 
 // Reducer
 export const movieListReducer = movieListSlice.reducer;

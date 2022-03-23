@@ -1,3 +1,4 @@
+import { ALL, NONE } from './constants';
 import { TMovieFilterBy, TMovieSortBy, TMovieSortOrder } from './types';
 
 /**
@@ -13,9 +14,9 @@ export const requestUrlBuilder = (
   sortOrder: TMovieSortOrder,
   filterBy: TMovieFilterBy
 ): string => {
-  const sortByQuery = sortBy === 'none' ? '' : `sortBy=${sortBy}&`;
-  const sortOrderQuery = sortBy === 'none' ? '' : `sortOrder=${sortOrder}`;
-  const filterByQuery = filterBy === 'All' ? '' : `&filter=${filterBy}`;
+  const sortByQuery = sortBy === NONE ? '' : `sortBy=${sortBy}&`;
+  const sortOrderQuery = sortBy === NONE ? '' : `sortOrder=${sortOrder}`;
+  const filterByQuery = filterBy === ALL ? '' : `&filter=${filterBy}`;
 
   return `/movies?${sortByQuery}${sortOrderQuery}${filterByQuery}`;
 };

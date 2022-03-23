@@ -1,16 +1,14 @@
 import * as React from 'react';
-import { useState } from 'react';
 import AppContainer from 'Global/styled/AppContainer';
 import { useDispatch, useSelector } from 'react-redux';
 import { BsSortDown, BsSortUp } from 'react-icons/bs';
 import { RootState } from '@/store/types';
-import { getFilteredMovies } from '@/store/modules/movieList';
-import { SelectWrapper } from 'Global/styled/InputAndLabel';
 import {
-  TMovieFilterBy,
-  TMovieSortBy,
-  TMovieSortOrder,
-} from '@/store/modules/movieList/types';
+  changeActiveMovieFilters,
+  getFilteredMovies,
+} from '@/store/modules/movieList';
+import { ASC, DESC, NONE } from '@/store/modules/movieList/constants';
+import { SelectWrapper } from 'Global/styled/InputAndLabel';
 import { showMovies, sortOptions, genreFilterList } from './helper';
 import { IMovieListProps } from './types';
 import {
@@ -23,34 +21,38 @@ import {
 
 const MovieList: React.FunctionComponent<IMovieListProps> = () => {
   const dispatch = useDispatch();
-  const [activeFilter, setActiveFilter] = useState<TMovieFilterBy>('All');
-  const [activeSort, setActiveSort] = useState<TMovieSortBy>('none');
-  const [sortOrder, setSortOrder] = useState<TMovieSortOrder>('desc');
-  const moviesListApi = useSelector((state: RootState) => state.movieList.list);
+  const { activeFilters, list: moviesListApi } = useSelector(
+    (state: RootState) => state.movieList
+  );
 
   const toggleSortOrder = React.useCallback(() => {
-    if (sortOrder === 'asc') {
-      setSortOrder('desc');
+    if (activeFilters.sortOrder === ASC) {
+      dispatch(changeActiveMovieFilters({ sortOrder: DESC }));
       return;
     }
 
-    // If sortOrder === 'desc'
-    setSortOrder('asc');
-  }, [sortOrder]);
+    // If sortOrder === DESC
+    dispatch(changeActiveMovieFilters({ sortOrder: ASC }));
+  }, [dispatch, activeFilters.sortOrder]);
 
-  const sortMovies = React.useCallback((event): void => {
-    if (event.target.value === 'remove-filters') {
-      setActiveSort('none');
-      setSortOrder('desc');
-      return;
-    }
+  const sortMovies = React.useCallback(
+    (event): void => {
+      if (event.target.value === 'remove-filters') {
+        dispatch(changeActiveMovieFilters({ sortBy: NONE, sortOrder: DESC }));
+        return;
+      }
 
-    setActiveSort(event.target.value);
-  }, []);
+      dispatch(changeActiveMovieFilters({ sortBy: event.target.value }));
+    },
+    [dispatch]
+  );
 
-  const filterMovies = React.useCallback((event) => {
-    setActiveFilter(event.target.value);
-  }, []);
+  const filterMovies = React.useCallback(
+    (event) => {
+      dispatch(changeActiveMovieFilters({ filterBy: event.target.value }));
+    },
+    [dispatch]
+  );
 
   const genreFilters = React.useMemo(
     () =>
@@ -60,12 +62,12 @@ const MovieList: React.FunctionComponent<IMovieListProps> = () => {
           onClick={filterMovies}
           key={item}
           value={item}
-          className={activeFilter === item ? 'is-selected' : ''}
+          className={activeFilters.filterBy === item ? 'is-selected' : ''}
         >
           {item}
         </button>
       )),
-    [activeFilter, filterMovies]
+    [activeFilters.filterBy, filterMovies]
   );
 
   const movieListItems = React.useMemo(
@@ -78,12 +80,12 @@ const MovieList: React.FunctionComponent<IMovieListProps> = () => {
   React.useEffect(() => {
     dispatch(
       getFilteredMovies({
-        sortBy: activeSort,
-        sortOrder,
-        filterBy: activeFilter,
+        sortBy: activeFilters.sortBy,
+        sortOrder: activeFilters.sortOrder,
+        filterBy: activeFilters.filterBy,
       })
     );
-  }, [activeFilter, activeSort, sortOrder, dispatch]);
+  }, [activeFilters, dispatch]);
 
   return (
     <AppContainer>
@@ -95,15 +97,15 @@ const MovieList: React.FunctionComponent<IMovieListProps> = () => {
             <select
               id="sort-movie-list-select"
               onChange={sortMovies}
-              value={activeSort}
+              value={activeFilters.sortBy}
             >
-              <option hidden value="none" disabled>
+              <option hidden value={NONE} disabled>
                 Select an option
               </option>
               {buildSortOptions}
             </select>
           </SelectWrapper>
-          {sortOrder === 'desc' ? (
+          {activeFilters.sortOrder === DESC ? (
             <BsSortDown onClick={toggleSortOrder} id="asc-desc-sort-icon" />
           ) : (
             <BsSortUp onClick={toggleSortOrder} id="asc-desc-sort-icon" />

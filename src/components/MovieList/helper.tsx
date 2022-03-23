@@ -4,6 +4,16 @@ import {
   TMovieGenreFilters,
   TMovieList,
 } from '@/store/modules/movieList/types';
+import {
+  ALL,
+  COMEDY,
+  CRIME,
+  DOCUMENTARY,
+  HORROR,
+  RELEASE_DATE,
+  TITLE,
+  VOTE_AVERAGE,
+} from '@/store/modules/movieList/constants';
 
 export const genresMap = (genres: string[]): React.ReactElement[] =>
   genres.map((genre) => <p key={genre}>{genre}</p>);
@@ -15,9 +25,9 @@ export const sortOptionsDropdown = [
   {
     optGroupLabel: 'Select an option',
     options: [
-      { value: 'release_date', label: 'Release Date' },
-      { value: 'title', label: 'A-Z' },
-      { value: 'vote_average', label: 'Rating' },
+      { value: RELEASE_DATE, label: 'Release Date' },
+      { value: TITLE, label: 'A-Z' },
+      { value: VOTE_AVERAGE, label: 'Rating' },
     ],
   },
   {
@@ -38,9 +48,9 @@ export const sortOptions = (): React.ReactElement[] =>
   ));
 
 export const genreFilterList: TMovieGenreFilters = [
-  'All',
-  'Documentary',
-  'Comedy',
-  'Horror',
-  'Crime',
+  ALL,
+  DOCUMENTARY,
+  COMEDY,
+  HORROR,
+  CRIME,
 ];

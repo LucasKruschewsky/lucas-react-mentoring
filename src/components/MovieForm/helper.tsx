@@ -182,7 +182,6 @@ export const handleSubmitCreateEdit = async (
     dispatch(getAllMovies());
     actions.setSubmitting(false);
   } catch (e) {
-    console.log(e);
     actions.setSubmitting(false);
   }
 };
