@@ -77,9 +77,9 @@ const MovieList: React.FunctionComponent<IMovieListProps> = () => {
 
   const buildSortOptions = React.useMemo(() => sortOptions(), []);
 
-  React.useEffect(() => {
+  React.useEffect((): any => {
     dispatch(getFilteredMovies());
-  }, [activeFilters, dispatch]);
+  }, [dispatch, activeFilters]);
 
   return (
     <AppContainer>

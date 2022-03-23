@@ -5,6 +5,8 @@ import Homepage from '@/pages/Homepage';
 import AppModalHandler from 'Components/ModalHandler';
 import { Provider } from 'react-redux';
 import store from '@/store';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App: React.FunctionComponent = () => (
   <Provider store={store}>
@@ -12,6 +14,7 @@ const App: React.FunctionComponent = () => (
     <Homepage />
     <Footer />
     <AppModalHandler />
+    <ToastContainer theme="colored" />
   </Provider>
 );
 

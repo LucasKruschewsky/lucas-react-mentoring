@@ -19,7 +19,7 @@ export const getFilteredMovies = createAsyncThunk<
   void,
   { state: RootState }
 >('movieList/getFilteredMovies', async (_, { getState }) => {
-  const { filterBy, sortBy, sortOrder } = getState().movieList.activeFilters;
+  const { sortBy, sortOrder, filterBy } = getState().movieList.activeFilters;
 
   const response = await axiosRequest(
     requestUrlBuilder(sortBy, sortOrder, filterBy),

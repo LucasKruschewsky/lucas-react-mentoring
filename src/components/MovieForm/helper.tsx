@@ -17,7 +17,7 @@ import {
 import { TMovieObject } from '@/store/modules/movieList/types';
 import { TStoreDispatch } from '@/store/types';
 import { closeModal } from '@/store/modules/modal';
-import { getAllMovies } from '@/store/modules/movieList';
+import { getFilteredMovies } from '@/store/modules/movieList';
 import { IAddAndEditFields, IMovieFormFields, IMovieFormProps } from './types';
 
 export const emptyMovieObject: TMovieObject = {
@@ -164,6 +164,16 @@ export const addAndEditFormFields = (
     );
   });
 
+const onSuccessfulRequest = (
+  responseStatus: number,
+  dispatch: TStoreDispatch
+): void => {
+  if (responseStatus < 400) {
+    dispatch(closeModal());
+    dispatch(getFilteredMovies());
+  }
+};
+
 // Temporary handle submit form
 // Try catch will be handled inside axiosRequest at some point
 export const handleSubmitCreateEdit = async (
@@ -171,19 +181,15 @@ export const handleSubmitCreateEdit = async (
   actions: FormikHelpers<FormikValues>,
   dispatch: TStoreDispatch
 ): Promise<void> => {
-  try {
-    if (values.id) {
-      await axiosRequest('/movies', 'put', { ...values });
-    } else {
-      await axiosRequest('/movies', 'post', { ...values });
-    }
-
-    dispatch(closeModal());
-    dispatch(getAllMovies());
-    actions.setSubmitting(false);
-  } catch (e) {
-    actions.setSubmitting(false);
+  let response;
+  if (values.id) {
+    response = await axiosRequest('/movies', 'put', { ...values });
+  } else {
+    response = await axiosRequest('/movies', 'post', { ...values });
   }
+
+  actions.setSubmitting(false);
+  onSuccessfulRequest(response.status, dispatch);
 };
 
 export const handleSubmitDelete = async (
@@ -191,15 +197,9 @@ export const handleSubmitDelete = async (
   actions: FormikHelpers<FormikValues>,
   dispatch: TStoreDispatch
 ): Promise<void> => {
-  await axiosRequest(`/movies/${values.id}`, 'delete');
-  dispatch(closeModal());
-  dispatch(getAllMovies());
-  actions.setSubmitting(false);
-};
+  const response = await axiosRequest(`/movies/${values.id}`, 'delete');
 
-// Example handle submit formik
-/**
-  console.log({ values, actions });
-  alert(JSON.stringify(values, null, 2));
   actions.setSubmitting(false);
- */
+
+  onSuccessfulRequest(response.status, dispatch);
+};
