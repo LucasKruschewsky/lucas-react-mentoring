@@ -12,6 +12,17 @@ const handleRequestStatus = (response: AxiosResponse): AxiosResponse => {
   return response;
 };
 
+/**
+ * This function will receive an api endpoint, an axios method and
+ * a object to be added/modified (only on put/delete/post)
+ * and will return an axios response. If the response has a status
+ * equal or higher then 400, it will also run a toast notification
+ * for each error message inside the response
+ * @param apiEndpoint
+ * @param method (Axios methods)
+ * @param movie (Object on post/put/delete)
+ * @returns an axios response
+ */
 export const axiosRequest = async (
   apiEndpoint: TApiEndpoints,
   method: TApiMethods,
