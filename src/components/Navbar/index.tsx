@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { removeSelectedMovie } from '@/store/modules/selectedMovie';
 import { RootState } from '@/store/types';
 import { openModal } from '@/store/modules/modal';
+import { ADD } from '@/store/modules/modal/constants';
 import { INavbarProps } from './types';
 import NavContainer from './styles';
 
@@ -30,7 +31,7 @@ const Navbar: React.FunctionComponent<INavbarProps> = () => {
     [dispatch]
   );
   const openAddModal: () => void = React.useCallback(
-    () => dispatch(openModal('add')),
+    () => dispatch(openModal(ADD)),
     [dispatch]
   );
 

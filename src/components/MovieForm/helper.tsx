@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Input, Label, TextArea, Select } from 'Global/styled/InputAndLabel';
+import { ADD, DELETE, EDIT } from '@/store/modules/modal/constants';
 import { IMovieFormFields, IMovieFormProps } from './types';
 
 const movieFormFields: IMovieFormFields = {
@@ -43,9 +44,9 @@ const movieFormFields: IMovieFormFields = {
 };
 
 export const showFormTitle = (type: IMovieFormProps['type']): string => {
-  if (type === 'add') return 'Add Movie';
-  if (type === 'edit') return 'Edit Movie';
-  if (type === 'delete') return 'Delete Movie';
+  if (type === ADD) return 'Add Movie';
+  if (type === EDIT) return 'Edit Movie';
+  if (type === DELETE) return 'Delete Movie';
 
   return 'Form Title';
 };

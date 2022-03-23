@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { genresMap } from 'Components/MovieList/helper';
 import { selectMovie } from '@/store/modules/selectedMovie';
 import { openModal } from '@/store/modules/modal';
+import { DELETE, EDIT } from '@/store/modules/modal/constants';
 import { MovieCardContainer, MovieInfo, MovieOptionsMenu } from './styles';
 import { buildMenuItems } from './helper';
 import { IMovieCardProps } from './types';
@@ -22,12 +23,12 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({ movie }) => {
   );
 
   const openDeleteModal = React.useCallback(
-    () => dispatch(openModal('delete')),
+    () => dispatch(openModal(DELETE)),
     [dispatch]
   );
 
   const openEditModal = React.useCallback(
-    () => dispatch(openModal('edit')),
+    () => dispatch(openModal(EDIT)),
     [dispatch]
   );
 
