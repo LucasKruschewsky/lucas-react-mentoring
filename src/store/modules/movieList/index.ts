@@ -1,12 +1,9 @@
 import { axiosRequest } from '@/functions/axiosRequest';
+import { RootState } from '@/store/types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { ALL, DESC, NONE } from './constants';
 import { requestUrlBuilder } from './helper';
-import {
-  IMovieListAction,
-  TGetFilteredMoviesParams,
-  TMovieListState,
-} from './types';
+import { IMovieListAction, TMovieList, TMovieListState } from './types';
 
 export const getAllMovies = createAsyncThunk(
   'movieList/getAllMovies',
@@ -17,17 +14,20 @@ export const getAllMovies = createAsyncThunk(
   }
 );
 
-export const getFilteredMovies = createAsyncThunk(
-  'movieList/getFilteredMovies',
-  async ({ sortBy, sortOrder, filterBy }: TGetFilteredMoviesParams) => {
-    const response = await axiosRequest(
-      requestUrlBuilder(sortBy, sortOrder, filterBy),
-      'get'
-    );
+export const getFilteredMovies = createAsyncThunk<
+  TMovieList,
+  void,
+  { state: RootState }
+>('movieList/getFilteredMovies', async (_, { getState }) => {
+  const { filterBy, sortBy, sortOrder } = getState().movieList.activeFilters;
 
-    return response.data.data;
-  }
-);
+  const response = await axiosRequest(
+    requestUrlBuilder(sortBy, sortOrder, filterBy),
+    'get'
+  );
+
+  return response.data.data;
+});
 
 const movieListInitialState: TMovieListState = {
   list: [],
