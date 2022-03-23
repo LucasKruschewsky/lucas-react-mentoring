@@ -4,6 +4,7 @@ import { Form, Formik } from 'formik';
 import { RootState } from '@/store/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { TMovieObject } from '@/store/modules/movieList/types';
+import { ADD, DELETE, EDIT } from '@/store/modules/modal/constants';
 import {
   showFormTitle,
   addAndEditFormFields,
@@ -35,7 +36,7 @@ const MovieForm: React.FunctionComponent<IMovieFormProps> = ({
   return (
     <>
       <Title>{formTitle}</Title>
-      {(type === 'add' || type === 'edit') && (
+      {(type === ADD || type === EDIT) && (
         <FormContainer>
           <Formik
             validationSchema={formValidationSchema}
@@ -56,7 +57,7 @@ const MovieForm: React.FunctionComponent<IMovieFormProps> = ({
           </Formik>
         </FormContainer>
       )}
-      {type === 'delete' && (
+      {type === DELETE && (
         <FormContainer>
           <Formik
             initialValues={initialValues}

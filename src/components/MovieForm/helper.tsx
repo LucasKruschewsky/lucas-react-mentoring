@@ -18,6 +18,7 @@ import { TMovieObject } from '@/store/modules/movieList/types';
 import { TStoreDispatch } from '@/store/types';
 import { closeModal } from '@/store/modules/modal';
 import { getFilteredMovies } from '@/store/modules/movieList';
+import { ADD, DELETE, EDIT } from '@/store/modules/modal/constants';
 import { IAddAndEditFields, IMovieFormFields, IMovieFormProps } from './types';
 
 export const emptyMovieObject: TMovieObject = {
@@ -88,9 +89,9 @@ const movieFormFields: IMovieFormFields = {
 };
 
 export const showFormTitle = (type: IMovieFormProps['type']): string => {
-  if (type === 'add') return 'Add Movie';
-  if (type === 'edit') return 'Edit Movie';
-  if (type === 'delete') return 'Delete Movie';
+  if (type === ADD) return 'Add Movie';
+  if (type === EDIT) return 'Edit Movie';
+  if (type === DELETE) return 'Delete Movie';
 
   return 'Form Title';
 };
