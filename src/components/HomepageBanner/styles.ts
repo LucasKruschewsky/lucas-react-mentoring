@@ -86,22 +86,31 @@ export const SelectedMovieContainer = styled(AppContainer)`
 
 export const MovieImageContainer = styled.div`
   grid-column: 2 / span 2;
-  margin-bottom: 1rem;
-
-  @media only screen and (min-width: 768px) {
-    grid-column: 1 / span 5;
-    margin-right: 2rem;
-  }
+  order: 2;
 
   image,
   img,
   svg {
     max-width: 100%;
+    max-height: 60vh;
+    padding-top: 1rem;
+  }
+
+  @media only screen and (min-width: 768px) {
+    grid-column: 1 / span 4;
+    margin-right: 2rem;
+    order: 1;
+
+    image,
+    img,
+    svg {
+      padding-top: 0;
+    }
   }
 `;
 
 export const MovieDetailsContainer = styled.div`
-  grid-column: span 7/ -1;
+  grid-column: span 8/ -1;
 `;
 
 export const MovieTitleAndRating = styled.div`

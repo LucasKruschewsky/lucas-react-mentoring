@@ -2,10 +2,13 @@ import styled from 'styled-components';
 
 export const FiltersSection = styled.div`
   display: flex;
+  flex-direction: column-reverse;
   justify-content: space-between;
   align-items: center;
   color: rgb(var(--white));
   border-bottom: 1px solid rgb(var(--secondary-light));
+  border-top: 1px solid rgb(var(--secondary-light));
+  margin-top: 1rem;
 
   button {
     padding: 1.5rem 1rem;
@@ -20,6 +23,12 @@ export const FiltersSection = styled.div`
       margin-bottom: -2px;
     }
   }
+
+  @media only screen and (min-width: 1024px) {
+    flex-direction: row;
+    border-top: none;
+    margin-top: 0;
+  } ;
 `;
 
 export const GenreFilters = styled.div`
@@ -36,6 +45,11 @@ export const SortSection = styled.div`
   align-items: center;
   text-transform: uppercase;
   font-size: 16px;
+  margin-top: 1rem;
+
+  @media only screen and (min-width: 1024px) {
+    margin-top: 0;
+  }
 
   p {
     height: fit-content;
@@ -67,5 +81,9 @@ export const SortSection = styled.div`
       transform: scale(1.5);
       transform-origin: left;
     }
+  }
+
+  @media only screen and (min-sidth: 1024px) {
+    margin-top: 0;
   }
 `;
