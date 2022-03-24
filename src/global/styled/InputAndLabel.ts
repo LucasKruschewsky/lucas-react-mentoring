@@ -16,7 +16,7 @@ const inputCommonStyle: string = `
 
 export const InputWrapper = styled.div`
   display: flex;
-  height: 100%;
+  height: 44px;
   input {
     flex-grow: 1;
     &[type='date']::-webkit-calendar-picker-indicator {
@@ -28,7 +28,7 @@ export const InputWrapper = styled.div`
 
 export const SelectWrapper = styled.div`
   display: flex;
-  height: 100%;
+  height: 44px;
   select {
     ${inputCommonStyle}
     flex-grow: 1;
