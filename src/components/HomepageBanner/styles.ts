@@ -44,22 +44,41 @@ export const SearchInputAndButton = styled.div`
 `;
 
 export const SelectedMovieContainer = styled(AppContainer)`
-  padding-top: 5rem;
-  display: flex;
+  display: grid;
+  padding-top: 4.5rem;
+  grid-auto-flow: column;
 
-  & > div {
-    flex-grow: 1;
-    margin-left: 1.5rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  @media only screen and (min-width: 768px) {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+`;
+
+export const MovieImageContainer = styled.div`
+  grid-column: 2 / span 2;
+  margin-bottom: 1rem;
+
+  @media only screen and (min-width: 768px) {
+    grid-column: 1 / span 5;
+    margin-right: 2rem;
   }
 
-  img {
-    max-height: 60vh;
+  image,
+  img,
+  svg {
+    max-width: 100%;
   }
+`;
+
+export const MovieDetailsContainer = styled.div`
+  grid-column: span 7/ -1;
 `;
 
 export const MovieTitleAndRating = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   text-transform: uppercase;
   color: rgb(var(--white));
   h1 {
@@ -73,8 +92,8 @@ export const MovieTitleAndRating = styled.div`
     border-radius: 50%;
     display: flex;
 
-    width: 60px;
-    height: 60px;
+    min-width: 60px;
+    min-height: 60px;
 
     justify-content: center;
     align-items: center;
