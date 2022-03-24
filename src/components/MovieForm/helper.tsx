@@ -5,7 +5,6 @@ import {
   InputWrapper,
   Label,
   TextAreaWrapper,
-  SelectWrapper,
 } from 'Global/styled/InputAndLabel';
 import {
   Field,
@@ -19,6 +18,9 @@ import { TStoreDispatch } from '@/store/types';
 import { closeModal } from '@/store/modules/modal';
 import { getFilteredMovies } from '@/store/modules/movieList';
 import { ADD, DELETE, EDIT } from '@/store/modules/modal/constants';
+import { genreFilterList } from 'Components/MovieFilters/helper';
+import ReactMultiSelect from 'Components/ReactMultiSelect/ReactMultiSelect';
+import { ALL } from '@/store/modules/movieList/constants';
 import { IAddAndEditFields, IMovieFormFields, IMovieFormProps } from './types';
 
 export const emptyMovieObject: TMovieObject = {
@@ -28,13 +30,13 @@ export const emptyMovieObject: TMovieObject = {
   poster_path: '',
   overview: '',
   runtime: 0,
-  genres: ['Comedy', 'Drama', 'Romance'],
+  genres: [],
 };
 
 export const formValidationSchema = Yup.object().shape({
   title: Yup.string().max(50, 'Title is too long').required(),
   release_date: Yup.string().required(),
-  genres: Yup.array().of(Yup.string()),
+  genres: Yup.array().of(Yup.string()).nullable().required(),
   poster_path: Yup.string().required(),
   vote_average: Yup.number(),
   runtime: Yup.number().required(),
@@ -88,6 +90,13 @@ const movieFormFields: IMovieFormFields = {
   ],
 };
 
+const genreSelectOptions = genreFilterList
+  .filter((genre) => genre !== ALL)
+  .map((filteredGenre) => ({
+    value: filteredGenre,
+    label: filteredGenre,
+  }));
+
 export const showFormTitle = (type: IMovieFormProps['type']): string => {
   if (type === ADD) return 'Add Movie';
   if (type === EDIT) return 'Edit Movie';
@@ -105,10 +114,7 @@ export const displayFormikError = (
     <div className="formik-error-message">{errors[field.name]}</div>
   ) : null;
 
-export const addAndEditFormFields = (
-  errors: FormikErrors<FormikValues>,
-  touched: FormikTouched<FormikValues>
-): React.ReactElement[] =>
+export const addAndEditFormFields = (form: any): React.ReactElement[] =>
   movieFormFields.addAndEdit.map((field): React.ReactElement => {
     if (field.type === 'textarea') {
       return (
@@ -122,8 +128,10 @@ export const addAndEditFormFields = (
               placeholder={field.placeholder}
             />
           </TextAreaWrapper>
-          {errors[field.name] && touched[field.name] ? (
-            <div className="formik-error-message">{errors[field.name]}</div>
+          {form.errors[field.name] && form.touched[field.name] ? (
+            <div className="formik-error-message">
+              {form.errors[field.name]}
+            </div>
           ) : null}
         </Label>
       );
@@ -132,16 +140,22 @@ export const addAndEditFormFields = (
     if (field.type === 'select') {
       return (
         <Label key={`${field.label}-${field.type}`}>
-          <p>{field.label}</p>
-          <SelectWrapper>
-            <Field name={field.name} value="default-disabled-value" as="select">
-              <option value="default-disabled-value" disabled>
-                {field.placeholder}
-              </option>
-            </Field>
-          </SelectWrapper>
-          {errors[field.name] && touched[field.name] ? (
-            <div className="formik-error-message">{errors[field.name]}</div>
+          <p>Genres</p>
+          <div>
+            <Field
+              id="react-select"
+              form={form}
+              name={field.name}
+              field={field}
+              placeholder={field.placeholder}
+              as={ReactMultiSelect}
+              options={genreSelectOptions}
+            />
+          </div>
+          {form.errors[field.name] && form.touched[field.name] ? (
+            <div className="formik-error-message">
+              {form.errors[field.name]}
+            </div>
           ) : null}
         </Label>
       );
@@ -158,8 +172,8 @@ export const addAndEditFormFields = (
             placeholder={field.placeholder}
           />
         </InputWrapper>
-        {errors[field.name] && touched[field.name] ? (
-          <div className="formik-error-message">{errors[field.name]}</div>
+        {form.errors[field.name] && form.touched[field.name] ? (
+          <div className="formik-error-message">{form.errors[field.name]}</div>
         ) : null}
       </Label>
     );
@@ -175,8 +189,6 @@ const onSuccessfulRequest = (
   }
 };
 
-// Temporary handle submit form
-// Try catch will be handled inside axiosRequest at some point
 export const handleSubmitCreateEdit = async (
   values: TMovieObject,
   actions: FormikHelpers<FormikValues>,

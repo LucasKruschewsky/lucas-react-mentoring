@@ -29,7 +29,8 @@ export const InputWrapper = styled.div`
 export const SelectWrapper = styled.div`
   display: flex;
   height: 44px;
-  select {
+  select,
+  #react-select {
     ${inputCommonStyle}
     flex-grow: 1;
 

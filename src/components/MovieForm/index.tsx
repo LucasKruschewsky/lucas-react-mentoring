@@ -45,9 +45,9 @@ const MovieForm: React.FunctionComponent<IMovieFormProps> = ({
               handleSubmitCreateEdit(values, actions, dispatch)
             }
           >
-            {({ errors, touched }) => (
+            {(form) => (
               <Form>
-                {addAndEditFormFields(errors, touched)}
+                {addAndEditFormFields(form)}
                 <ButtonRow>
                   <AppButton buttonStyle="defaultOutlined">Reset</AppButton>
                   <AppButton type="submit">Submit</AppButton>

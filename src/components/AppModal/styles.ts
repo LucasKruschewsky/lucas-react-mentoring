@@ -25,6 +25,7 @@ export const ModalContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 2.5rem;
+  max-width: 60vh;
 
   color: rgb(var(--white));
 
