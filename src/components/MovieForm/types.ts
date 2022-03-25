@@ -8,7 +8,7 @@ export interface IMovieFormProps {
 
 export interface IAddAndEditFields {
   label: string;
-  name: string;
+  name: keyof TMovieObject;
   type: 'text' | 'textarea' | 'select' | 'date' | 'number';
   placeholder: string;
   options?: string[];

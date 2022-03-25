@@ -49,7 +49,13 @@ const MovieForm: React.FunctionComponent<IMovieFormProps> = ({
               <Form>
                 {addAndEditFormFields(form)}
                 <ButtonRow>
-                  <AppButton buttonStyle="defaultOutlined">Reset</AppButton>
+                  <AppButton
+                    onClick={() => form.resetForm()}
+                    type="button"
+                    buttonStyle="defaultOutlined"
+                  >
+                    Reset
+                  </AppButton>
                   <AppButton type="submit">Submit</AppButton>
                 </ButtonRow>
               </Form>

@@ -1,11 +1,10 @@
-export interface TMultiSelectOption {
-  value: any;
+export type TMultiSelectOption = {
+  value: string;
   label: string;
-}
+};
 
 export interface IMultiSelectProps {
-  options: any;
+  options: TMultiSelectOption[];
   placeholder: string;
-  field: any;
-  form: any;
+  fieldName: string;
 }

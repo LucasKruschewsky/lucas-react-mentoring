@@ -10,6 +10,7 @@ import {
   Field,
   FormikErrors,
   FormikHelpers,
+  FormikProps,
   FormikTouched,
   FormikValues,
 } from 'formik';
@@ -30,7 +31,7 @@ export const emptyMovieObject: TMovieObject = {
   poster_path: '',
   overview: '',
   runtime: 0,
-  genres: [],
+  genres: null,
 };
 
 export const formValidationSchema = Yup.object().shape({
@@ -108,76 +109,69 @@ export const showFormTitle = (type: IMovieFormProps['type']): string => {
 export const displayFormikError = (
   errors: FormikErrors<FormikValues>,
   touched: FormikTouched<FormikValues>,
-  field: IAddAndEditFields
+  fieldName: IAddAndEditFields['name']
 ): React.ReactElement =>
-  errors[field.name] && touched[field.name] ? (
-    <div className="formik-error-message">{errors[field.name]}</div>
+  errors[fieldName] && touched[fieldName] ? (
+    <div className="formik-error-message">{errors[fieldName]}</div>
   ) : null;
 
-export const addAndEditFormFields = (form: any): React.ReactElement[] =>
-  movieFormFields.addAndEdit.map((field): React.ReactElement => {
-    if (field.type === 'textarea') {
-      return (
-        <Label key={`${field.label}-${field.type}`} id="add-movie-textarea">
-          <p>{field.label}</p>
-          <TextAreaWrapper>
-            <Field
-              name={field.name}
-              as="textarea"
-              rows={7}
-              placeholder={field.placeholder}
-            />
-          </TextAreaWrapper>
-          {form.errors[field.name] && form.touched[field.name] ? (
-            <div className="formik-error-message">
-              {form.errors[field.name]}
-            </div>
-          ) : null}
-        </Label>
-      );
-    }
+export const addAndEditFormFields = (
+  form: FormikProps<TMovieObject>
+): React.ReactElement[] =>
+  movieFormFields.addAndEdit.map(
+    (field: IAddAndEditFields): React.ReactElement => {
+      if (field.type === 'textarea') {
+        return (
+          <Label key={`${field.label}-${field.type}`} id="add-movie-textarea">
+            <p>{field.label}</p>
+            <TextAreaWrapper>
+              <Field
+                name={field.name}
+                as="textarea"
+                rows={7}
+                placeholder={field.placeholder}
+              />
+            </TextAreaWrapper>
+            {displayFormikError(form.errors, form.touched, field.name)}
+          </Label>
+        );
+      }
 
-    if (field.type === 'select') {
+      if (field.type === 'select') {
+        return (
+          <Label key={`${field.label}-${field.type}`}>
+            <p>Genres</p>
+            <div>
+              <Field
+                id="react-select"
+                name={field.name}
+                fieldName={field.name}
+                placeholder={field.placeholder}
+                as={ReactMultiSelect}
+                options={genreSelectOptions}
+              />
+            </div>
+            {displayFormikError(form.errors, form.touched, field.name)}
+          </Label>
+        );
+      }
+
+      // Default return for type text/date
       return (
         <Label key={`${field.label}-${field.type}`}>
-          <p>Genres</p>
-          <div>
+          <p>{field.label}</p>
+          <InputWrapper>
             <Field
-              id="react-select"
-              form={form}
               name={field.name}
-              field={field}
+              type={field.type}
               placeholder={field.placeholder}
-              as={ReactMultiSelect}
-              options={genreSelectOptions}
             />
-          </div>
-          {form.errors[field.name] && form.touched[field.name] ? (
-            <div className="formik-error-message">
-              {form.errors[field.name]}
-            </div>
-          ) : null}
+          </InputWrapper>
+          {displayFormikError(form.errors, form.touched, field.name)}
         </Label>
       );
     }
-
-    // Default return for type text/date
-    return (
-      <Label key={`${field.label}-${field.type}`}>
-        <p>{field.label}</p>
-        <InputWrapper>
-          <Field
-            name={field.name}
-            type={field.type}
-            placeholder={field.placeholder}
-          />
-        </InputWrapper>
-        {form.errors[field.name] && form.touched[field.name] ? (
-          <div className="formik-error-message">{form.errors[field.name]}</div>
-        ) : null}
-      </Label>
-    );
-  });
+  );
 
 const onSuccessfulRequest = (
   responseStatus: number,
