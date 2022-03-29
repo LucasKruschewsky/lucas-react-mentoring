@@ -1,20 +1,28 @@
 import * as React from 'react';
-import Navbar from 'Components/Navbar';
-import Footer from 'Components/Footer';
 import Homepage from '@/pages/Homepage';
-import AppModalHandler from 'Components/ModalHandler';
 import { Provider } from 'react-redux';
 import store from '@/store';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
+import AppLayout from './Layout';
 
 const App: React.FunctionComponent = () => (
   <Provider store={store}>
-    <Navbar />
-    <Homepage />
-    <Footer />
-    <AppModalHandler />
-    <ToastContainer theme="colored" />
+    <Router>
+      <AppLayout>
+        <Routes>
+          <Route path="/" element={<Navigate to="/search" replace />} />
+          <Route path="/search">
+            <Route index element={<Homepage />} />
+            <Route path=":searchQuery" element={<Homepage />} />
+          </Route>
+        </Routes>
+      </AppLayout>
+    </Router>
   </Provider>
 );
 

@@ -29,6 +29,17 @@ export const getFilteredMovies = createAsyncThunk<
   return response.data.data;
 });
 
+export const getMoviesFromRoute = createAsyncThunk(
+  'movieList/getMoviesFromRoute',
+  async (params: string) => {
+    const response = await axiosRequest(
+      `/movies${params ? `?${params}` : ''}`,
+      'get'
+    );
+    return response.data.data;
+  }
+);
+
 const movieListInitialState: TMovieListState = {
   list: [],
   activeFilters: {
@@ -73,6 +84,19 @@ const movieListSlice = createSlice({
         status: 'pending',
       }))
       .addCase(getFilteredMovies.rejected, (state) => ({
+        ...state,
+        status: 'failed',
+      }))
+      .addCase(getMoviesFromRoute.fulfilled, (state, { payload }) => ({
+        ...state,
+        list: payload,
+        status: 'success',
+      }))
+      .addCase(getMoviesFromRoute.pending, (state) => ({
+        ...state,
+        status: 'pending',
+      }))
+      .addCase(getMoviesFromRoute.rejected, (state) => ({
         ...state,
         status: 'failed',
       }));

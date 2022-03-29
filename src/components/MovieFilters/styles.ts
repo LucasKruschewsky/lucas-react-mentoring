@@ -10,8 +10,11 @@ export const FiltersSection = styled.div`
   border-top: 1px solid rgb(var(--secondary-light));
   margin-top: 1rem;
 
-  button {
+  button,
+  a {
     padding: 1.5rem 1rem;
+    text-decoration: none;
+    text-transform: uppercase;
     background-color: transparent;
     border: none;
     color: rgb(var(--white));

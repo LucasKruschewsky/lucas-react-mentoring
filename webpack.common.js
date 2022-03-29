@@ -18,6 +18,7 @@ module.exports = {
   },
   output: {
     assetModuleFilename: 'images/[name][ext]',
+    publicPath: '/',
   },
   cache: {
     type: 'filesystem',

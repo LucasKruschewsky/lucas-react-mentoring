@@ -20,6 +20,7 @@ const mergedConfig = merge(common, {
     port: 9000,
     open: true,
     hot: true,
+    historyApiFallback: true,
   },
   module: {
     rules: [
