@@ -2,6 +2,8 @@ import * as React from 'react';
 import AppButton from 'Global/styled/AppButton';
 import { parseDate } from '@/functions/parseDate';
 import { minutesToHours } from '@/functions/minutesToHours';
+import { Field, Form, Formik } from 'formik';
+import { useNavigate } from 'react-router-dom';
 import {
   SearchBannerContainer,
   SearchTitle,
@@ -14,23 +16,43 @@ import {
   MovieImageContainer,
   MovieDetailsContainer,
 } from './styles';
-import { IHomeBannerProps } from './types';
+import { IHomeBannerProps, ISearchBannerProps } from './types';
 
-export const searchBanner = (
-  <SearchBannerContainer>
-    <div>
-      <SearchTitle>Find Your Movies</SearchTitle>
-      <SearchInputAndButton>
-        <input
-          id="searchMovie"
-          type="text"
-          placeholder="What do you want to watch?"
-        />
-        <AppButton> Search </AppButton>
-      </SearchInputAndButton>
-    </div>
-  </SearchBannerContainer>
-);
+export const SearchBanner: React.FunctionComponent<ISearchBannerProps> = ({
+  searchQuery,
+}) => {
+  const navigate = useNavigate();
+
+  const handleSearch = React.useCallback(
+    ({ searchField }) => navigate(`/search/${searchField}`),
+    [navigate]
+  );
+
+  const initialSearchValue: { searchField: string } = {
+    searchField: searchQuery ?? '',
+  };
+
+  return (
+    <SearchBannerContainer>
+      <div>
+        <SearchTitle>Find Your Movies</SearchTitle>
+        <Formik onSubmit={handleSearch} initialValues={initialSearchValue}>
+          <Form>
+            <SearchInputAndButton>
+              <Field
+                name="searchField"
+                id="searchMovie"
+                type="text"
+                placeholder="What do you want to watch?"
+              />
+              <AppButton type="submit"> Search </AppButton>
+            </SearchInputAndButton>
+          </Form>
+        </Formik>
+      </div>
+    </SearchBannerContainer>
+  );
+};
 
 export const SelectedMovieBanner: React.FunctionComponent<IHomeBannerProps> = ({
   selectedMovie,

@@ -29,13 +29,14 @@ export const getFilteredMovies = createAsyncThunk<
   return response.data.data;
 });
 
-export const getMoviesFromRoute = createAsyncThunk(
-  'movieList/getMoviesFromRoute',
+export const getMoviesFromSearch = createAsyncThunk(
+  'movieList/getMoviesFromSearch',
   async (params: string) => {
     const response = await axiosRequest(
-      `/movies${params ? `?${params}` : ''}`,
+      `/movies${params ? `?search=${params}&searchBy=title` : ''}`,
       'get'
     );
+
     return response.data.data;
   }
 );
@@ -87,16 +88,16 @@ const movieListSlice = createSlice({
         ...state,
         status: 'failed',
       }))
-      .addCase(getMoviesFromRoute.fulfilled, (state, { payload }) => ({
+      .addCase(getMoviesFromSearch.fulfilled, (state, { payload }) => ({
         ...state,
         list: payload,
         status: 'success',
       }))
-      .addCase(getMoviesFromRoute.pending, (state) => ({
+      .addCase(getMoviesFromSearch.pending, (state) => ({
         ...state,
         status: 'pending',
       }))
-      .addCase(getMoviesFromRoute.rejected, (state) => ({
+      .addCase(getMoviesFromSearch.rejected, (state) => ({
         ...state,
         status: 'failed',
       }));

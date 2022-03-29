@@ -1,6 +1,6 @@
 import {
   changeActiveMovieFilters,
-  getFilteredMovies,
+  getMoviesFromSearch,
 } from '@/store/modules/movieList';
 import { ASC, DESC, NONE } from '@/store/modules/movieList/constants';
 import { RootState } from '@/store/types';
@@ -8,10 +8,12 @@ import { SelectWrapper } from 'Global/styled/InputAndLabel';
 import * as React from 'react';
 import { BsSortDown, BsSortUp } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { genreFilterList, sortOptions } from './helper';
 import { FiltersSection, GenreFilters, SortSection } from './styles';
 
 const MovieFilters = (): React.ReactElement => {
+  const { searchQuery } = useParams();
   const dispatch = useDispatch();
   const { activeFilters } = useSelector((state: RootState) => state.movieList);
 
@@ -63,8 +65,8 @@ const MovieFilters = (): React.ReactElement => {
   );
 
   React.useEffect(() => {
-    dispatch(getFilteredMovies());
-  }, [dispatch, activeFilters]);
+    dispatch(getMoviesFromSearch(searchQuery));
+  }, [dispatch, searchQuery]);
 
   return (
     <FiltersSection>
