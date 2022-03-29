@@ -1,50 +1,46 @@
-import {
-  changeActiveMovieFilters,
-  getMoviesFromSearch,
-} from '@/store/modules/movieList';
-import { ASC, DESC, NONE } from '@/store/modules/movieList/constants';
-import { RootState } from '@/store/types';
+import { getMoviesFromSearch } from '@/store/modules/movieList';
+import { ALL, ASC, DESC, NONE } from '@/store/modules/movieList/constants';
 import { SelectWrapper } from 'Global/styled/InputAndLabel';
 import * as React from 'react';
 import { BsSortDown, BsSortUp } from 'react-icons/bs';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { genreFilterList, sortOptions } from './helper';
 import { FiltersSection, GenreFilters, SortSection } from './styles';
 
 const MovieFilters = (): React.ReactElement => {
   const { searchQuery } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
-  const { activeFilters } = useSelector((state: RootState) => state.movieList);
-
-  const filterMovies = React.useCallback(
-    (event) => {
-      dispatch(changeActiveMovieFilters({ filterBy: event.target.value }));
-    },
-    [dispatch]
-  );
 
   const sortMovies = React.useCallback(
     (event): void => {
       if (event.target.value === 'remove-filters') {
-        dispatch(changeActiveMovieFilters({ sortBy: NONE, sortOrder: DESC }));
+        setSearchParams({ sortBy: NONE, sortOrder: DESC });
         return;
       }
 
-      dispatch(changeActiveMovieFilters({ sortBy: event.target.value }));
+      setSearchParams({ sortBy: event.target.value });
     },
-    [dispatch]
+    [setSearchParams]
   );
 
   const toggleSortOrder = React.useCallback(() => {
-    if (activeFilters.sortOrder === ASC) {
-      dispatch(changeActiveMovieFilters({ sortOrder: DESC }));
+    if (searchParams.get('sortOrder') === ASC) {
+      setSearchParams({ sortOrder: DESC });
       return;
     }
 
     // If sortOrder === DESC
-    dispatch(changeActiveMovieFilters({ sortOrder: ASC }));
-  }, [dispatch, activeFilters.sortOrder]);
+    setSearchParams({ sortOrder: ASC });
+  }, [setSearchParams, searchParams]);
+
+  const checkUrlGenre = React.useCallback(
+    (value: string): boolean =>
+      searchParams.get('genre')?.toLowerCase().includes(value.toLowerCase()) ||
+      (searchParams.get('genre') === null && value === ALL),
+    [searchParams]
+  );
 
   const buildSortOptions = React.useMemo(() => sortOptions(), []);
 
@@ -53,20 +49,27 @@ const MovieFilters = (): React.ReactElement => {
       genreFilterList.map((item) => (
         <button
           type="button"
-          onClick={filterMovies}
+          onClick={() => setSearchParams({ genre: [item] })}
           key={item}
           value={item}
-          className={activeFilters.filterBy === item ? 'is-selected' : ''}
+          className={checkUrlGenre(item) ? 'is-selected' : ''}
         >
           {item}
         </button>
       )),
-    [activeFilters.filterBy, filterMovies]
+    [setSearchParams, checkUrlGenre]
   );
 
   React.useEffect(() => {
-    dispatch(getMoviesFromSearch(searchQuery));
-  }, [dispatch, searchQuery]);
+    dispatch(
+      getMoviesFromSearch({
+        searchQuery,
+        genre: searchParams.getAll('genre'),
+        sortBy: searchParams.get('sortBy'),
+        sortOrder: searchParams.get('sortOrder'),
+      })
+    );
+  }, [dispatch, searchQuery, searchParams]);
 
   return (
     <FiltersSection>
@@ -77,7 +80,7 @@ const MovieFilters = (): React.ReactElement => {
           <select
             id="sort-movie-list-select"
             onChange={sortMovies}
-            value={activeFilters.sortBy}
+            value={searchParams.get('sortBy') ?? NONE}
           >
             <option hidden value={NONE} disabled>
               Select an option
@@ -85,7 +88,7 @@ const MovieFilters = (): React.ReactElement => {
             {buildSortOptions}
           </select>
         </SelectWrapper>
-        {activeFilters.sortOrder === DESC ? (
+        {searchParams.get('sortOrder') === DESC ? (
           <BsSortDown onClick={toggleSortOrder} id="asc-desc-sort-icon" />
         ) : (
           <BsSortUp onClick={toggleSortOrder} id="asc-desc-sort-icon" />

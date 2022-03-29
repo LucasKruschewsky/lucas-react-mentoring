@@ -2,7 +2,7 @@ import { axiosRequest } from '@/functions/axiosRequest';
 import { RootState } from '@/store/types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { ALL, DESC, NONE } from './constants';
-import { requestUrlBuilder } from './helper';
+import { buildFilterRequestUrl, buildRequestUrlFromParams } from './helper';
 import { IMovieListAction, TMovieList, TMovieListState } from './types';
 
 export const getAllMovies = createAsyncThunk(
@@ -22,7 +22,7 @@ export const getFilteredMovies = createAsyncThunk<
   const { sortBy, sortOrder, filterBy } = getState().movieList.activeFilters;
 
   const response = await axiosRequest(
-    requestUrlBuilder(sortBy, sortOrder, filterBy),
+    buildFilterRequestUrl(sortBy, sortOrder, filterBy),
     'get'
   );
 
@@ -31,9 +31,19 @@ export const getFilteredMovies = createAsyncThunk<
 
 export const getMoviesFromSearch = createAsyncThunk(
   'movieList/getMoviesFromSearch',
-  async (params: string) => {
+  async ({
+    searchQuery,
+    genre,
+    sortBy,
+    sortOrder,
+  }: {
+    searchQuery?: string | null;
+    genre?: string[] | null;
+    sortBy?: string | null;
+    sortOrder?: string | null;
+  }) => {
     const response = await axiosRequest(
-      `/movies${params ? `?search=${params}&searchBy=title` : ''}`,
+      buildRequestUrlFromParams(searchQuery, genre, sortBy, sortOrder),
       'get'
     );
 
