@@ -1,17 +1,20 @@
 import * as React from 'react';
 import AppButton from 'Global/styled/AppButton';
-import { Form, Formik } from 'formik';
+import { Form, Formik, FormikHelpers, FormikValues } from 'formik';
 import { RootState } from '@/store/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { TMovieObject } from '@/store/modules/movieList/types';
 import { ADD, DELETE, EDIT } from '@/store/modules/modal/constants';
+import { axiosRequest } from '@/functions/axiosRequest';
+import { closeModal } from '@/store/modules/modal';
+import { getMoviesFromSearch } from '@/store/modules/movieList';
+import { useParams, useSearchParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import {
   showFormTitle,
   addAndEditFormFields,
   emptyMovieObject,
-  handleSubmitCreateEdit,
   formValidationSchema,
-  handleSubmitDelete,
 } from './helper';
 import { IMovieFormProps } from './types';
 import { FormContainer, ButtonRow, Title } from './style';
@@ -21,6 +24,8 @@ const MovieForm: React.FunctionComponent<IMovieFormProps> = ({
   movieId,
 }) => {
   const dispatch = useDispatch();
+  const { searchQuery } = useParams();
+  const [searchParams] = useSearchParams();
   const formTitle = React.useMemo(() => showFormTitle(type), [type]);
 
   const initialValues = useSelector((state: RootState) => {
@@ -33,6 +38,39 @@ const MovieForm: React.FunctionComponent<IMovieFormProps> = ({
     return emptyMovieObject;
   });
 
+  const handleSubmit = async (
+    values: TMovieObject,
+    actions: FormikHelpers<FormikValues>
+  ): Promise<void> => {
+    let response;
+    if (type === DELETE) {
+      response = await axiosRequest(`/movies/${values.id}`, 'delete');
+    }
+    if (type === EDIT) {
+      response = await axiosRequest('/movies', 'put', { ...values });
+    }
+
+    if (type === ADD) {
+      response = await axiosRequest('/movies', 'post', { ...values });
+    }
+
+    actions.setSubmitting(false);
+
+    // If request is successful
+    if (response.status < 400) {
+      toast.success(`Movie successfully ${type === DELETE ? 'delet' : type}ed`);
+      dispatch(closeModal());
+      dispatch(
+        getMoviesFromSearch({
+          searchQuery,
+          genre: searchParams.getAll('genre'),
+          sortBy: searchParams.get('sortBy'),
+          sortOrder: searchParams.get('sortOrder'),
+        })
+      );
+    }
+  };
+
   return (
     <>
       <Title>{formTitle}</Title>
@@ -42,7 +80,7 @@ const MovieForm: React.FunctionComponent<IMovieFormProps> = ({
             validationSchema={formValidationSchema}
             initialValues={initialValues}
             onSubmit={(values: TMovieObject, actions) =>
-              handleSubmitCreateEdit(values, actions, dispatch)
+              handleSubmit(values, actions)
             }
           >
             {(form) => (
@@ -67,9 +105,7 @@ const MovieForm: React.FunctionComponent<IMovieFormProps> = ({
         <FormContainer>
           <Formik
             initialValues={initialValues}
-            onSubmit={(values, actions) =>
-              handleSubmitDelete(values, actions, dispatch)
-            }
+            onSubmit={(values, actions) => handleSubmit(values, actions)}
           >
             <Form>
               <p>Are you sure you want to delete this movie?</p>

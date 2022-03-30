@@ -23,11 +23,6 @@ export type TMovieGenreFilters = TMovieFilterBy[];
 
 export type TMovieListState = {
   list: TMovieList;
-  activeFilters: {
-    sortBy: TMovieSortBy;
-    sortOrder: TMovieSortOrder;
-    filterBy: TMovieFilterBy;
-  };
   status: 'success' | 'pending' | 'failed';
 };
 

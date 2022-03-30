@@ -1,9 +1,7 @@
 import { axiosRequest } from '@/functions/axiosRequest';
-import { RootState } from '@/store/types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { ALL, DESC, NONE } from './constants';
-import { buildFilterRequestUrl, buildRequestUrlFromParams } from './helper';
-import { IMovieListAction, TMovieList, TMovieListState } from './types';
+import { buildRequestUrlFromParams } from './helper';
+import { IMovieListAction, TMovieListState } from './types';
 
 export const getAllMovies = createAsyncThunk(
   'movieList/getAllMovies',
@@ -13,21 +11,6 @@ export const getAllMovies = createAsyncThunk(
     return response.data.data;
   }
 );
-
-export const getFilteredMovies = createAsyncThunk<
-  TMovieList,
-  void,
-  { state: RootState }
->('movieList/getFilteredMovies', async (_, { getState }) => {
-  const { sortBy, sortOrder, filterBy } = getState().movieList.activeFilters;
-
-  const response = await axiosRequest(
-    buildFilterRequestUrl(sortBy, sortOrder, filterBy),
-    'get'
-  );
-
-  return response.data.data;
-});
 
 export const getMoviesFromSearch = createAsyncThunk(
   'movieList/getMoviesFromSearch',
@@ -53,11 +36,6 @@ export const getMoviesFromSearch = createAsyncThunk(
 
 const movieListInitialState: TMovieListState = {
   list: [],
-  activeFilters: {
-    sortBy: NONE,
-    sortOrder: DESC,
-    filterBy: ALL,
-  },
   status: null,
 };
 
@@ -67,7 +45,7 @@ const movieListSlice = createSlice({
   reducers: {
     changeActiveMovieFilters: (state, action: IMovieListAction) => ({
       ...state,
-      activeFilters: { ...state.activeFilters, ...action.payload },
+      activeFilters: { ...action.payload },
     }),
   },
   extraReducers: (builder) => {
@@ -82,19 +60,6 @@ const movieListSlice = createSlice({
         status: 'pending',
       }))
       .addCase(getAllMovies.rejected, (state) => ({
-        ...state,
-        status: 'failed',
-      }))
-      .addCase(getFilteredMovies.fulfilled, (state, { payload }) => ({
-        ...state,
-        list: payload,
-        status: 'success',
-      }))
-      .addCase(getFilteredMovies.pending, (state) => ({
-        ...state,
-        status: 'pending',
-      }))
-      .addCase(getFilteredMovies.rejected, (state) => ({
         ...state,
         status: 'failed',
       }))

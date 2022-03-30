@@ -9,7 +9,10 @@ import {
   TITLE,
   VOTE_AVERAGE,
 } from '@/store/modules/movieList/constants';
-import { TMovieGenreFilters } from '@/store/modules/movieList/types';
+import {
+  TMovieFilterBy,
+  TMovieGenreFilters,
+} from '@/store/modules/movieList/types';
 
 export const genreFilterList: TMovieGenreFilters = [
   ALL,
@@ -44,3 +47,33 @@ export const sortOptions = (): React.ReactElement[] =>
       ))}
     </optgroup>
   ));
+
+/**
+ * Checks if param value exists in the URLSearchParams
+ * and return an object to be used by React Router Dom
+ * setSearchParams function.
+ * @param search
+ * @param param
+ * @returns Object => [param]: value or [] if value is null
+ */
+export const retrieveSearchParam = (
+  search: URLSearchParams,
+  param: string
+): object => {
+  if (param === 'genre') {
+    return {
+      [param]: search.has(param) ? search.getAll(param) : [],
+    };
+  }
+
+  return {
+    [param]: search.has(param) ? search.get(param) : [],
+  };
+};
+
+export const matchGenreFromSearchParams = (
+  searchParams: URLSearchParams,
+  value: TMovieFilterBy
+): boolean =>
+  searchParams.get('genre')?.toLowerCase().includes(value.toLowerCase()) ||
+  (searchParams.get('genre') === null && value === ALL);
