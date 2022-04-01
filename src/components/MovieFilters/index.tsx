@@ -4,8 +4,8 @@ import { ASC, DESC, NONE } from '@/store/modules/movieList/constants';
 import { SelectWrapper } from 'Global/styled/InputAndLabel';
 import { BsSortDown, BsSortUp } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
-import { useParams, useSearchParams } from 'react-router-dom';
-import { retrieveAllSearchParams } from '@/functions/retrieveSearchParams';
+import { useParams } from 'react-router-dom';
+import useCustomSearchParams from '@/hooks/useCustomSearchParams';
 import {
   genreFilterList,
   sortOptions,
@@ -15,52 +15,47 @@ import { FiltersSection, GenreFilters, SortSection } from './styles';
 
 const MovieFilters = (): React.ReactElement => {
   const { searchQuery } = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, addSearchParams] = useCustomSearchParams();
   const dispatch = useDispatch();
 
   const sortMovies = React.useCallback(
     (event): void => {
       if (event.target.value === 'remove-filters') {
-        setSearchParams({
-          ...retrieveAllSearchParams(searchParams),
+        addSearchParams({
           sortBy: [],
           sortOrder: [],
         });
         return;
       }
 
-      setSearchParams({
-        ...retrieveAllSearchParams(searchParams),
+      addSearchParams({
         sortBy: event.target.value,
       });
     },
-    [setSearchParams, searchParams]
+    [addSearchParams]
   );
 
   const toggleSortOrder = React.useCallback(() => {
     if (searchParams.get('sortOrder') === ASC) {
-      setSearchParams({
-        ...retrieveAllSearchParams(searchParams),
+      addSearchParams({
         sortOrder: DESC,
       });
       return;
     }
 
     // If sortOrder === DESC
-    setSearchParams({
-      ...retrieveAllSearchParams(searchParams),
+    addSearchParams({
       sortOrder: ASC,
     });
-  }, [setSearchParams, searchParams]);
+  }, [addSearchParams, searchParams]);
 
   const filterMovies = React.useCallback(
     (event) => {
-      setSearchParams({
-        ...retrieveAllSearchParams(searchParams),
+      addSearchParams({
         genre: [event.target.value],
       });
     },
-    [searchParams, setSearchParams]
+    [addSearchParams]
   );
 
   const buildSortOptions = React.useMemo(() => sortOptions(), []);

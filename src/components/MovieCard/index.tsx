@@ -4,14 +4,13 @@ import HandleClickOut from 'Components/HandleClickOut';
 import { parseDate } from '@/functions/parseDate';
 import { useDispatch } from 'react-redux';
 import { genresMap } from 'Components/MovieList/helper';
-import { useSearchParams } from 'react-router-dom';
-import { retrieveAllSearchParams } from '@/functions/retrieveSearchParams';
+import useCustomSearchParams from '@/hooks/useCustomSearchParams';
 import { MovieCardContainer, MovieInfo, MovieOptionsMenu } from './styles';
 import { buildMenuItems } from './helper';
 import { IMovieCardProps } from './types';
 
 const MovieCard: React.FunctionComponent<IMovieCardProps> = ({ movie }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const addSearchParams = useCustomSearchParams()[1];
   const { poster_path, genres, title, release_date, id } = movie;
   const [isMouseOver, setIsMouseOver] = React.useState(false);
   const [isOptionsMenuOpen, setIsOptionsMenuOpen] = React.useState(false);
@@ -19,11 +18,10 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({ movie }) => {
 
   const chooseMovie = React.useCallback(
     () =>
-      setSearchParams({
-        ...retrieveAllSearchParams(searchParams),
+      addSearchParams({
         movie: String(id),
       }),
-    [searchParams, setSearchParams, id]
+    [addSearchParams, id]
   );
 
   const optionsMenuItems = React.useMemo(

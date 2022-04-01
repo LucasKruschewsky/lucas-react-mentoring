@@ -8,9 +8,9 @@ export type TMovieObject = {
   overview: string;
   id?: number;
   tagline?: string;
-  vote_count?: any;
-  budget?: any;
-  revenue?: any;
+  vote_count?: number;
+  budget?: number;
+  revenue?: number;
 };
 
 export type TMovieList = TMovieObject[];

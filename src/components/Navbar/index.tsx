@@ -8,14 +8,13 @@ import { addCssClassOnScroll } from '@/functions/addCssClassOnScroll';
 import { useDispatch } from 'react-redux';
 import { openModal } from '@/store/modules/modal';
 import { ADD } from '@/store/modules/modal/constants';
-import { useSearchParams } from 'react-router-dom';
-import { retrieveAllSearchParams } from '@/functions/retrieveSearchParams';
+import useCustomSearchParams from '@/hooks/useCustomSearchParams';
 import { INavbarProps } from './types';
 import NavContainer from './styles';
 
 const Navbar: React.FunctionComponent<INavbarProps> = () => {
   const dispatch = useDispatch();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, addSearchParams] = useCustomSearchParams();
   const NavContainerRef = useRef<HTMLDivElement>(null);
   const handleNavbarBackground = React.useCallback(
     () =>
@@ -27,9 +26,8 @@ const Navbar: React.FunctionComponent<INavbarProps> = () => {
     [NavContainerRef]
   );
   const unselectMovie: () => void = React.useCallback(
-    () =>
-      setSearchParams({ ...retrieveAllSearchParams(searchParams), movie: [] }),
-    [setSearchParams, searchParams]
+    () => addSearchParams({ movie: [] }),
+    [addSearchParams]
   );
   const openAddModal: () => void = React.useCallback(
     () => dispatch(openModal({ modalType: ADD })),
