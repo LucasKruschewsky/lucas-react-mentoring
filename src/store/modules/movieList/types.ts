@@ -7,7 +7,12 @@ export type TMovieObject = {
   runtime: number;
   overview: string;
   id?: number;
+  tagline?: string;
+  vote_count?: any;
+  budget?: any;
+  revenue?: any;
 };
+
 export type TMovieList = TMovieObject[];
 
 export type TMovieSortOrder = 'asc' | 'desc';

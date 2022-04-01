@@ -16,6 +16,9 @@
   /* Font Sizes */
   --title-1: 40px;
   --body-1: 20px;
+
+  /* Offset Header */
+  --offset-header: 4.5rem;
 }
 
 body {

@@ -1,7 +1,5 @@
-import { TMovieObject } from '@/store/modules/movieList/types';
-
 export interface IHomeBannerProps {
-  selectedMovie?: TMovieObject;
+  selectedMovieId?: string;
 }
 
 export interface ISearchBannerProps {

@@ -1,16 +1,14 @@
-import { RootState } from '@/store/types';
 import * as React from 'react';
-import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { SearchBanner, SelectedMovieBanner } from './helper';
 import { IHomeBannerProps } from './types';
 
 const HomepageBanner: React.FunctionComponent<IHomeBannerProps> = () => {
-  const selectedMovie = useSelector((state: RootState) => state.selectedMovie);
   const { searchQuery } = useParams();
+  const [searchParams] = useSearchParams();
 
-  return selectedMovie ? (
-    <SelectedMovieBanner selectedMovie={selectedMovie} />
+  return searchParams.has('movie') ? (
+    <SelectedMovieBanner selectedMovieId={searchParams.get('movie')} />
   ) : (
     <SearchBanner searchQuery={searchQuery} />
   );

@@ -5,10 +5,10 @@ import { SelectWrapper } from 'Global/styled/InputAndLabel';
 import { BsSortDown, BsSortUp } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 import { useParams, useSearchParams } from 'react-router-dom';
+import { retrieveAllSearchParams } from '@/functions/retrieveSearchParams';
 import {
   genreFilterList,
   sortOptions,
-  retrieveSearchParam,
   matchGenreFromSearchParams,
 } from './helper';
 import { FiltersSection, GenreFilters, SortSection } from './styles';
@@ -21,14 +21,17 @@ const MovieFilters = (): React.ReactElement => {
   const sortMovies = React.useCallback(
     (event): void => {
       if (event.target.value === 'remove-filters') {
-        setSearchParams({ ...retrieveSearchParam(searchParams, 'genre') });
+        setSearchParams({
+          ...retrieveAllSearchParams(searchParams),
+          sortBy: [],
+          sortOrder: [],
+        });
         return;
       }
 
       setSearchParams({
+        ...retrieveAllSearchParams(searchParams),
         sortBy: event.target.value,
-        ...retrieveSearchParam(searchParams, 'sortOrder'),
-        ...retrieveSearchParam(searchParams, 'genre'),
       });
     },
     [setSearchParams, searchParams]
@@ -37,27 +40,24 @@ const MovieFilters = (): React.ReactElement => {
   const toggleSortOrder = React.useCallback(() => {
     if (searchParams.get('sortOrder') === ASC) {
       setSearchParams({
+        ...retrieveAllSearchParams(searchParams),
         sortOrder: DESC,
-        ...retrieveSearchParam(searchParams, 'sortBy'),
-        ...retrieveSearchParam(searchParams, 'genre'),
       });
       return;
     }
 
     // If sortOrder === DESC
     setSearchParams({
+      ...retrieveAllSearchParams(searchParams),
       sortOrder: ASC,
-      ...retrieveSearchParam(searchParams, 'sortBy'),
-      ...retrieveSearchParam(searchParams, 'genre'),
     });
   }, [setSearchParams, searchParams]);
 
   const filterMovies = React.useCallback(
     (event) => {
       setSearchParams({
+        ...retrieveAllSearchParams(searchParams),
         genre: [event.target.value],
-        ...retrieveSearchParam(searchParams, 'sortBy'),
-        ...retrieveSearchParam(searchParams, 'sortOrder'),
       });
     },
     [searchParams, setSearchParams]

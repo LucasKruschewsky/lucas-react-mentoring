@@ -27,9 +27,11 @@ export const axiosRequest = async (
   apiEndpoint: TApiEndpoints,
   method: TApiMethods,
   movie: TMovieObject = null
-): Promise<AxiosResponse<IMoviesApiResponse>> => {
+): Promise<AxiosResponse<any>> => {
   if (method === 'get') {
-    return api.get<IMoviesApiResponse>(apiEndpoint).then(handleRequestStatus);
+    return api
+      .get<IMoviesApiResponse | TMovieObject>(apiEndpoint)
+      .then(handleRequestStatus);
   }
 
   if (method === 'post') {

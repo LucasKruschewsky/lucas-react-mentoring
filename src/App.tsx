@@ -9,6 +9,7 @@ import {
   Navigate,
 } from 'react-router-dom';
 import AppLayout from './Layout';
+import Page404 from './pages/Page404';
 
 const App: React.FunctionComponent = () => (
   <Provider store={store}>
@@ -20,6 +21,7 @@ const App: React.FunctionComponent = () => (
             <Route index element={<Homepage />} />
             <Route path=":searchQuery" element={<Homepage />} />
           </Route>
+          <Route path="*" element={<Page404 />} />
         </Routes>
       </AppLayout>
     </Router>

@@ -3,7 +3,14 @@ import AppButton from 'Global/styled/AppButton';
 import { parseDate } from '@/functions/parseDate';
 import { minutesToHours } from '@/functions/minutesToHours';
 import { Field, Form, Formik } from 'formik';
-import { useNavigate } from 'react-router-dom';
+import {
+  createSearchParams,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom';
+import { axiosRequest } from '@/functions/axiosRequest';
+import { TMovieObject } from '@/store/modules/movieList/types';
+import { retrieveAllSearchParams } from '@/functions/retrieveSearchParams';
 import {
   SearchBannerContainer,
   SearchTitle,
@@ -22,10 +29,18 @@ export const SearchBanner: React.FunctionComponent<ISearchBannerProps> = ({
   searchQuery,
 }) => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
-  const handleSearch = React.useCallback(
-    ({ searchField }) => navigate(`/search/${searchField}`),
-    [navigate]
+  const handleSubmitSearch = React.useCallback(
+    ({ searchField }) => {
+      navigate({
+        pathname: `/search/${searchField}`,
+        search: `?${createSearchParams({
+          ...retrieveAllSearchParams(searchParams),
+        })}`,
+      });
+    },
+    [navigate, searchParams]
   );
 
   const initialSearchValue: { searchField: string } = {
@@ -36,7 +51,10 @@ export const SearchBanner: React.FunctionComponent<ISearchBannerProps> = ({
     <SearchBannerContainer>
       <div>
         <SearchTitle>Find Your Movies</SearchTitle>
-        <Formik onSubmit={handleSearch} initialValues={initialSearchValue}>
+        <Formik
+          onSubmit={handleSubmitSearch}
+          initialValues={initialSearchValue}
+        >
           <Form>
             <SearchInputAndButton>
               <Field
@@ -55,15 +73,26 @@ export const SearchBanner: React.FunctionComponent<ISearchBannerProps> = ({
 };
 
 export const SelectedMovieBanner: React.FunctionComponent<IHomeBannerProps> = ({
-  selectedMovie,
+  selectedMovieId,
 }) => {
+  const [selectedMovie, setSelectedMovie] = React.useState<TMovieObject>(null);
+
+  React.useEffect(() => {
+    const fetchSelectedMovie = async (): Promise<void> => {
+      const response = await axiosRequest(`/movies/${selectedMovieId}`, 'get');
+      setSelectedMovie(response.data);
+    };
+
+    fetchSelectedMovie();
+  }, [selectedMovieId]);
+
   const parsedRuntime = React.useMemo(
-    () => minutesToHours(selectedMovie.runtime),
+    () => minutesToHours(selectedMovie?.runtime),
     [selectedMovie]
   );
 
   const parsedDate = React.useMemo(
-    () => parseDate(selectedMovie.release_date),
+    () => parseDate(selectedMovie?.release_date),
     [selectedMovie]
   );
 
@@ -71,17 +100,17 @@ export const SelectedMovieBanner: React.FunctionComponent<IHomeBannerProps> = ({
     <SelectedMovieContainer>
       <MovieImageContainer>
         <img
-          src={selectedMovie.poster_path}
-          alt={`${selectedMovie.title} movie`}
+          src={selectedMovie?.poster_path}
+          alt={`${selectedMovie?.title} movie`}
         />
       </MovieImageContainer>
       <MovieDetailsContainer id="selected-movie-details-banner">
         <MovieTitleAndRating>
-          <h1>{selectedMovie.title}</h1>
-          <div>{selectedMovie.vote_average}</div>
+          <h1>{selectedMovie?.title}</h1>
+          <div>{selectedMovie?.vote_average}</div>
         </MovieTitleAndRating>
         <MovieGenre>
-          {selectedMovie.genres.map((genre) => (
+          {selectedMovie?.genres.map((genre) => (
             <p key={genre}>{genre}</p>
           ))}
         </MovieGenre>
@@ -89,7 +118,7 @@ export const SelectedMovieBanner: React.FunctionComponent<IHomeBannerProps> = ({
           <p>{parsedDate}</p>
           <p>{parsedRuntime}</p>
         </MovieYearAndDuration>
-        <MovieDescription>{selectedMovie.overview}</MovieDescription>
+        <MovieDescription>{selectedMovie?.overview}</MovieDescription>
       </MovieDetailsContainer>
     </SelectedMovieContainer>
   );
