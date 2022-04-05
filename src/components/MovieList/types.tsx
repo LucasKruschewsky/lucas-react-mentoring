@@ -1,11 +1,11 @@
-import { IMoviesListData } from '@/data/MockedDataTypes';
+import { TMovieList } from '@/store/modules/movieList/types';
 import { Dispatch, SetStateAction } from 'react';
 
 export interface IMovieListProps {}
 
-export type TSortBy = 'name' | 'year';
+export type TSortBy = 'title' | 'release_date';
 
 export interface sortedMoviesListState {
-  sortedMoviesList: IMoviesListData[];
-  setSortedMoviesList: Dispatch<SetStateAction<IMoviesListData[]>>;
+  moviesListApi: TMovieList;
+  setSortedMoviesList: Dispatch<SetStateAction<TMovieList>>;
 }

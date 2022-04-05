@@ -9,10 +9,13 @@ const MovieCardContainer = styled.div<IMovieCardContainer>`
 
   button {
     display: flex;
+    flex-grow: 1;
+
     img {
       margin-bottom: 1.5rem;
       cursor: pointer;
-      width: max-content;
+      max-width: 100%;
+      height: max-content;
       flex-grow: 1;
     }
   }
@@ -50,8 +53,14 @@ const MovieInfo = styled.div`
       font-size: var(--body-1);
     }
 
-    p {
+    .movie-card-genres {
       font-size: 14px;
+      display: flex;
+      flex-wrap: wrap;
+
+      p {
+        margin-right: 0.5rem;
+      }
     }
   }
 

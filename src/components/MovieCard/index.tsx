@@ -1,30 +1,43 @@
 import * as React from 'react';
 import { BsThreeDotsVertical, BsX } from 'react-icons/bs';
 import HandleClickOut from 'Components/HandleClickOut';
-import { useDeleteModal, useEditModal } from '@/hooks/useModal';
-import { useSelectMovie } from '@/hooks/useSelectedMovie';
+import { parseDate } from '@/functions/parseDate';
+import { useDispatch } from 'react-redux';
+import { genresMap } from 'Components/MovieList/helper';
+import { selectMovie } from '@/store/modules/selectedMovie';
+import { openModal } from '@/store/modules/modal';
+import { DELETE, EDIT } from '@/store/modules/modal/constants';
 import { MovieCardContainer, MovieInfo, MovieOptionsMenu } from './styles';
 import { buildMenuItems } from './helper';
 import { IMovieCardProps } from './types';
 
 const MovieCard: React.FunctionComponent<IMovieCardProps> = ({ movie }) => {
-  const { image, genre, name, year } = movie;
+  const { poster_path, genres, title, release_date, id } = movie;
   const [isMouseOver, setIsMouseOver] = React.useState(false);
   const [isOptionsMenuOpen, setIsOptionsMenuOpen] = React.useState(false);
+  const dispatch = useDispatch();
 
-  const setSelectedMovie = useSelectMovie();
-  const selectMovie = React.useCallback(
-    () => setSelectedMovie(movie),
-    [movie, setSelectedMovie]
+  const chooseMovie = React.useCallback(
+    () => dispatch(selectMovie(movie)),
+    [movie, dispatch]
   );
 
-  const openDeleteModal = useDeleteModal();
-  const openEditModal = useEditModal();
+  const openDeleteModal = React.useCallback(
+    () => dispatch(openModal(DELETE)),
+    [dispatch]
+  );
+
+  const openEditModal = React.useCallback(
+    () => dispatch(openModal(EDIT)),
+    [dispatch]
+  );
 
   const optionsMenuItems = React.useMemo(
     () => buildMenuItems(openDeleteModal, openEditModal, setIsOptionsMenuOpen),
     [openDeleteModal, openEditModal]
   );
+
+  const genre = React.useMemo(() => genresMap(genres), [genres]);
 
   const showHoverEffect = React.useCallback(
     (): void => setIsMouseOver(true),
@@ -39,14 +52,19 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({ movie }) => {
     [isOptionsMenuOpen]
   );
 
+  const parsedDate = React.useMemo(
+    () => parseDate(release_date, 'year'),
+    [release_date]
+  );
+
   return (
     <MovieCardContainer showOptionsIcon={isMouseOver}>
-      <button onClick={selectMovie} type="button">
+      <button onClick={chooseMovie} type="button">
         <img
           onMouseEnter={showHoverEffect}
           onMouseLeave={hideHoverEffect}
-          src={image}
-          alt={`${name} banner`}
+          src={poster_path}
+          alt={`${title} banner`}
         />
       </button>
       <BsThreeDotsVertical
@@ -65,10 +83,12 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({ movie }) => {
       </HandleClickOut>
       <MovieInfo>
         <div>
-          <h1>{name}</h1>
-          <p>{genre}</p>
+          <h1>{title}</h1>
+          <div className="movie-card-genres" id={`${id}-genres`}>
+            {genre}
+          </div>
         </div>
-        <p>{year}</p>
+        <p>{parsedDate}</p>
       </MovieInfo>
     </MovieCardContainer>
   );

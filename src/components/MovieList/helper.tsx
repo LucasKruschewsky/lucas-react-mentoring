@@ -1,46 +1,23 @@
 import * as React from 'react';
 import MovieCard from 'Components/MovieCard';
-import { IMoviesListData } from '@/data/MockedDataTypes';
-import { genreFilterList, moviesList } from '@/data/MockData';
-import { sortedMoviesListState, TSortBy } from './types';
+import {
+  TMovieGenreFilters,
+  TMovieList,
+} from '@/store/modules/movieList/types';
 
-const numberOfMoviesFound = moviesList.length;
+export const genresMap = (genres: string[]): React.ReactElement[] =>
+  genres.map((genre) => <p key={genre}>{genre}</p>);
 
-const showGenreFilters = (
-  setStateFunction: React.Dispatch<React.SetStateAction<string>>,
-  stateValue: string
-): React.ReactNode =>
-  genreFilterList.map((item) => (
-    <button
-      type="button"
-      onClick={() => setStateFunction(item)}
-      key={item}
-      className={stateValue === item ? 'is-selected' : ''}
-    >
-      {item}
-    </button>
-  ));
+export const showMovies = (sortedMovies: TMovieList): React.ReactElement[] =>
+  sortedMovies?.map((movie) => <MovieCard key={movie.id} movie={movie} />);
 
-const showMovies = (sortedMovies: IMoviesListData[]): React.ReactElement[] =>
-  sortedMovies?.map((movie: IMoviesListData) => (
-    <MovieCard key={movie.id} movie={movie} />
-  ));
-
-const sortMovies = (
-  sortBy: TSortBy,
-  { sortedMoviesList, setSortedMoviesList }: sortedMoviesListState
-): void => {
-  setSortedMoviesList(
-    [...sortedMoviesList].sort((a, b) => (a[sortBy] < b[sortBy] ? -1 : 0))
-  );
-};
-
-const sortOptionsDropdown = [
+export const sortOptionsDropdown = [
   {
     optGroupLabel: 'Select an option',
     options: [
-      { value: 'year', label: 'Release Date' },
-      { value: 'name', label: 'A-Z' },
+      { value: 'release_date', label: 'Release Date' },
+      { value: 'title', label: 'A-Z' },
+      { value: 'vote_average', label: 'Rating' },
     ],
   },
   {
@@ -49,7 +26,7 @@ const sortOptionsDropdown = [
   },
 ];
 
-const sortOptions = (): React.ReactElement[] =>
+export const sortOptions = (): React.ReactElement[] =>
   sortOptionsDropdown.map((group) => (
     <optgroup key={group.optGroupLabel} label={group.optGroupLabel}>
       {group.options.map((option) => (
@@ -60,11 +37,10 @@ const sortOptions = (): React.ReactElement[] =>
     </optgroup>
   ));
 
-export {
-  numberOfMoviesFound,
-  showGenreFilters,
-  showMovies,
-  sortMovies,
-  sortOptionsDropdown,
-  sortOptions,
-};
+export const genreFilterList: TMovieGenreFilters = [
+  'All',
+  'Documentary',
+  'Comedy',
+  'Horror',
+  'Crime',
+];

@@ -1,3 +1,11 @@
+/**
+ * Receives a function and returns a new function
+ * that can only be executed once every timeout
+ * @param func
+ * @param timeout
+ * @returns a new function that will execute once every timeout
+ */
+
 const throttle = (
   func: () => void,
   timeout: number

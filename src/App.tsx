@@ -2,16 +2,17 @@ import * as React from 'react';
 import Navbar from 'Components/Navbar';
 import Footer from 'Components/Footer';
 import Homepage from '@/pages/Homepage';
-import { AppContextProvider } from '@/context/provider';
 import AppModalHandler from 'Components/ModalHandler';
+import { Provider } from 'react-redux';
+import store from '@/store';
 
 const App: React.FunctionComponent = () => (
-  <AppContextProvider>
+  <Provider store={store}>
     <Navbar />
     <Homepage />
     <Footer />
     <AppModalHandler />
-  </AppContextProvider>
+  </Provider>
 );
 
 export default App;

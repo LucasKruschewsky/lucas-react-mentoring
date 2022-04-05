@@ -1,13 +1,10 @@
 import * as React from 'react';
 import { ISetStateBoolean } from 'Global/types/globalTypes';
-import { IUseModalReturn } from '@/hooks/useModal/types';
 
 export const menuItems: ['Edit', 'Delete'] = ['Edit', 'Delete'];
 
 export const OpenModalFromMenuItem = (
-  setModalOpen:
-    | IUseModalReturn['openEditModal']
-    | IUseModalReturn['openDeleteModal'],
+  setModalOpen: () => void,
   setMovieMenuOpen: ISetStateBoolean
 ): void => {
   setMovieMenuOpen(false);
@@ -15,8 +12,8 @@ export const OpenModalFromMenuItem = (
 };
 
 export const buildMenuItems = (
-  openDeleteModal: IUseModalReturn['openDeleteModal'],
-  openEditModal: IUseModalReturn['openEditModal'],
+  openDeleteModal: () => void,
+  openEditModal: () => void,
   setMovieMenuOpen: ISetStateBoolean
 ): React.ReactElement[] =>
   menuItems.map((item) => {

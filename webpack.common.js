@@ -38,7 +38,7 @@ module.exports = {
       {
         test: /\.?(ts|tsx)$/,
         include: path.resolve(__dirname, 'src'),
-        loader: 'awesome-typescript-loader',
+        loader: 'ts-loader',
       },
       {
         test: /\.(png|jpg|jpeg|gif)/,

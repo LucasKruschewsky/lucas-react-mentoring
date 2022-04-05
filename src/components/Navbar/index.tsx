@@ -3,22 +3,20 @@ import { useRef } from 'react';
 import AppButton from 'Global/styled/AppButton';
 import AppLogo from 'Components/AppLogo';
 import { FaSearch } from 'react-icons/fa';
-import {
-  useCurrentMovie,
-  useRemoveSelectedMovie,
-} from '@/hooks/useSelectedMovie';
-import { useAddModal } from '@/hooks/useModal';
 import { useGlobalEventListener } from '@/hooks/useGlobalEventListener';
 import { addCssClassOnScroll } from '@/functions/addCssClassOnScroll';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeSelectedMovie } from '@/store/modules/selectedMovie';
+import { RootState } from '@/store/types';
+import { openModal } from '@/store/modules/modal';
+import { ADD } from '@/store/modules/modal/constants';
 import { INavbarProps } from './types';
 import NavContainer from './styles';
 
 const Navbar: React.FunctionComponent<INavbarProps> = () => {
+  const dispatch = useDispatch();
+  const currentMovie = useSelector((state: RootState) => state.selectedMovie);
   const NavContainerRef = useRef<HTMLDivElement>(null);
-  const currentMovie = useCurrentMovie();
-  const removeSelectedMovie = useRemoveSelectedMovie();
-
-  const openAddModal = useAddModal();
   const handleNavbarBackground = React.useCallback(
     () =>
       addCssClassOnScroll(
@@ -28,6 +26,14 @@ const Navbar: React.FunctionComponent<INavbarProps> = () => {
       ),
     [NavContainerRef]
   );
+  const unselectMovie: () => void = React.useCallback(
+    () => dispatch(removeSelectedMovie()),
+    [dispatch]
+  );
+  const openAddModal: () => void = React.useCallback(
+    () => dispatch(openModal(ADD)),
+    [dispatch]
+  );
 
   useGlobalEventListener(window, 'scroll', handleNavbarBackground);
 
@@ -35,7 +41,7 @@ const Navbar: React.FunctionComponent<INavbarProps> = () => {
     <NavContainer ref={NavContainerRef}>
       <AppLogo />
       {currentMovie ? (
-        <AppButton onClick={removeSelectedMovie} buttonStyle="defaultOutlined">
+        <AppButton onClick={unselectMovie} buttonStyle="defaultOutlined">
           <FaSearch />
           Search
         </AppButton>
