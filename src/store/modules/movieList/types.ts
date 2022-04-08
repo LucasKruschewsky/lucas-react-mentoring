@@ -23,6 +23,7 @@ export type TMovieGenreFilters = TMovieFilterBy[];
 
 export type TMovieListState = {
   list: TMovieList;
+  numberOfMoviesFound: number;
   activeFilters: {
     sortBy: TMovieSortBy;
     sortOrder: TMovieSortOrder;

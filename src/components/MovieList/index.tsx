@@ -8,17 +8,16 @@ import { IMovieListProps } from './types';
 import { MoviesFound, MoviesGrid } from './styles';
 
 const MovieList: React.FunctionComponent<IMovieListProps> = () => {
-  const moviesListApi = useSelector((state: RootState) => state.movieList.list);
-
-  const movieListItems = React.useMemo(
-    () => showMovies(moviesListApi),
-    [moviesListApi]
+  const { list, numberOfMoviesFound } = useSelector(
+    (state: RootState) => state.movieList
   );
+
+  const movieListItems = React.useMemo(() => showMovies(list), [list]);
 
   return (
     <AppContainer>
       <MovieFilters />
-      <MoviesFound>{moviesListApi?.length} Movies Found</MoviesFound>
+      <MoviesFound>{numberOfMoviesFound} Movies Found</MoviesFound>
       <MoviesGrid cols={3}>{movieListItems}</MoviesGrid>
     </AppContainer>
   );

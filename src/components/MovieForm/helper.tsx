@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as Yup from 'yup';
-import { axiosRequest } from '@/functions/axiosRequest';
 import {
   InputWrapper,
   Label,
@@ -9,7 +8,6 @@ import {
 import {
   Field,
   FormikErrors,
-  FormikHelpers,
   FormikProps,
   FormikTouched,
   FormikValues,
@@ -173,7 +171,7 @@ export const addAndEditFormFields = (
     }
   );
 
-const onSuccessfulRequest = (
+export const onSuccessfulRequest = (
   responseStatus: number,
   dispatch: TStoreDispatch
 ): void => {
@@ -181,32 +179,4 @@ const onSuccessfulRequest = (
     dispatch(closeModal());
     dispatch(getFilteredMovies());
   }
-};
-
-export const handleSubmitCreateEdit = async (
-  values: TMovieObject,
-  actions: FormikHelpers<FormikValues>,
-  dispatch: TStoreDispatch
-): Promise<void> => {
-  let response;
-  if (values.id) {
-    response = await axiosRequest('/movies', 'put', { ...values });
-  } else {
-    response = await axiosRequest('/movies', 'post', { ...values });
-  }
-
-  actions.setSubmitting(false);
-  onSuccessfulRequest(response.status, dispatch);
-};
-
-export const handleSubmitDelete = async (
-  values: TMovieObject,
-  actions: FormikHelpers<FormikValues>,
-  dispatch: TStoreDispatch
-): Promise<void> => {
-  const response = await axiosRequest(`/movies/${values.id}`, 'delete');
-
-  actions.setSubmitting(false);
-
-  onSuccessfulRequest(response.status, dispatch);
 };

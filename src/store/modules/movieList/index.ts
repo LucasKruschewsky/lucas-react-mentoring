@@ -15,7 +15,10 @@ export const getAllMovies = createAsyncThunk(
 );
 
 export const getFilteredMovies = createAsyncThunk<
-  TMovieList,
+  {
+    list: TMovieList;
+    numberOfMoviesFound: number;
+  },
   void,
   { state: RootState }
 >('movieList/getFilteredMovies', async (_, { getState }) => {
@@ -26,11 +29,15 @@ export const getFilteredMovies = createAsyncThunk<
     'get'
   );
 
-  return response.data.data;
+  return {
+    list: response.data.data,
+    numberOfMoviesFound: response.data.totalAmount,
+  };
 });
 
 const movieListInitialState: TMovieListState = {
   list: [],
+  numberOfMoviesFound: null,
   activeFilters: {
     sortBy: NONE,
     sortOrder: DESC,
@@ -65,7 +72,8 @@ const movieListSlice = createSlice({
       }))
       .addCase(getFilteredMovies.fulfilled, (state, { payload }) => ({
         ...state,
-        list: payload,
+        list: payload.list,
+        numberOfMoviesFound: payload.numberOfMoviesFound,
         status: 'success',
       }))
       .addCase(getFilteredMovies.pending, (state) => ({
