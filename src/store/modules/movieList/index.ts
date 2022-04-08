@@ -1,4 +1,5 @@
 import { axiosRequest } from '@/functions/axiosRequest';
+import { GET } from '@/functions/axiosRequest/constants';
 import { RootState } from '@/store/types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { ALL, DESC, NONE } from './constants';
@@ -8,7 +9,7 @@ import { IMovieListAction, TMovieList, TMovieListState } from './types';
 export const getAllMovies = createAsyncThunk(
   'movieList/getAllMovies',
   async () => {
-    const response = await axiosRequest('/movies', 'get');
+    const response = await axiosRequest('/movies', GET);
 
     return response.data.data;
   }
@@ -26,7 +27,7 @@ export const getFilteredMovies = createAsyncThunk<
 
   const response = await axiosRequest(
     requestUrlBuilder(sortBy, sortOrder, filterBy),
-    'get'
+    GET
   );
 
   return {

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TMovieObject } from '@/store/modules/movieList/types';
 import { ADD, DELETE, EDIT } from '@/store/modules/modal/constants';
 import { axiosRequest } from '@/functions/axiosRequest';
+import { POST, PUT } from '@/functions/axiosRequest/constants';
 import {
   showFormTitle,
   addAndEditFormFields,
@@ -37,9 +38,9 @@ const MovieForm: React.FunctionComponent<IMovieFormProps> = ({
     async (values: TMovieObject, actions): Promise<void> => {
       let response;
       if (values.id) {
-        response = await axiosRequest('/movies', 'put', { ...values });
+        response = await axiosRequest('/movies', PUT, { ...values });
       } else {
-        response = await axiosRequest('/movies', 'post', { ...values });
+        response = await axiosRequest('/movies', POST, { ...values });
       }
 
       actions.setSubmitting(false);
@@ -50,7 +51,7 @@ const MovieForm: React.FunctionComponent<IMovieFormProps> = ({
 
   const handleSubmitDelete = React.useCallback(
     async (values: TMovieObject, actions): Promise<void> => {
-      const response = await axiosRequest(`/movies/${values.id}`, 'delete');
+      const response = await axiosRequest(`/movies/${values.id}`, DELETE);
 
       actions.setSubmitting(false);
 
