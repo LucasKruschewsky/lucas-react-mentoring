@@ -2,6 +2,7 @@ import { api } from '@/services/axiosConfig';
 import { TMovieObject } from '@/store/modules/movieList/types';
 import { AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
+import { DELETE, GET, POST, PUT } from './constants';
 import { IMoviesApiResponse, TApiEndpoints, TApiMethods } from './types';
 
 const handleRequestStatus = (response: AxiosResponse): AxiosResponse => {
@@ -27,22 +28,20 @@ export const axiosRequest = async (
   apiEndpoint: TApiEndpoints,
   method: TApiMethods,
   movie: TMovieObject = null
-): Promise<AxiosResponse<any>> => {
-  if (method === 'get') {
-    return api
-      .get<IMoviesApiResponse | TMovieObject>(apiEndpoint)
-      .then(handleRequestStatus);
+): Promise<AxiosResponse<IMoviesApiResponse>> => {
+  if (method === GET) {
+    return api.get<IMoviesApiResponse>(apiEndpoint).then(handleRequestStatus);
   }
 
-  if (method === 'post') {
+  if (method === POST) {
     return api.post(apiEndpoint, movie).then(handleRequestStatus);
   }
 
-  if (method === 'put') {
+  if (method === PUT) {
     return api.put(apiEndpoint, movie).then(handleRequestStatus);
   }
 
-  if (method === 'delete') {
+  if (method === DELETE) {
     return api.delete(apiEndpoint).then(handleRequestStatus);
   }
 

@@ -9,7 +9,6 @@ import {
   useSearchParams,
 } from 'react-router-dom';
 import { axiosRequest } from '@/functions/axiosRequest';
-import { TMovieObject } from '@/store/modules/movieList/types';
 import { retrieveAllSearchParams } from '@/functions/retrieveSearchParams';
 import {
   SearchBannerContainer,
@@ -75,7 +74,7 @@ export const SearchBanner: React.FunctionComponent<ISearchBannerProps> = ({
 export const SelectedMovieBanner: React.FunctionComponent<IHomeBannerProps> = ({
   selectedMovieId,
 }) => {
-  const [selectedMovie, setSelectedMovie] = React.useState<TMovieObject>(null);
+  const [selectedMovie, setSelectedMovie] = React.useState(null);
 
   React.useEffect(() => {
     const fetchSelectedMovie = async (): Promise<void> => {
@@ -110,7 +109,7 @@ export const SelectedMovieBanner: React.FunctionComponent<IHomeBannerProps> = ({
           <div>{selectedMovie?.vote_average}</div>
         </MovieTitleAndRating>
         <MovieGenre>
-          {selectedMovie?.genres.map((genre) => (
+          {selectedMovie?.genres.map((genre: string) => (
             <p key={genre}>{genre}</p>
           ))}
         </MovieGenre>

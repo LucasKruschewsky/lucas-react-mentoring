@@ -4,6 +4,7 @@ import { openModal } from '@/store/modules/modal';
 import { TCurrentModalState } from '@/store/modules/modal/types';
 import { TStoreDispatch } from '@/store/types';
 import { TMovieObject } from '@/store/modules/movieList/types';
+import { DELETE, EDIT } from '@/store/modules/modal/constants';
 
 export const menuItems: ['Edit', 'Delete'] = ['Edit', 'Delete'];
 
@@ -28,7 +29,7 @@ export const buildMenuItems = (
           type="button"
           onClick={() =>
             OpenModalFromMenuItem(setMovieMenuOpen, dispatch, {
-              modalType: 'edit',
+              modalType: EDIT,
               movieId: id,
             })
           }
@@ -46,7 +47,7 @@ export const buildMenuItems = (
         type="button"
         onClick={() =>
           OpenModalFromMenuItem(setMovieMenuOpen, dispatch, {
-            modalType: 'delete',
+            modalType: DELETE,
             movieId: id,
           })
         }

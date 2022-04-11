@@ -1,12 +1,14 @@
 import { axiosRequest } from '@/functions/axiosRequest';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { GET } from '@/functions/axiosRequest/constants';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { movieListInitialState } from './constants';
 import { buildRequestUrlFromParams } from './helper';
-import { IMovieListAction, TMovieListState } from './types';
+import { TMovieList } from './types';
 
 export const getAllMovies = createAsyncThunk(
   'movieList/getAllMovies',
   async () => {
-    const response = await axiosRequest('/movies', 'get');
+    const response = await axiosRequest('/movies', GET);
 
     return response.data.data;
   }
@@ -30,44 +32,36 @@ export const getMoviesFromSearch = createAsyncThunk(
       'get'
     );
 
-    return response.data.data;
+    return {
+      list: response.data.data,
+      numberOfMoviesFound: response.data.totalAmount,
+    };
   }
 );
-
-const movieListInitialState: TMovieListState = {
-  list: [],
-  status: null,
-};
 
 const movieListSlice = createSlice({
   name: 'movieList',
   initialState: movieListInitialState,
-  reducers: {
-    changeActiveMovieFilters: (state, action: IMovieListAction) => ({
-      ...state,
-      activeFilters: { ...action.payload },
-    }),
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getAllMovies.fulfilled, (state, { payload }) => ({
-        ...state,
-        list: payload,
-        status: 'success',
-      }))
-      .addCase(getAllMovies.pending, (state) => ({
-        ...state,
-        status: 'pending',
-      }))
-      .addCase(getAllMovies.rejected, (state) => ({
-        ...state,
-        status: 'failed',
-      }))
-      .addCase(getMoviesFromSearch.fulfilled, (state, { payload }) => ({
-        ...state,
-        list: payload,
-        status: 'success',
-      }))
+      .addCase(
+        getMoviesFromSearch.fulfilled,
+        (
+          state,
+          {
+            payload,
+          }: PayloadAction<{
+            list: TMovieList;
+            numberOfMoviesFound: any;
+          }>
+        ) => ({
+          ...state,
+          list: payload.list,
+          numberOfMoviesFound: payload.numberOfMoviesFound,
+          status: 'success',
+        })
+      )
       .addCase(getMoviesFromSearch.pending, (state) => ({
         ...state,
         status: 'pending',
@@ -78,9 +72,6 @@ const movieListSlice = createSlice({
       }));
   },
 });
-
-// Action creators
-export const { changeActiveMovieFilters } = movieListSlice.actions;
 
 // Reducer
 export const movieListReducer = movieListSlice.reducer;

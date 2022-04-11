@@ -28,6 +28,7 @@ export type TMovieGenreFilters = TMovieFilterBy[];
 
 export type TMovieListState = {
   list: TMovieList;
+  numberOfMoviesFound: number;
   status: 'success' | 'pending' | 'failed';
 };
 
@@ -44,4 +45,10 @@ export interface IMovieListAction {
     filterBy?: TMovieFilterBy;
   };
   type: string;
+}
+
+export interface IMovieListPayload {
+  sortBy?: TMovieSortBy;
+  sortOrder?: TMovieSortOrder;
+  filterBy?: TMovieFilterBy;
 }

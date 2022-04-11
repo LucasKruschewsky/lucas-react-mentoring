@@ -5,6 +5,7 @@ import { parseDate } from '@/functions/parseDate';
 import { useDispatch } from 'react-redux';
 import { genresMap } from 'Components/MovieList/helper';
 import useCustomSearchParams from '@/hooks/useCustomSearchParams';
+import MovieCardImage from 'Components/MovieCardImage';
 import { MovieCardContainer, MovieInfo, MovieOptionsMenu } from './styles';
 import { buildMenuItems } from './helper';
 import { IMovieCardProps } from './types';
@@ -52,11 +53,11 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({ movie }) => {
   return (
     <MovieCardContainer showOptionsIcon={isMouseOver}>
       <button onClick={chooseMovie} type="button">
-        <img
-          onMouseEnter={showHoverEffect}
-          onMouseLeave={hideHoverEffect}
-          src={poster_path}
-          alt={`${title} banner`}
+        <MovieCardImage
+          hideHoverEffect={hideHoverEffect}
+          showHoverEffect={showHoverEffect}
+          imgUrl={poster_path}
+          imgAlt={`${title} banner`}
         />
       </button>
       <BsThreeDotsVertical
