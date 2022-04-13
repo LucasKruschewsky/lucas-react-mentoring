@@ -1,7 +1,7 @@
 import * as React from 'react';
-import Homepage from '@/pages/Homepage';
+import Homepage from 'Root/pages/Homepage';
 import { Provider } from 'react-redux';
-import store from '@/store';
+import store from 'Root/store';
 import {
   BrowserRouter as Router,
   Routes,

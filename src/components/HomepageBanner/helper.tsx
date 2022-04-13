@@ -1,15 +1,15 @@
 import * as React from 'react';
 import AppButton from 'Global/styled/AppButton';
-import { parseDate } from '@/functions/parseDate';
-import { minutesToHours } from '@/functions/minutesToHours';
+import { parseDate } from 'Root/functions/parseDate';
+import { minutesToHours } from 'Root/functions/minutesToHours';
 import { Field, Form, Formik } from 'formik';
 import {
   createSearchParams,
   useNavigate,
   useSearchParams,
 } from 'react-router-dom';
-import { axiosRequest } from '@/functions/axiosRequest';
-import { retrieveAllSearchParams } from '@/functions/retrieveSearchParams';
+import { axiosRequest } from 'Root/functions/axiosRequest';
+import { retrieveAllSearchParams } from 'Root/functions/retrieveSearchParams';
 import {
   SearchBannerContainer,
   SearchTitle,

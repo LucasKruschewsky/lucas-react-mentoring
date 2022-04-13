@@ -1,6 +1,6 @@
 import * as React from 'react';
 import MovieCard from 'Components/MovieCard';
-import { TMovieList } from '@/store/modules/movieList/types';
+import { TMovieList } from 'Root/store/modules/movieList/types';
 
 export const genresMap = (genres: string[]): React.ReactElement[] =>
   genres.map((genre) => <p key={genre}>{genre}</p>);

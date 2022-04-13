@@ -1,7 +1,7 @@
 import * as React from 'react';
 import AppContainer from 'Global/styled/AppContainer';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/store/types';
+import { RootState } from 'Root/store/types';
 import MovieFilters from 'Components/MovieFilters';
 import { showMovies } from './helper';
 import { IMovieListProps } from './types';

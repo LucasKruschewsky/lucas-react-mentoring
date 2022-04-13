@@ -1,4 +1,4 @@
-import { TMovieList } from '@/store/modules/movieList/types';
+import { TMovieList } from 'Root/store/modules/movieList/types';
 import { Dispatch, SetStateAction } from 'react';
 
 export interface IMovieListProps {}

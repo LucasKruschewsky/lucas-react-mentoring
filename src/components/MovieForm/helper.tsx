@@ -12,11 +12,11 @@ import {
   FormikTouched,
   FormikValues,
 } from 'formik';
-import { TMovieObject } from '@/store/modules/movieList/types';
-import { ADD, DELETE, EDIT } from '@/store/modules/modal/constants';
+import { TMovieObject } from 'Root/store/modules/movieList/types';
+import { ADD, DELETE, EDIT } from 'Root/store/modules/modal/constants';
 import { genreFilterList } from 'Components/MovieFilters/helper';
 import ReactMultiSelect from 'Components/ReactMultiSelect/ReactMultiSelect';
-import { ALL } from '@/store/modules/movieList/constants';
+import { ALL } from 'Root/store/modules/movieList/constants';
 import { IAddAndEditFields, IMovieFormFields, IMovieFormProps } from './types';
 
 export const emptyMovieObject: TMovieObject = {

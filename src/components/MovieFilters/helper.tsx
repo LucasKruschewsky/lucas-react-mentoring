@@ -8,11 +8,11 @@ import {
   RELEASE_DATE,
   TITLE,
   VOTE_AVERAGE,
-} from '@/store/modules/movieList/constants';
+} from 'Root/store/modules/movieList/constants';
 import {
   TMovieFilterBy,
   TMovieGenreFilters,
-} from '@/store/modules/movieList/types';
+} from 'Root/store/modules/movieList/types';
 
 export const genreFilterList: TMovieGenreFilters = [
   ALL,

@@ -2,8 +2,8 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AppModal from 'Components/AppModal';
 import MovieForm from 'Components/MovieForm';
-import { RootState } from '@/store/types';
-import { closeModal } from '@/store/modules/modal';
+import { RootState } from 'Root/store/types';
+import { closeModal } from 'Root/store/modules/modal';
 import { IModalHandlerProps } from './types';
 
 const AppModalHandler: React.FunctionComponent<IModalHandlerProps> = () => {

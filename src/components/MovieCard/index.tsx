@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { BsThreeDotsVertical, BsX } from 'react-icons/bs';
 import HandleClickOut from 'Components/HandleClickOut';
-import { parseDate } from '@/functions/parseDate';
+import { parseDate } from 'Root/functions/parseDate';
 import { useDispatch } from 'react-redux';
 import { genresMap } from 'Components/MovieList/helper';
-import useCustomSearchParams from '@/hooks/useCustomSearchParams';
+import useCustomSearchParams from 'Root/hooks/useCustomSearchParams';
 import MovieCardImage from 'Components/MovieCardImage';
 import { MovieCardContainer, MovieInfo, MovieOptionsMenu } from './styles';
 import { buildMenuItems } from './helper';

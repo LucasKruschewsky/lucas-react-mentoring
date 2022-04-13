@@ -1,4 +1,4 @@
-import { axiosImageCheck } from '@/services/axiosConfig';
+import { axiosImageCheck } from 'Root/services/axiosConfig';
 import * as React from 'react';
 import { ICardImage } from '../MovieCard/types';
 import { CardImage, FallbackContainer } from './styles';
