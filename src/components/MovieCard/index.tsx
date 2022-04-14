@@ -51,7 +51,7 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({ movie }) => {
   );
 
   return (
-    <MovieCardContainer showOptionsIcon={isMouseOver}>
+    <MovieCardContainer id="MovieCardContainer" showOptionsIcon={isMouseOver}>
       <button onClick={chooseMovie} type="button">
         <MovieCardImage
           hideHoverEffect={hideHoverEffect}
