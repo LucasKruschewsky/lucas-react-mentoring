@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.tsx",
   "scripts": {
-    "test": "jest",
+    "test": "jest --watchAll",
     "dev": "webpack serve --config webpack.config.dev.js",
     "build": "webpack --config webpack.config.prod.js",
     "lint": "eslint 'src/**/*.{js,jsx,tsx,ts}'",
@@ -33,13 +33,19 @@
       "^Images(.*)$": "<rootDir>/src/images$1",
       "\\.(css|less)$": "identity-obj-proxy"
     },
+    "testPathIgnorePatterns": [
+      "<rootDir>/cypress/"
+    ],
     "testEnvironment": "jsdom",
     "preset": "ts-jest",
     "transform": {
       "^.+\\.(ts|tsx)?$": "ts-jest",
       "^.+\\.(js|jsx)$": "babel-jest",
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileTransformer.js"
-    }
+    },
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-dom/extend-expect"
+    ]
   },
   "repository": {
     "type": "git",
@@ -76,6 +82,7 @@
     "@babel/preset-react": "^7.16.7",
     "@babel/preset-typescript": "^7.16.7",
     "@svgr/webpack": "^6.2.1",
+    "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^12.1.4",
     "@types/jest": "^27.4.1",
     "@types/react": "^17.0.39",
@@ -98,6 +105,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "history": "^5.3.0",
     "html-webpack-plugin": "^5.5.0",
     "husky": "^7.0.0",
     "identity-obj-proxy": "^3.0.0",

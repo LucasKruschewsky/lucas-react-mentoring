@@ -8,8 +8,8 @@ import {
   Route,
   Navigate,
 } from 'react-router-dom';
-import AppLayout from './Layout';
-import Page404 from './pages/Page404';
+import AppLayout from 'Root/Layout';
+import Page404 from 'Root/pages/Page404';
 
 const App: React.FunctionComponent = () => (
   <Provider store={store}>

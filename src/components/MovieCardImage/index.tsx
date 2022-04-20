@@ -25,6 +25,7 @@ const MovieCardImage: React.FunctionComponent<ICardImage> = ({
 
   return hasImage ? (
     <CardImage
+      data-testid="MovieCardImage"
       onMouseEnter={showHoverEffect}
       onMouseLeave={hideHoverEffect}
       src={imgUrl}
@@ -33,6 +34,7 @@ const MovieCardImage: React.FunctionComponent<ICardImage> = ({
     />
   ) : (
     <FallbackContainer
+      data-testid="MovieCardFallback"
       onMouseEnter={showHoverEffect}
       onMouseLeave={hideHoverEffect}
     />

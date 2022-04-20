@@ -61,6 +61,7 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({ movie }) => {
         />
       </button>
       <BsThreeDotsVertical
+        data-testid="ThreeDotsVerticalOptions"
         onMouseEnter={showHoverEffect}
         onClick={toggleOptionsMenu}
       />
@@ -69,7 +70,10 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({ movie }) => {
         clickCallback={toggleOptionsMenu}
         showClickHandler={isOptionsMenuOpen}
       >
-        <MovieOptionsMenu showOptionsContainer={isOptionsMenuOpen}>
+        <MovieOptionsMenu
+          data-testid="MovieOptionsMenu"
+          showOptionsContainer={isOptionsMenuOpen}
+        >
           <BsX onClick={toggleOptionsMenu} />
           {optionsMenuItems}
         </MovieOptionsMenu>

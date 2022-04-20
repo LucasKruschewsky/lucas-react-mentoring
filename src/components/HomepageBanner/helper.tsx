@@ -32,12 +32,14 @@ export const SearchBanner: React.FunctionComponent<ISearchBannerProps> = ({
 
   const handleSubmitSearch = React.useCallback(
     ({ searchField }) => {
-      navigate({
-        pathname: `/search/${searchField}`,
-        search: `?${createSearchParams({
-          ...retrieveAllSearchParams(searchParams),
-        })}`,
-      });
+      if (searchField.length) {
+        navigate({
+          pathname: `/search/${searchField}`,
+          search: `?${createSearchParams({
+            ...retrieveAllSearchParams(searchParams),
+          })}`,
+        });
+      }
     },
     [navigate, searchParams]
   );
@@ -54,9 +56,10 @@ export const SearchBanner: React.FunctionComponent<ISearchBannerProps> = ({
           onSubmit={handleSubmitSearch}
           initialValues={initialSearchValue}
         >
-          <Form>
+          <Form data-testid="FormikSearchMovie">
             <SearchInputAndButton>
               <Field
+                data-testid="BannerSearchField"
                 name="searchField"
                 id="searchMovie"
                 type="text"
