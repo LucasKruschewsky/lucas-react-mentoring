@@ -37,7 +37,7 @@ const Navbar: React.FunctionComponent<INavbarProps> = () => {
   useGlobalEventListener(window, 'scroll', handleNavbarBackground);
 
   return (
-    <NavContainer ref={NavContainerRef}>
+    <NavContainer data-testid="NavbarContainer" ref={NavContainerRef}>
       <AppLogo />
       {searchParams.has('movie') ? (
         <AppButton onClick={unselectMovie} buttonStyle="defaultOutlined">

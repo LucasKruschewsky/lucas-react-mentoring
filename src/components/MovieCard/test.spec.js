@@ -3,7 +3,7 @@ import MovieCard from 'Components/MovieCard';
 import * as React from 'react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
-import store from 'Root/store';
+import { createStore } from 'Root/store';
 import prepareTestEnv from 'Root/functions/prepareTestEnv';
 
 describe('MovieCard', () => {
@@ -24,7 +24,7 @@ describe('MovieCard', () => {
   };
 
   const { queryByTestId } = render(
-    <Provider store={store}>
+    <Provider store={createStore()}>
       <MemoryRouter>
         <MovieCard movie={mockedMovie} />
       </MemoryRouter>
@@ -40,12 +40,5 @@ describe('MovieCard', () => {
 
     fireEvent.mouseLeave(cardImage);
     expect(ThreeDotsVerticalOptions).not.toBeVisible();
-  });
-
-  it('Options menu open drower on click', () => {
-    // fireEvent.mouseEnter(cardImage);
-    // fireEvent.click(ThreeDotsVerticalOptions);
-    // expect(queryByTestId('MovieOptionsMenu')).toBeVisible();
-    // expect(screen.queryByText('Delete')).toBeVisible();
   });
 });

@@ -80,7 +80,7 @@ const MovieForm: React.FunctionComponent<IMovieFormProps> = ({
 
   return (
     <>
-      <Title>{formTitle}</Title>
+      <Title data-testid="ModalFormTitle">{formTitle}</Title>
       {(type === ADD || type === EDIT) && (
         <FormContainer>
           <Formik

@@ -9,6 +9,7 @@ const AppModal: React.FunctionComponent<IAppModalProps> = ({
   children,
   showModal,
   closeModal,
+  targetRenderedDiv = document.getElementById('app-modal'),
 }) =>
   ReactDOM.createPortal(
     <div>
@@ -27,7 +28,7 @@ const AppModal: React.FunctionComponent<IAppModalProps> = ({
         </HandleClickOut>
       ) : null}
     </div>,
-    document.getElementById('app-modal')
+    targetRenderedDiv
   );
 
 export default AppModal;

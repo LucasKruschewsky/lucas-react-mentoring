@@ -65,7 +65,11 @@ export const SearchBanner: React.FunctionComponent<ISearchBannerProps> = ({
                 type="text"
                 placeholder="What do you want to watch?"
               />
-              <AppButton name="searchFieldButton" type="submit">
+              <AppButton
+                data-testid="searchFieldButton"
+                name="searchFieldButton"
+                type="submit"
+              >
                 Search
               </AppButton>
             </SearchInputAndButton>
