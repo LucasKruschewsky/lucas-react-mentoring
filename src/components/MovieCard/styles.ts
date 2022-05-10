@@ -10,9 +10,10 @@ const MovieCardContainer = styled.div<IMovieCardContainer>`
   button {
     display: flex;
     flex-grow: 1;
+    margin-bottom: 1.5rem;
 
-    img {
-      margin-bottom: 1.5rem;
+    img,
+    svg {
       cursor: pointer;
       max-width: 100%;
       height: max-content;

@@ -10,7 +10,7 @@ type TParseDateOutput = 'year' | 'DD/MM/YYYY';
  */
 
 export const parseDate = (
-  date: number,
+  date: string,
   parseOutput?: TParseDateOutput
 ): string => {
   if (parseOutput === 'year') {

@@ -8,15 +8,17 @@ import { IModalHandlerProps } from './types';
 
 const AppModalHandler: React.FunctionComponent<IModalHandlerProps> = () => {
   const dispatch = useDispatch();
-  const currentModal = useSelector((state: RootState) => state.currentModal);
+  const { modalType, movieId } = useSelector(
+    (state: RootState) => state.currentModal
+  );
   const closeCurrentModal = React.useCallback(
     () => dispatch(closeModal()),
     [dispatch]
   );
 
   return (
-    <AppModal showModal={Boolean(currentModal)} closeModal={closeCurrentModal}>
-      <MovieForm type={currentModal} />
+    <AppModal showModal={Boolean(modalType)} closeModal={closeCurrentModal}>
+      <MovieForm movieId={movieId} type={modalType} />
     </AppModal>
   );
 };

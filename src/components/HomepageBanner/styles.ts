@@ -2,7 +2,9 @@ import styled from 'styled-components';
 import * as BannerImage from 'Images/HomepageHero.png';
 import AppContainer from 'Global/styled/AppContainer';
 
-export const SearchBannerContainer = styled.div`
+// SEARCH BANNER STYLES -----------------------------------------
+
+export const SearchBannerContainer = styled(AppContainer)`
   height: 396px;
   background-image: url(${BannerImage});
   background-repeat: no-repeat;
@@ -10,25 +12,40 @@ export const SearchBannerContainer = styled.div`
   background-size: cover;
 
   & > div {
-    padding: 6.5rem 8rem;
+    padding-top: 6.5rem;
+    padding-bottom: 6.5rem;
     display: flex;
     flex-direction: column;
   }
+
+  @media only screen and (min-width: 600px) {
+    padding: 0;
+    & > div {
+      padding: 6.5rem 8rem;
+    }
+  } ;
 `;
 
 export const SearchTitle = styled.h1`
   font-size: var(--title-1);
   color: rgb(var(--white));
   margin-bottom: 3rem;
+  text-align: center;
+
+  @media only screen and (min-width: 600px) {
+    text-align: left;
+  } ;
 `;
 
 export const SearchInputAndButton = styled.div`
   display: flex;
+  flex-direction: column;
+
   & > input {
-    line-height: 100%;
+    line-height: 34px;
     padding: 0 1rem;
     flex-grow: 4;
-    margin-right: 1rem;
+    margin-bottom: 1rem;
     font-size: var(--body-1);
     color: rgb(var(--white));
 
@@ -41,25 +58,65 @@ export const SearchInputAndButton = styled.div`
   & > button {
     flex-grow: 1;
   }
+
+  @media only screen and (min-width: 600px) {
+    flex-direction: row;
+
+    & > input {
+      margin-right: 1rem;
+      margin-bottom: 0;
+      line-height: 100%;
+    }
+  } ;
 `;
 
+// SELECTED MOVIE STYLES -----------------------------------------
+
 export const SelectedMovieContainer = styled(AppContainer)`
-  padding-top: 5rem;
-  display: flex;
+  display: grid;
+  padding-top: 4.5rem;
+  grid-auto-flow: column;
 
-  & > div {
-    flex-grow: 1;
-    margin-left: 1.5rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  @media only screen and (min-width: 768px) {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
   }
+`;
 
-  img {
+export const MovieImageContainer = styled.div`
+  grid-column: 2 / span 2;
+  order: 2;
+
+  image,
+  img,
+  svg {
+    max-width: 100%;
     max-height: 60vh;
+    padding-top: 1rem;
   }
+
+  @media only screen and (min-width: 768px) {
+    grid-column: 1 / span 4;
+    margin-right: 2rem;
+    order: 1;
+
+    image,
+    img,
+    svg {
+      padding-top: 0;
+    }
+  }
+`;
+
+export const MovieDetailsContainer = styled.div`
+  grid-column: span 8/ -1;
 `;
 
 export const MovieTitleAndRating = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   text-transform: uppercase;
   color: rgb(var(--white));
   h1 {
@@ -73,8 +130,8 @@ export const MovieTitleAndRating = styled.div`
     border-radius: 50%;
     display: flex;
 
-    width: 60px;
-    height: 60px;
+    min-width: 60px;
+    min-height: 60px;
 
     justify-content: center;
     align-items: center;

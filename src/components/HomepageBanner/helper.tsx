@@ -11,6 +11,8 @@ import {
   MovieGenre,
   MovieYearAndDuration,
   MovieDescription,
+  MovieImageContainer,
+  MovieDetailsContainer,
 } from './styles';
 import { IHomeBannerProps } from './types';
 
@@ -45,11 +47,13 @@ export const SelectedMovieBanner: React.FunctionComponent<IHomeBannerProps> = ({
 
   return (
     <SelectedMovieContainer>
-      <img
-        src={selectedMovie.poster_path}
-        alt={`${selectedMovie.title} movie`}
-      />
-      <div id="selected-movie-details-banner">
+      <MovieImageContainer>
+        <img
+          src={selectedMovie.poster_path}
+          alt={`${selectedMovie.title} movie`}
+        />
+      </MovieImageContainer>
+      <MovieDetailsContainer id="selected-movie-details-banner">
         <MovieTitleAndRating>
           <h1>{selectedMovie.title}</h1>
           <div>{selectedMovie.vote_average}</div>
@@ -64,7 +68,7 @@ export const SelectedMovieBanner: React.FunctionComponent<IHomeBannerProps> = ({
           <p>{parsedRuntime}</p>
         </MovieYearAndDuration>
         <MovieDescription>{selectedMovie.overview}</MovieDescription>
-      </div>
+      </MovieDetailsContainer>
     </SelectedMovieContainer>
   );
 };

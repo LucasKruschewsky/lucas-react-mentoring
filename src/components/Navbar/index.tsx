@@ -31,7 +31,7 @@ const Navbar: React.FunctionComponent<INavbarProps> = () => {
     [dispatch]
   );
   const openAddModal: () => void = React.useCallback(
-    () => dispatch(openModal(ADD)),
+    () => dispatch(openModal({ modalType: ADD })),
     [dispatch]
   );
 
