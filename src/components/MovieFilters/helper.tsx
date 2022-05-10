@@ -9,7 +9,10 @@ import {
   TITLE,
   VOTE_AVERAGE,
 } from '@/store/modules/movieList/constants';
-import { TMovieGenreFilters } from '@/store/modules/movieList/types';
+import {
+  TMovieFilterBy,
+  TMovieGenreFilters,
+} from '@/store/modules/movieList/types';
 
 export const genreFilterList: TMovieGenreFilters = [
   ALL,
@@ -44,3 +47,10 @@ export const sortOptions = (): React.ReactElement[] =>
       ))}
     </optgroup>
   ));
+
+export const matchGenreFromSearchParams = (
+  searchParams: URLSearchParams,
+  value: TMovieFilterBy
+): boolean =>
+  searchParams.get('genre')?.toLowerCase().includes(value.toLowerCase()) ||
+  (searchParams.get('genre') === null && value === ALL);

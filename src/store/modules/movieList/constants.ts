@@ -1,3 +1,5 @@
+import { TMovieListState } from './types';
+
 // Sort order
 export const DESC = 'desc';
 export const ASC = 'asc';
@@ -14,3 +16,10 @@ export const DOCUMENTARY = 'Documentary';
 export const COMEDY = 'Comedy';
 export const HORROR = 'Horror';
 export const CRIME = 'Crime';
+
+// Initial State
+export const movieListInitialState: TMovieListState = {
+  list: [],
+  numberOfMoviesFound: null,
+  status: null,
+};

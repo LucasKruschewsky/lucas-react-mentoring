@@ -4,21 +4,25 @@ import HandleClickOut from 'Components/HandleClickOut';
 import { parseDate } from '@/functions/parseDate';
 import { useDispatch } from 'react-redux';
 import { genresMap } from 'Components/MovieList/helper';
-import { selectMovie } from '@/store/modules/selectedMovie';
+import useCustomSearchParams from '@/hooks/useCustomSearchParams';
 import MovieCardImage from 'Components/MovieCardImage';
 import { MovieCardContainer, MovieInfo, MovieOptionsMenu } from './styles';
 import { buildMenuItems } from './helper';
 import { IMovieCardProps } from './types';
 
 const MovieCard: React.FunctionComponent<IMovieCardProps> = ({ movie }) => {
+  const addSearchParams = useCustomSearchParams()[1];
   const { poster_path, genres, title, release_date, id } = movie;
   const [isMouseOver, setIsMouseOver] = React.useState(false);
   const [isOptionsMenuOpen, setIsOptionsMenuOpen] = React.useState(false);
   const dispatch = useDispatch();
 
   const chooseMovie = React.useCallback(
-    () => dispatch(selectMovie(movie)),
-    [movie, dispatch]
+    () =>
+      addSearchParams({
+        movie: String(id),
+      }),
+    [addSearchParams, id]
   );
 
   const optionsMenuItems = React.useMemo(

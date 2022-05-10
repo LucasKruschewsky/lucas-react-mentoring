@@ -5,17 +5,16 @@ import AppLogo from 'Components/AppLogo';
 import { FaSearch } from 'react-icons/fa';
 import { useGlobalEventListener } from '@/hooks/useGlobalEventListener';
 import { addCssClassOnScroll } from '@/functions/addCssClassOnScroll';
-import { useDispatch, useSelector } from 'react-redux';
-import { removeSelectedMovie } from '@/store/modules/selectedMovie';
-import { RootState } from '@/store/types';
+import { useDispatch } from 'react-redux';
 import { openModal } from '@/store/modules/modal';
 import { ADD } from '@/store/modules/modal/constants';
+import useCustomSearchParams from '@/hooks/useCustomSearchParams';
 import { INavbarProps } from './types';
 import NavContainer from './styles';
 
 const Navbar: React.FunctionComponent<INavbarProps> = () => {
   const dispatch = useDispatch();
-  const currentMovie = useSelector((state: RootState) => state.selectedMovie);
+  const [searchParams, addSearchParams] = useCustomSearchParams();
   const NavContainerRef = useRef<HTMLDivElement>(null);
   const handleNavbarBackground = React.useCallback(
     () =>
@@ -27,8 +26,8 @@ const Navbar: React.FunctionComponent<INavbarProps> = () => {
     [NavContainerRef]
   );
   const unselectMovie: () => void = React.useCallback(
-    () => dispatch(removeSelectedMovie()),
-    [dispatch]
+    () => addSearchParams({ movie: [] }),
+    [addSearchParams]
   );
   const openAddModal: () => void = React.useCallback(
     () => dispatch(openModal({ modalType: ADD })),
@@ -40,7 +39,7 @@ const Navbar: React.FunctionComponent<INavbarProps> = () => {
   return (
     <NavContainer ref={NavContainerRef}>
       <AppLogo />
-      {currentMovie ? (
+      {searchParams.has('movie') ? (
         <AppButton onClick={unselectMovie} buttonStyle="defaultOutlined">
           <FaSearch />
           Search

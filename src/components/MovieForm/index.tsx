@@ -1,18 +1,20 @@
 import * as React from 'react';
 import AppButton from 'Global/styled/AppButton';
-import { Form, Formik } from 'formik';
+import { Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
 import { RootState } from '@/store/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { TMovieObject } from '@/store/modules/movieList/types';
 import { ADD, DELETE, EDIT } from '@/store/modules/modal/constants';
 import { axiosRequest } from '@/functions/axiosRequest';
-import { POST, PUT } from '@/functions/axiosRequest/constants';
+import { closeModal } from '@/store/modules/modal';
+import { getMoviesFromSearch } from '@/store/modules/movieList';
+import { useParams, useSearchParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import {
   showFormTitle,
   addAndEditFormFields,
   emptyMovieObject,
   formValidationSchema,
-  onSuccessfulRequest,
 } from './helper';
 import { IMovieFormProps } from './types';
 import { FormContainer, ButtonRow, Title } from './style';
@@ -22,6 +24,8 @@ const MovieForm: React.FunctionComponent<IMovieFormProps> = ({
   movieId,
 }) => {
   const dispatch = useDispatch();
+  const { searchQuery } = useParams();
+  const [searchParams] = useSearchParams();
   const formTitle = React.useMemo(() => showFormTitle(type), [type]);
 
   const initialValues = useSelector((state: RootState) => {
@@ -34,30 +38,42 @@ const MovieForm: React.FunctionComponent<IMovieFormProps> = ({
     return emptyMovieObject;
   });
 
-  const handleSubmitCreateEdit = React.useCallback(
-    async (values: TMovieObject, actions): Promise<void> => {
+  const handleSubmit = React.useCallback(
+    async (
+      values: TMovieObject,
+      actions: FormikHelpers<FormikValues>
+    ): Promise<void> => {
       let response;
-      if (values.id) {
-        response = await axiosRequest('/movies', PUT, { ...values });
-      } else {
-        response = await axiosRequest('/movies', POST, { ...values });
+      if (type === DELETE) {
+        response = await axiosRequest(`/movies/${values.id}`, 'delete');
+      }
+      if (type === EDIT) {
+        response = await axiosRequest('/movies', 'put', { ...values });
+      }
+
+      if (type === ADD) {
+        response = await axiosRequest('/movies', 'post', { ...values });
       }
 
       actions.setSubmitting(false);
-      onSuccessfulRequest(response.status, dispatch);
+
+      // If request is successful
+      if (response.status < 400) {
+        toast.success(
+          `Movie successfully ${type === DELETE ? 'delet' : type}ed`
+        );
+        dispatch(closeModal());
+        dispatch(
+          getMoviesFromSearch({
+            searchQuery,
+            genre: searchParams.getAll('genre'),
+            sortBy: searchParams.get('sortBy'),
+            sortOrder: searchParams.get('sortOrder'),
+          })
+        );
+      }
     },
-    [dispatch]
-  );
-
-  const handleSubmitDelete = React.useCallback(
-    async (values: TMovieObject, actions): Promise<void> => {
-      const response = await axiosRequest(`/movies/${values.id}`, DELETE);
-
-      actions.setSubmitting(false);
-
-      onSuccessfulRequest(response.status, dispatch);
-    },
-    [dispatch]
+    [dispatch, searchQuery, searchParams, type]
   );
 
   const resetForm = React.useCallback((form) => form.resetForm, []);
@@ -70,9 +86,9 @@ const MovieForm: React.FunctionComponent<IMovieFormProps> = ({
           <Formik
             validationSchema={formValidationSchema}
             initialValues={initialValues}
-            onSubmit={handleSubmitCreateEdit}
+            onSubmit={handleSubmit}
           >
-            {(form) => (
+            {(form: FormikProps<TMovieObject>) => (
               <Form>
                 {addAndEditFormFields(form)}
                 <ButtonRow>
@@ -92,7 +108,7 @@ const MovieForm: React.FunctionComponent<IMovieFormProps> = ({
       )}
       {type === DELETE && (
         <FormContainer>
-          <Formik initialValues={initialValues} onSubmit={handleSubmitDelete}>
+          <Formik initialValues={initialValues} onSubmit={handleSubmit}>
             <Form>
               <p>Are you sure you want to delete this movie?</p>
               <ButtonRow>

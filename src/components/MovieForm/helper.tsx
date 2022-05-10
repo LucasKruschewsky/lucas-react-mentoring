@@ -13,9 +13,6 @@ import {
   FormikValues,
 } from 'formik';
 import { TMovieObject } from '@/store/modules/movieList/types';
-import { TStoreDispatch } from '@/store/types';
-import { closeModal } from '@/store/modules/modal';
-import { getFilteredMovies } from '@/store/modules/movieList';
 import { ADD, DELETE, EDIT } from '@/store/modules/modal/constants';
 import { genreFilterList } from 'Components/MovieFilters/helper';
 import ReactMultiSelect from 'Components/ReactMultiSelect/ReactMultiSelect';
@@ -170,13 +167,3 @@ export const addAndEditFormFields = (
       );
     }
   );
-
-export const onSuccessfulRequest = (
-  responseStatus: number,
-  dispatch: TStoreDispatch
-): void => {
-  if (responseStatus < 400) {
-    dispatch(closeModal());
-    dispatch(getFilteredMovies());
-  }
-};

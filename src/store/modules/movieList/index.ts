@@ -1,10 +1,9 @@
 import { axiosRequest } from '@/functions/axiosRequest';
 import { GET } from '@/functions/axiosRequest/constants';
-import { RootState } from '@/store/types';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { ALL, DESC, NONE } from './constants';
-import { requestUrlBuilder } from './helper';
-import { IMovieListAction, TMovieList, TMovieListState } from './types';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { movieListInitialState } from './constants';
+import { buildRequestUrlFromParams } from './helper';
+import { TMovieList } from './types';
 
 export const getAllMovies = createAsyncThunk(
   'movieList/getAllMovies',
@@ -15,81 +14,64 @@ export const getAllMovies = createAsyncThunk(
   }
 );
 
-export const getFilteredMovies = createAsyncThunk<
-  {
-    list: TMovieList;
-    numberOfMoviesFound: number;
-  },
-  void,
-  { state: RootState }
->('movieList/getFilteredMovies', async (_, { getState }) => {
-  const { sortBy, sortOrder, filterBy } = getState().movieList.activeFilters;
+export const getMoviesFromSearch = createAsyncThunk(
+  'movieList/getMoviesFromSearch',
+  async ({
+    searchQuery,
+    genre,
+    sortBy,
+    sortOrder,
+  }: {
+    searchQuery?: string | null;
+    genre?: string[] | null;
+    sortBy?: string | null;
+    sortOrder?: string | null;
+  }) => {
+    const response = await axiosRequest(
+      buildRequestUrlFromParams(searchQuery, genre, sortBy, sortOrder),
+      'get'
+    );
 
-  const response = await axiosRequest(
-    requestUrlBuilder(sortBy, sortOrder, filterBy),
-    GET
-  );
-
-  return {
-    list: response.data.data,
-    numberOfMoviesFound: response.data.totalAmount,
-  };
-});
-
-const movieListInitialState: TMovieListState = {
-  list: [],
-  numberOfMoviesFound: null,
-  activeFilters: {
-    sortBy: NONE,
-    sortOrder: DESC,
-    filterBy: ALL,
-  },
-  status: null,
-};
+    return {
+      list: response.data.data,
+      numberOfMoviesFound: response.data.totalAmount,
+    };
+  }
+);
 
 const movieListSlice = createSlice({
   name: 'movieList',
   initialState: movieListInitialState,
-  reducers: {
-    changeActiveMovieFilters: (state, action: IMovieListAction) => ({
-      ...state,
-      activeFilters: { ...state.activeFilters, ...action.payload },
-    }),
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getAllMovies.fulfilled, (state, { payload }) => ({
-        ...state,
-        list: payload,
-        status: 'success',
-      }))
-      .addCase(getAllMovies.pending, (state) => ({
-        ...state,
-        status: 'pending',
-      }))
-      .addCase(getAllMovies.rejected, (state) => ({
-        ...state,
-        status: 'failed',
-      }))
-      .addCase(getFilteredMovies.fulfilled, (state, { payload }) => ({
-        ...state,
-        list: payload.list,
-        numberOfMoviesFound: payload.numberOfMoviesFound,
-        status: 'success',
-      }))
-      .addCase(getFilteredMovies.pending, (state) => ({
+      .addCase(
+        getMoviesFromSearch.fulfilled,
+        (
+          state,
+          {
+            payload,
+          }: PayloadAction<{
+            list: TMovieList;
+            numberOfMoviesFound: any;
+          }>
+        ) => ({
+          ...state,
+          list: payload.list,
+          numberOfMoviesFound: payload.numberOfMoviesFound,
+          status: 'success',
+        })
+      )
+      .addCase(getMoviesFromSearch.pending, (state) => ({
         ...state,
         status: 'pending',
       }))
-      .addCase(getFilteredMovies.rejected, (state) => ({
+      .addCase(getMoviesFromSearch.rejected, (state) => ({
         ...state,
         status: 'failed',
       }));
   },
 });
-
-// Action creators
-export const { changeActiveMovieFilters } = movieListSlice.actions;
 
 // Reducer
 export const movieListReducer = movieListSlice.reducer;

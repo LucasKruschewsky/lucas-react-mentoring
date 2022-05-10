@@ -34,7 +34,7 @@ export const SelectWrapper = styled.div`
     ${inputCommonStyle}
     flex-grow: 1;
 
-    background: url(images/ArrowDown.png) no-repeat;
+    background: url(/images/ArrowDown.png) no-repeat;
     background-position: 97% 50%;
     background-color: rgba(var(--secondary), 0.8);
     padding: 0.7rem 1.5rem 0.7rem 0.7rem;

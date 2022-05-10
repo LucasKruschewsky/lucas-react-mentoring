@@ -7,7 +7,12 @@ export type TMovieObject = {
   runtime: number;
   overview: string;
   id?: number;
+  tagline?: string;
+  vote_count?: number;
+  budget?: number;
+  revenue?: number;
 };
+
 export type TMovieList = TMovieObject[];
 
 export type TMovieSortOrder = 'asc' | 'desc';
@@ -24,11 +29,6 @@ export type TMovieGenreFilters = TMovieFilterBy[];
 export type TMovieListState = {
   list: TMovieList;
   numberOfMoviesFound: number;
-  activeFilters: {
-    sortBy: TMovieSortBy;
-    sortOrder: TMovieSortOrder;
-    filterBy: TMovieFilterBy;
-  };
   status: 'success' | 'pending' | 'failed';
 };
 
@@ -45,4 +45,10 @@ export interface IMovieListAction {
     filterBy?: TMovieFilterBy;
   };
   type: string;
+}
+
+export interface IMovieListPayload {
+  sortBy?: TMovieSortBy;
+  sortOrder?: TMovieSortOrder;
+  filterBy?: TMovieFilterBy;
 }
