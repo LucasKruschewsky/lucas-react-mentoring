@@ -6,7 +6,9 @@ import { RootState } from 'Root/store/types';
 import { closeModal } from 'Root/store/modules/modal';
 import { IModalHandlerProps } from './types';
 
-const AppModalHandler: React.FunctionComponent<IModalHandlerProps> = () => {
+const AppModalHandler: React.FunctionComponent<IModalHandlerProps> = ({
+  targetRenderedDiv = document.getElementById('app-modal'),
+}) => {
   const dispatch = useDispatch();
   const { modalType, movieId } = useSelector(
     (state: RootState) => state.currentModal
@@ -17,7 +19,11 @@ const AppModalHandler: React.FunctionComponent<IModalHandlerProps> = () => {
   );
 
   return (
-    <AppModal showModal={Boolean(modalType)} closeModal={closeCurrentModal}>
+    <AppModal
+      targetRenderedDiv={targetRenderedDiv}
+      showModal={Boolean(modalType)}
+      closeModal={closeCurrentModal}
+    >
       <MovieForm movieId={movieId} type={modalType} />
     </AppModal>
   );

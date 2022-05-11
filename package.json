@@ -14,13 +14,15 @@
   },
   "jest": {
     "collectCoverage": true,
-    "coveragePathIgnorePatterns": [".*__snapshots__/.*"],
+    "coveragePathIgnorePatterns": [
+      ".*__snapshots__/.*"
+    ],
     "collectCoverageFrom": [
       "./src/**"
     ],
     "coverageThreshold": {
       "global": {
-        "lines": 90
+        "lines": 70
       }
     },
     "modulePaths": [

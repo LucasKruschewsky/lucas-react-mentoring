@@ -35,5 +35,3 @@ describe('minutesToHours function', () => {
     expect(minutesToHoursOutput).toBe(timeInHours);
   });
 });
-
-describe('retrieveSearchParams function', () => {});

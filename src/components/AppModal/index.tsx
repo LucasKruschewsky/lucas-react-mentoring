@@ -9,7 +9,7 @@ const AppModal: React.FunctionComponent<IAppModalProps> = ({
   children,
   showModal,
   closeModal,
-  targetRenderedDiv = document.getElementById('app-modal'),
+  targetRenderedDiv,
 }) =>
   ReactDOM.createPortal(
     <div>
