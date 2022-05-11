@@ -13,6 +13,15 @@
     "prepare": "husky install"
   },
   "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "./src/**"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "lines": 90
+      }
+    },
     "modulePaths": [
       "/shared/vendor/modules"
     ],
