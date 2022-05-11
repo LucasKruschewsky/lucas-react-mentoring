@@ -5,6 +5,7 @@
   "main": "index.tsx",
   "scripts": {
     "test": "jest --watchAll",
+    "test-cy": "npx cypress open",
     "dev": "webpack serve --config webpack.config.dev.js",
     "build": "webpack --config webpack.config.prod.js",
     "lint": "eslint 'src/**/*.{js,jsx,tsx,ts}'",
