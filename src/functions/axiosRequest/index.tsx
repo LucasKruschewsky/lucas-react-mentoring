@@ -1,5 +1,5 @@
-import { api } from '@/services/axiosConfig';
-import { TMovieObject } from '@/store/modules/movieList/types';
+import { api } from 'Root/services/axiosConfig';
+import { TMovieObject } from 'Root/store/modules/movieList/types';
 import { AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
 import { DELETE, GET, POST, PUT } from './constants';

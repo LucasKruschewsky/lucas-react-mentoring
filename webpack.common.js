@@ -11,6 +11,7 @@ module.exports = {
     symlinks: false,
     alias: {
       '@': path.resolve(__dirname, 'src'),
+      Root: path.resolve(__dirname, 'src'),
       Images: path.resolve(__dirname, 'src', 'images'),
       Components: path.resolve(__dirname, 'src', 'components'),
       Global: path.resolve(__dirname, 'src', 'global'),

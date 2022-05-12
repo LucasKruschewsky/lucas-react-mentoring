@@ -1,1 +1,3 @@
-export interface IModalHandlerProps {}
+export interface IModalHandlerProps {
+  targetRenderedDiv?: HTMLElement;
+}

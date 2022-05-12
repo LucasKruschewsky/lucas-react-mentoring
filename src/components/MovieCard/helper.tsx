@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { ISetStateBoolean } from 'Global/types/globalTypes';
-import { openModal } from '@/store/modules/modal';
-import { TCurrentModalState } from '@/store/modules/modal/types';
-import { TStoreDispatch } from '@/store/types';
-import { TMovieObject } from '@/store/modules/movieList/types';
-import { DELETE, EDIT } from '@/store/modules/modal/constants';
+import { openModal } from 'Root/store/modules/modal';
+import { TCurrentModalState } from 'Root/store/modules/modal/types';
+import { TStoreDispatch } from 'Root/store/types';
+import { TMovieObject } from 'Root/store/modules/movieList/types';
+import { DELETE, EDIT } from 'Root/store/modules/modal/constants';
 
 export const menuItems: ['Edit', 'Delete'] = ['Edit', 'Delete'];
 

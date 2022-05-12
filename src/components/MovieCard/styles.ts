@@ -31,13 +31,12 @@ const MovieCardContainer = styled.div<IMovieCardContainer>`
     padding: 0.3rem;
     cursor: pointer;
     opacity: 0;
+    visibility: hidden;
 
     transition: all 0.1s ease-in-out;
 
     ${({ showOptionsIcon }) =>
-      showOptionsIcon
-        ? 'visibility: visible; opacity: 1;'
-        : 'visibility: hidden'}
+      showOptionsIcon ? 'visibility: visible; opacity: 1;' : ''}
   }
 `;
 

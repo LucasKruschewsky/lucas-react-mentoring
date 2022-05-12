@@ -1,11 +1,8 @@
 import * as React from 'react';
-import { getMoviesFromSearch } from '@/store/modules/movieList';
-import { ASC, DESC, NONE } from '@/store/modules/movieList/constants';
+import { ASC, DESC, NONE } from 'Root/store/modules/movieList/constants';
 import { SelectWrapper } from 'Global/styled/InputAndLabel';
 import { BsSortDown, BsSortUp } from 'react-icons/bs';
-import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import useCustomSearchParams from '@/hooks/useCustomSearchParams';
+import useCustomSearchParams from 'Root/hooks/useCustomSearchParams';
 import {
   genreFilterList,
   sortOptions,
@@ -14,9 +11,7 @@ import {
 import { FiltersSection, GenreFilters, SortSection } from './styles';
 
 const MovieFilters = (): React.ReactElement => {
-  const { searchQuery } = useParams();
   const [searchParams, addSearchParams] = useCustomSearchParams();
-  const dispatch = useDispatch();
 
   const sortMovies = React.useCallback(
     (event): void => {
@@ -77,17 +72,6 @@ const MovieFilters = (): React.ReactElement => {
       )),
     [filterMovies, searchParams]
   );
-
-  React.useEffect(() => {
-    dispatch(
-      getMoviesFromSearch({
-        searchQuery,
-        genre: searchParams.getAll('genre'),
-        sortBy: searchParams.get('sortBy'),
-        sortOrder: searchParams.get('sortOrder'),
-      })
-    );
-  }, [dispatch, searchQuery, searchParams]);
 
   return (
     <FiltersSection>

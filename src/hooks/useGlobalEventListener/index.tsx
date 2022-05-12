@@ -1,5 +1,5 @@
 import * as React from 'react';
-import throttle from '@/functions/throttle';
+import throttle from 'Root/functions/throttle';
 
 export const useGlobalEventListener = (
   elementListener: Window | Document,

@@ -4,12 +4,61 @@
   "description": "",
   "main": "index.tsx",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --watchAll",
+    "test-cy": "npx cypress open",
     "dev": "webpack serve --config webpack.config.dev.js",
     "build": "webpack --config webpack.config.prod.js",
     "lint": "eslint 'src/**/*.{js,jsx,tsx,ts}'",
     "fix": "eslint --fix 'src/**/*.{js,jsx,tsx,ts}'",
     "prepare": "husky install"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "coveragePathIgnorePatterns": [
+      ".*__snapshots__/.*"
+    ],
+    "collectCoverageFrom": [
+      "./src/**"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "lines": 70
+      }
+    },
+    "modulePaths": [
+      "/shared/vendor/modules"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "ts",
+      "tsx"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "bower_components",
+      "shared"
+    ],
+    "moduleNameMapper": {
+      "^Root(.*)$": "<rootDir>/src$1",
+      "^Global(.*)$": "<rootDir>/src/global$1",
+      "^Components(.*)$": "<rootDir>/src/components$1",
+      "^Images(.*)$": "<rootDir>/src/images$1",
+      "\\.(css|less)$": "identity-obj-proxy"
+    },
+    "testPathIgnorePatterns": [
+      "<rootDir>/cypress/"
+    ],
+    "testEnvironment": "jsdom",
+    "preset": "ts-jest",
+    "transform": {
+      "^.+\\.(ts|tsx)?$": "ts-jest",
+      "^.+\\.(js|jsx)$": "babel-jest",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileTransformer.js"
+    },
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-dom/extend-expect"
+    ]
   },
   "repository": {
     "type": "git",
@@ -24,6 +73,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.0",
     "axios": "^0.26.1",
+    "cypress": "^9.5.4",
     "dotenv": "^16.0.0",
     "formik": "^2.2.9",
     "glob": "^7.2.0",
@@ -33,22 +83,28 @@
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.2",
     "react-select": "^5.2.2",
+    "react-test-renderer": "^17.0.2",
     "react-toastify": "^8.2.0",
     "redux": "^4.1.2",
     "styled-components": "^5.3.3",
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.4",
+    "@babel/core": "^7.17.9",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
+    "@babel/preset-typescript": "^7.16.7",
     "@svgr/webpack": "^6.2.1",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^12.1.4",
+    "@types/jest": "^27.4.1",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
     "@types/react-redux": "^7.1.24",
     "@types/styled-components": "^5.1.23",
     "@typescript-eslint/eslint-plugin": "^5.12.1",
     "@typescript-eslint/parser": "^5.12.1",
+    "babel-jest": "^27.5.1",
     "babel-loader": "^8.2.3",
     "css-loader": "^6.6.0",
     "css-minimizer-webpack-plugin": "^3.4.1",
@@ -63,8 +119,11 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "history": "^5.3.0",
     "html-webpack-plugin": "^5.5.0",
     "husky": "^7.0.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^27.5.1",
     "lint-staged": "^12.3.4",
     "mini-css-extract-plugin": "^2.5.3",
     "prettier": "2.5.1",
@@ -72,6 +131,7 @@
     "source-map-loader": "^3.0.1",
     "speed-measure-webpack-plugin": "^1.5.0",
     "style-loader": "^3.3.1",
+    "ts-jest": "^27.1.4",
     "ts-loader": "^9.2.8",
     "typescript": "^4.6.2",
     "webpack": "^5.69.0",

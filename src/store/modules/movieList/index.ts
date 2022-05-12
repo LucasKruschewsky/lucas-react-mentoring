@@ -1,5 +1,5 @@
-import { axiosRequest } from '@/functions/axiosRequest';
-import { GET } from '@/functions/axiosRequest/constants';
+import { axiosRequest } from 'Root/functions/axiosRequest';
+import { GET } from 'Root/functions/axiosRequest/constants';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { movieListInitialState } from './constants';
 import { buildRequestUrlFromParams } from './helper';

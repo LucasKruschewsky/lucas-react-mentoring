@@ -13,7 +13,8 @@
       "Images/*": ["src/images/*"],
       "Components/*": ["src/components/*"],
       "Global/*": ["src/global/*"],
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "Root/*": ["src/*"]
     }
   },
   "include": ["src"]

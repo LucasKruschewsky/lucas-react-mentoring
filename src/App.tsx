@@ -1,15 +1,15 @@
 import * as React from 'react';
-import Homepage from '@/pages/Homepage';
+import Homepage from 'Root/pages/Homepage';
 import { Provider } from 'react-redux';
-import store from '@/store';
+import store from 'Root/store';
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
 } from 'react-router-dom';
-import AppLayout from './Layout';
-import Page404 from './pages/Page404';
+import AppLayout from 'Root/Layout';
+import Page404 from 'Root/pages/Page404';
 
 const App: React.FunctionComponent = () => (
   <Provider store={store}>

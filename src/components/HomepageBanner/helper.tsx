@@ -1,15 +1,15 @@
 import * as React from 'react';
 import AppButton from 'Global/styled/AppButton';
-import { parseDate } from '@/functions/parseDate';
-import { minutesToHours } from '@/functions/minutesToHours';
+import { parseDate } from 'Root/functions/parseDate';
+import { minutesToHours } from 'Root/functions/minutesToHours';
 import { Field, Form, Formik } from 'formik';
 import {
   createSearchParams,
   useNavigate,
   useSearchParams,
 } from 'react-router-dom';
-import { axiosRequest } from '@/functions/axiosRequest';
-import { retrieveAllSearchParams } from '@/functions/retrieveSearchParams';
+import { axiosRequest } from 'Root/functions/axiosRequest';
+import { retrieveAllSearchParams } from 'Root/functions/retrieveSearchParams';
 import {
   SearchBannerContainer,
   SearchTitle,
@@ -32,12 +32,14 @@ export const SearchBanner: React.FunctionComponent<ISearchBannerProps> = ({
 
   const handleSubmitSearch = React.useCallback(
     ({ searchField }) => {
-      navigate({
-        pathname: `/search/${searchField}`,
-        search: `?${createSearchParams({
-          ...retrieveAllSearchParams(searchParams),
-        })}`,
-      });
+      if (searchField.length) {
+        navigate({
+          pathname: `/search/${searchField}`,
+          search: `?${createSearchParams({
+            ...retrieveAllSearchParams(searchParams),
+          })}`,
+        });
+      }
     },
     [navigate, searchParams]
   );
@@ -54,15 +56,22 @@ export const SearchBanner: React.FunctionComponent<ISearchBannerProps> = ({
           onSubmit={handleSubmitSearch}
           initialValues={initialSearchValue}
         >
-          <Form>
+          <Form data-testid="FormikSearchMovie">
             <SearchInputAndButton>
               <Field
+                data-testid="BannerSearchField"
                 name="searchField"
                 id="searchMovie"
                 type="text"
                 placeholder="What do you want to watch?"
               />
-              <AppButton type="submit"> Search </AppButton>
+              <AppButton
+                data-testid="searchFieldButton"
+                name="searchFieldButton"
+                type="submit"
+              >
+                Search
+              </AppButton>
             </SearchInputAndButton>
           </Form>
         </Formik>

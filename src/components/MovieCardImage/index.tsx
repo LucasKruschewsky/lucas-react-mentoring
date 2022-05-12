@@ -1,4 +1,4 @@
-import { axiosImageCheck } from '@/services/axiosConfig';
+import { axiosImageCheck } from 'Root/services/axiosConfig';
 import * as React from 'react';
 import { ICardImage } from '../MovieCard/types';
 import { CardImage, FallbackContainer } from './styles';
@@ -25,6 +25,7 @@ const MovieCardImage: React.FunctionComponent<ICardImage> = ({
 
   return hasImage ? (
     <CardImage
+      data-testid="MovieCardImage"
       onMouseEnter={showHoverEffect}
       onMouseLeave={hideHoverEffect}
       src={imgUrl}
@@ -33,6 +34,7 @@ const MovieCardImage: React.FunctionComponent<ICardImage> = ({
     />
   ) : (
     <FallbackContainer
+      data-testid="MovieCardFallback"
       onMouseEnter={showHoverEffect}
       onMouseLeave={hideHoverEffect}
     />

@@ -3,12 +3,12 @@ import { useRef } from 'react';
 import AppButton from 'Global/styled/AppButton';
 import AppLogo from 'Components/AppLogo';
 import { FaSearch } from 'react-icons/fa';
-import { useGlobalEventListener } from '@/hooks/useGlobalEventListener';
-import { addCssClassOnScroll } from '@/functions/addCssClassOnScroll';
+import { useGlobalEventListener } from 'Root/hooks/useGlobalEventListener';
+import { addCssClassOnScroll } from 'Root/functions/addCssClassOnScroll';
 import { useDispatch } from 'react-redux';
-import { openModal } from '@/store/modules/modal';
-import { ADD } from '@/store/modules/modal/constants';
-import useCustomSearchParams from '@/hooks/useCustomSearchParams';
+import { openModal } from 'Root/store/modules/modal';
+import { ADD } from 'Root/store/modules/modal/constants';
+import useCustomSearchParams from 'Root/hooks/useCustomSearchParams';
 import { INavbarProps } from './types';
 import NavContainer from './styles';
 
@@ -37,7 +37,7 @@ const Navbar: React.FunctionComponent<INavbarProps> = () => {
   useGlobalEventListener(window, 'scroll', handleNavbarBackground);
 
   return (
-    <NavContainer ref={NavContainerRef}>
+    <NavContainer data-testid="NavbarContainer" ref={NavContainerRef}>
       <AppLogo />
       {searchParams.has('movie') ? (
         <AppButton onClick={unselectMovie} buttonStyle="defaultOutlined">

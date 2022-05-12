@@ -1,13 +1,13 @@
 import * as React from 'react';
 import AppButton from 'Global/styled/AppButton';
 import { Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
-import { RootState } from '@/store/types';
+import { RootState } from 'Root/store/types';
 import { useDispatch, useSelector } from 'react-redux';
-import { TMovieObject } from '@/store/modules/movieList/types';
-import { ADD, DELETE, EDIT } from '@/store/modules/modal/constants';
-import { axiosRequest } from '@/functions/axiosRequest';
-import { closeModal } from '@/store/modules/modal';
-import { getMoviesFromSearch } from '@/store/modules/movieList';
+import { TMovieObject } from 'Root/store/modules/movieList/types';
+import { ADD, DELETE, EDIT } from 'Root/store/modules/modal/constants';
+import { axiosRequest } from 'Root/functions/axiosRequest';
+import { closeModal } from 'Root/store/modules/modal';
+import { getMoviesFromSearch } from 'Root/store/modules/movieList';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import {
@@ -80,7 +80,7 @@ const MovieForm: React.FunctionComponent<IMovieFormProps> = ({
 
   return (
     <>
-      <Title>{formTitle}</Title>
+      <Title data-testid="ModalFormTitle">{formTitle}</Title>
       {(type === ADD || type === EDIT) && (
         <FormContainer>
           <Formik

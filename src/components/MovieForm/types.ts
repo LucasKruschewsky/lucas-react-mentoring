@@ -1,5 +1,5 @@
-import { TCurrentModalState } from '@/store/modules/modal/types';
-import { TMovieObject } from '@/store/modules/movieList/types';
+import { TCurrentModalState } from 'Root/store/modules/modal/types';
+import { TMovieObject } from 'Root/store/modules/movieList/types';
 
 export interface IMovieFormProps {
   type: TCurrentModalState['modalType'];

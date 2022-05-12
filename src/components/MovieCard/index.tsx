@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { BsThreeDotsVertical, BsX } from 'react-icons/bs';
 import HandleClickOut from 'Components/HandleClickOut';
-import { parseDate } from '@/functions/parseDate';
+import { parseDate } from 'Root/functions/parseDate';
 import { useDispatch } from 'react-redux';
 import { genresMap } from 'Components/MovieList/helper';
-import useCustomSearchParams from '@/hooks/useCustomSearchParams';
+import useCustomSearchParams from 'Root/hooks/useCustomSearchParams';
 import MovieCardImage from 'Components/MovieCardImage';
 import { MovieCardContainer, MovieInfo, MovieOptionsMenu } from './styles';
 import { buildMenuItems } from './helper';
@@ -51,7 +51,7 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({ movie }) => {
   );
 
   return (
-    <MovieCardContainer showOptionsIcon={isMouseOver}>
+    <MovieCardContainer id="MovieCardContainer" showOptionsIcon={isMouseOver}>
       <button onClick={chooseMovie} type="button">
         <MovieCardImage
           hideHoverEffect={hideHoverEffect}
@@ -61,6 +61,7 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({ movie }) => {
         />
       </button>
       <BsThreeDotsVertical
+        data-testid="ThreeDotsVerticalOptions"
         onMouseEnter={showHoverEffect}
         onClick={toggleOptionsMenu}
       />
@@ -69,7 +70,10 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = ({ movie }) => {
         clickCallback={toggleOptionsMenu}
         showClickHandler={isOptionsMenuOpen}
       >
-        <MovieOptionsMenu showOptionsContainer={isOptionsMenuOpen}>
+        <MovieOptionsMenu
+          data-testid="MovieOptionsMenu"
+          showOptionsContainer={isOptionsMenuOpen}
+        >
           <BsX onClick={toggleOptionsMenu} />
           {optionsMenuItems}
         </MovieOptionsMenu>

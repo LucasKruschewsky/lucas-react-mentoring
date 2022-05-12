@@ -1,4 +1,4 @@
-import { TMovieObject } from '@/store/modules/movieList/types';
+import { TMovieObject } from 'Root/store/modules/movieList/types';
 
 export interface ICardImage {
   imgUrl: string;

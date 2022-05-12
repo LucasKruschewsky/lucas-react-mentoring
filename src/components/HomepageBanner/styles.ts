@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import * as BannerImage from 'Images/HomepageHero.png';
 import AppContainer from 'Global/styled/AppContainer';
+import * as BannerImage from '../../images/HomepageHero.png';
 
 // SEARCH BANNER STYLES -----------------------------------------
 

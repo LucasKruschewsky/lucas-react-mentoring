@@ -29,7 +29,7 @@ export default class ErrorBoundary extends Component<
 
     if (hasError) {
       return (
-        <ErrorOuterContainer>
+        <ErrorOuterContainer data-testid="ErrorBoundaryContainer">
           <ErrorInnerContainer>
             <h1>Whoops, something went wrong...</h1>
             <p>{error && error.toString()}</p>

@@ -1,4 +1,4 @@
-import { retrieveAllSearchParams } from '@/functions/retrieveSearchParams';
+import { retrieveAllSearchParams } from 'Root/functions/retrieveSearchParams';
 import { useSearchParams } from 'react-router-dom';
 import { ISearchParamsObject, TUseCustomSearchParams } from './types';
 
