@@ -17,5 +17,5 @@
       "Root/*": ["src/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "server.js"]
 }

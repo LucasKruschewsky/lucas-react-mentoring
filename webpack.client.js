@@ -15,22 +15,8 @@ const mergedConfig = merge(common, {
     filename: 'client_bundle.js',
     clean: true,
   },
-  devtool: 'eval-cheap-source-map',
-  devServer: {
-    port: 9000,
-    open: true,
-    hot: true,
-    historyApiFallback: true,
-  },
   module: {
     rules: [
-      {
-        test: /\.js$/,
-        include: path.resolve(__dirname, 'src'),
-        exclude: /node_modules/,
-        enforce: 'pre',
-        use: ['source-map-loader'],
-      },
       {
         test: /\.css$/i,
         include: [
