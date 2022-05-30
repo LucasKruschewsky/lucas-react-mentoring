@@ -1,7 +1,6 @@
 const path = require('path');
-require('dotenv').config();
+const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-require('dotenv').config();
 
 module.exports = {
   entry: path.join(__dirname, 'src', 'index.tsx'),
@@ -60,5 +59,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'src', 'index.html'),
     }),
+    new Dotenv(),
   ],
 };
