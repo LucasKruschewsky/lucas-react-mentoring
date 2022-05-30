@@ -7,6 +7,7 @@ import bodyParser from 'body-parser';
 import { ServerStyleSheet } from 'styled-components';
 import { Provider } from 'react-redux';
 import dotenv from 'dotenv';
+import serialize from 'serialize-javascript';
 import { createStore } from './src/store/index';
 import App from './src/App';
 import 'isomorphic-fetch';
@@ -69,9 +70,7 @@ app.get('*', (req, res) => {
             <div id="root">${content}</div>
             <script src="client_bundle.js"></script>
             <script>
-              window.__PRELOADED_STATE__ = ${JSON.stringify(
-                preloadedState
-              ).replace(/</g, '\\u003c')}
+              window.__PRELOADED_STATE__ = ${serialize(preloadedState)}
             </script>
           </body>
         </hmtl>
