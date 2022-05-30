@@ -5,10 +5,12 @@ import store from 'Root/store';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import AppLayout from 'Root/Layout';
 import Page404 from 'Root/pages/Page404';
+import GlobalStyles from 'Global/styled/GlobalStyles';
 
 const App: React.FunctionComponent = () => (
   <Provider store={store}>
     <AppLayout>
+      <GlobalStyles />
       <Routes>
         <Route path="/" element={<Navigate to="/search" replace />} />
         <Route path="/search">

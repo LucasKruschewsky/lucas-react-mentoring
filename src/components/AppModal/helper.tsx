@@ -9,7 +9,7 @@ export const ModalPortal: React.FunctionComponent<IAppModalProps> = ({
   closeModal,
   showModal,
   children,
-  targetRenderedDiv = document.querySelector('app-modal'),
+  targetRenderedDiv = document.querySelector('#app-modal'),
 }) =>
   ReactDOM.createPortal(
     <div>

@@ -3,6 +3,7 @@ const webpackNodeExternals = require('webpack-node-externals');
 require('babel-plugin-styled-components');
 
 module.exports = {
+  mode: 'development',
   target: 'node',
   entry: './server.js',
   output: {
