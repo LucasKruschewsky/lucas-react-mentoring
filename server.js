@@ -8,59 +8,63 @@ import { ServerStyleSheet } from 'styled-components';
 import { Provider } from 'react-redux';
 import dotenv from 'dotenv';
 import serialize from 'serialize-javascript';
+import { matchPath } from 'react-router-dom';
+import { routes } from './src/server/routes';
 import { createStore } from './src/store/index';
 import App from './src/App';
 import 'isomorphic-fetch';
 
 dotenv.config();
-const apiURL = process.env.API_URL;
-const moviesAPI = new URL('/movies', apiURL);
 const { PORT } = process.env || 3000;
 
 const app = express();
-app.use(express.static('build/public'));
-app.use(bodyParser.json());
 
 // Redirects to /search route
 app.get('/', (req, res) => {
   res.redirect(301, '/search');
 });
 
-app.get('/search', (req, res) => {
-  fetch(moviesAPI)
-    .then((response) => response.json())
-    .then((initialMovies) => {
-      const sheet = new ServerStyleSheet();
+app.use(express.static('./build/public'));
+app.use(bodyParser.json());
 
-      try {
-        // Store with initial state
-        const store = createStore({
-          selectedMovie: null,
-          currentModal: {
-            modalType: null,
-            movieId: null,
-          },
-          movieList: {
-            list: [...initialMovies.data],
-            numberOfMoviesFound: initialMovies.totalAmount,
-            status: null,
-          },
-        });
+app.get('*', (req, res) => {
+  const activeRoute = routes.find((route) => matchPath(route, req.url));
 
-        const content = ReactDOMServer.renderToString(
-          sheet.collectStyles(
-            <Provider store={store}>
-              <StaticRouter location={req.url}>
-                <App />
-              </StaticRouter>
-            </Provider>
-          )
-        );
+  const promise = activeRoute.fetchInitialData
+    ? activeRoute.fetchInitialData(req.url)
+    : Promise.resolve();
 
-        const styleTags = sheet.getStyleTags();
-        const preloadedState = store.getState();
+  promise.then((initialMovies) => {
+    const sheet = new ServerStyleSheet();
+    try {
+      // Store with initial state
+      const store = createStore({
+        selectedMovie: null,
+        currentModal: {
+          modalType: null,
+          movieId: null,
+        },
+        movieList: {
+          list: [...initialMovies.data],
+          numberOfMoviesFound: initialMovies.totalAmount,
+          status: null,
+        },
+      });
 
-        const html = `
+      const content = ReactDOMServer.renderToString(
+        sheet.collectStyles(
+          <Provider store={store}>
+            <StaticRouter location={req.url}>
+              <App />
+            </StaticRouter>
+          </Provider>
+        )
+      );
+
+      const styleTags = sheet.getStyleTags();
+      const preloadedState = store.getState();
+
+      const html = `
         <!DOCTYPE html>
         <html lang="en">
           <head>
@@ -80,11 +84,11 @@ app.get('/search', (req, res) => {
           </body>
         </hmtl>
           `;
-        res.send(html);
-      } finally {
-        sheet.seal();
-      }
-    });
+      res.send(html);
+    } finally {
+      sheet.seal();
+    }
+  });
 });
 
 app.listen(PORT);

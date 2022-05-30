@@ -10,7 +10,7 @@ const App: React.FunctionComponent = () => (
   <AppLayout>
     <GlobalStyles />
     <Routes>
-      <Route path="/" element={<Navigate to="/search" />} />
+      <Route path="/" element={<Navigate to="/search" replace />} />
       <Route path="/search">
         <Route index element={<Homepage />} />
         <Route path=":searchQuery" element={<Homepage />} />
