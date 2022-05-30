@@ -4,7 +4,6 @@ import { fetchMoviesOnServer } from './helper';
 export const routes = [
   {
     path: '/search',
-    exact: true,
     component: Homepage,
     fetchInitialData: () => fetchMoviesOnServer(),
   },

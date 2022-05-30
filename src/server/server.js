@@ -9,9 +9,9 @@ import { Provider } from 'react-redux';
 import dotenv from 'dotenv';
 import serialize from 'serialize-javascript';
 import { matchPath } from 'react-router-dom';
-import { routes } from './src/server/routes';
-import { createStore } from './src/store/index';
-import App from './src/App';
+import { routes } from './routes';
+import { createStore } from '../store/index';
+import App from '../App';
 import 'isomorphic-fetch';
 
 dotenv.config();
@@ -24,13 +24,13 @@ app.get('/', (req, res) => {
   res.redirect(301, '/search');
 });
 
-app.use(express.static('./build/public'));
+app.use(express.static('build/public'));
 app.use(bodyParser.json());
 
 app.get('*', (req, res) => {
   const activeRoute = routes.find((route) => matchPath(route, req.url));
 
-  const promise = activeRoute.fetchInitialData
+  const promise = activeRoute?.fetchInitialData
     ? activeRoute.fetchInitialData(req.url)
     : Promise.resolve();
 
@@ -45,8 +45,8 @@ app.get('*', (req, res) => {
           movieId: null,
         },
         movieList: {
-          list: [...initialMovies.data],
-          numberOfMoviesFound: initialMovies.totalAmount,
+          list: initialMovies?.data,
+          numberOfMoviesFound: initialMovies?.totalAmount,
           status: null,
         },
       });
@@ -65,7 +65,6 @@ app.get('*', (req, res) => {
       const preloadedState = store.getState();
 
       const html = `
-        <!DOCTYPE html>
         <html lang="en">
           <head>
             <meta charset="UTF-8" />
@@ -77,14 +76,15 @@ app.get('*', (req, res) => {
           <body>
             <div id="app-modal" />
             <div id="root">${content}</div>
-            <script src="client_bundle.js"></script>
+            <script src="../client_bundle.js"></script>
             <script>
               window.__PRELOADED_STATE__ = ${serialize(preloadedState)}
             </script>
           </body>
         </hmtl>
           `;
-      res.send(html);
+
+      res.send(`<!DOCTYPE html> ${html}`);
     } finally {
       sheet.seal();
     }

@@ -6,7 +6,7 @@ import 'Images/HomepageHero.png';
 
 export const SearchBannerContainer = styled(AppContainer)`
   height: 396px;
-  background-image: url('images/HomepageHero.png');
+  background-image: url('/images/HomepageHero.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

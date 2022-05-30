@@ -5,7 +5,7 @@ require('babel-plugin-styled-components');
 module.exports = {
   mode: 'development',
   target: 'node',
-  entry: './server.js',
+  entry: path.resolve(__dirname, 'src', 'server', 'server.js'),
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'build'),

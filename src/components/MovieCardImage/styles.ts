@@ -17,7 +17,7 @@ export const FallbackContainer = styled.div`
     min-height: 500px;
   }
 
-  background-image: url('images/NoImageFallback.png');
+  background-image: url('/images/NoImageFallback.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
