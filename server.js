@@ -13,15 +13,20 @@ import App from './src/App';
 import 'isomorphic-fetch';
 
 dotenv.config();
-const app = express();
 const apiURL = process.env.API_URL;
 const moviesAPI = new URL('/movies', apiURL);
 const { PORT } = process.env || 3000;
 
-app.use(bodyParser.json());
+const app = express();
 app.use(express.static('build/public'));
+app.use(bodyParser.json());
 
-app.get('*', (req, res) => {
+// Redirects to /search route
+app.get('/', (req, res) => {
+  res.redirect(301, '/search');
+});
+
+app.get('/search', (req, res) => {
   fetch(moviesAPI)
     .then((response) => response.json())
     .then((initialMovies) => {

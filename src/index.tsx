@@ -7,6 +7,8 @@ import { createStore } from 'Root/store';
 
 export const store = createStore(window.__PRELOADED_STATE__);
 
+delete window.__PRELOADED_STATE__;
+
 ReactDOM.hydrate(
   <React.StrictMode>
     <Provider store={store}>
