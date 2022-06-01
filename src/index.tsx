@@ -5,6 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'Root/store';
 import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 export const store = createStore(window.__PRELOADED_STATE__);
 
@@ -15,6 +16,7 @@ ReactDOM.hydrate(
     <Provider store={store}>
       <Router>
         <App />
+        <ToastContainer theme="colored" />
       </Router>
     </Provider>
   </React.StrictMode>,

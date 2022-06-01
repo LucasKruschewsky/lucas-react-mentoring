@@ -2,7 +2,6 @@ import Footer from 'Components/Footer';
 import AppModalHandler from 'Components/ModalHandler';
 import Navbar from 'Components/Navbar';
 import * as React from 'react';
-import { ToastContainer } from 'react-toastify';
 import { ILayoutProps } from './types';
 
 const AppLayout: React.FunctionComponent<ILayoutProps> = ({ children }) => (
@@ -11,7 +10,6 @@ const AppLayout: React.FunctionComponent<ILayoutProps> = ({ children }) => (
     {children}
     <Footer />
     <AppModalHandler />
-    <ToastContainer theme="colored" />
   </>
 );
 
