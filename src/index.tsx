@@ -4,6 +4,7 @@ import App from 'Root/App';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'Root/store';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const store = createStore(window.__PRELOADED_STATE__);
 

@@ -4,7 +4,6 @@ import Navbar from 'Components/Navbar';
 import * as React from 'react';
 import { ToastContainer } from 'react-toastify';
 import { ILayoutProps } from './types';
-// import 'react-toastify/dist/ReactToastify.css';
 
 const AppLayout: React.FunctionComponent<ILayoutProps> = ({ children }) => (
   <>
