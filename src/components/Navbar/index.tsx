@@ -12,7 +12,7 @@ import useCustomSearchParams from 'Root/hooks/useCustomSearchParams';
 import { INavbarProps } from './types';
 import NavContainer from './styles';
 
-const Navbar: React.FunctionComponent<INavbarProps> = () => {
+const Navbar: React.FunctionComponent<INavbarProps> = ({ showBackground }) => {
   const dispatch = useDispatch();
   const [searchParams, addSearchParams] = useCustomSearchParams();
   const NavContainerRef = useRef<HTMLDivElement>(null);
@@ -34,10 +34,14 @@ const Navbar: React.FunctionComponent<INavbarProps> = () => {
     [dispatch]
   );
 
-  useGlobalEventListener(window, 'scroll', handleNavbarBackground);
+  useGlobalEventListener('scroll', handleNavbarBackground);
 
   return (
-    <NavContainer data-testid="NavbarContainer" ref={NavContainerRef}>
+    <NavContainer
+      className={showBackground ? 'navbarBackground' : null}
+      data-testid="NavbarContainer"
+      ref={NavContainerRef}
+    >
       <AppLogo />
       {searchParams.has('movie') ? (
         <AppButton onClick={unselectMovie} buttonStyle="defaultOutlined">

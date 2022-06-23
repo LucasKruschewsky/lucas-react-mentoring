@@ -1,1 +1,3 @@
-export interface INavbarProps {}
+export interface INavbarProps {
+  showBackground?: boolean;
+}
