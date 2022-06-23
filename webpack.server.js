@@ -1,13 +1,19 @@
 const path = require('path');
-const Dotenv = require('dotenv-webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpackNodeExternals = require('webpack-node-externals');
+require('babel-plugin-styled-components');
 
 module.exports = {
-  entry: path.join(__dirname, 'src', 'index.tsx'),
+  mode: 'development',
+  target: 'node',
+  entry: path.resolve(__dirname, 'src', 'server', 'server.js'),
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'build'),
+    publicPath: '/build',
+  },
   resolve: {
     modules: [path.resolve(__dirname, 'node_modules'), 'node_modules'],
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
-    symlinks: false,
     alias: {
       '@': path.resolve(__dirname, 'src'),
       Root: path.resolve(__dirname, 'src'),
@@ -16,25 +22,27 @@ module.exports = {
       Global: path.resolve(__dirname, 'src', 'global'),
     },
   },
-  output: {
-    assetModuleFilename: 'images/[name][ext]',
-    publicPath: '/build/public',
-  },
-  cache: {
-    type: 'filesystem',
-  },
+  externalsPresets: { node: true },
+  externals: [webpackNodeExternals()],
   module: {
     rules: [
       {
-        test: /\.?(js|jsx)$/,
-        include: path.resolve(__dirname, 'src'),
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],
-            plugins: ['babel-plugin-styled-components'],
-          },
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: '/node_modules/',
+        options: {
+          presets: [
+            '@babel/preset-react',
+            [
+              '@babel/env',
+              {
+                targets: {
+                  browsers: ['last 2 versions'],
+                },
+              },
+            ],
+          ],
+          plugins: ['babel-plugin-styled-components'],
         },
       },
       {
@@ -53,12 +61,11 @@ module.exports = {
         issuer: /\.[jt]sx?$/,
         use: ['@svgr/webpack'],
       },
+      {
+        test: /\.css$/i,
+        include: [path.resolve(__dirname, 'src')],
+        use: ['style-loader', 'css-loader'],
+      },
     ],
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'index.html'),
-    }),
-    new Dotenv(),
-  ],
 };

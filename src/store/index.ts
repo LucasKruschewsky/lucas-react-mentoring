@@ -5,7 +5,9 @@ import { movieListReducer } from './modules/movieList';
 import { TMovieListState, TMovieObject } from './modules/movieList/types';
 import { TCurrentModalState } from './modules/modal/types';
 
-export const createStore = (): EnhancedStore<
+export const createStore = (
+  initialState: any
+): EnhancedStore<
   {
     selectedMovie: TMovieObject;
     currentModal: TCurrentModalState;
@@ -20,8 +22,5 @@ export const createStore = (): EnhancedStore<
       currentModal: modalReducer,
       movieList: movieListReducer,
     },
+    preloadedState: initialState,
   });
-
-const store = createStore();
-
-export default store;

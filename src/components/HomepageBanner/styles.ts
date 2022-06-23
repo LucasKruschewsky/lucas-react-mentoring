@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import AppContainer from 'Global/styled/AppContainer';
-import * as BannerImage from '../../images/HomepageHero.png';
+import 'Images/HomepageHero.png';
 
 // SEARCH BANNER STYLES -----------------------------------------
 
 export const SearchBannerContainer = styled(AppContainer)`
   height: 396px;
-  background-image: url(${BannerImage});
+  background-image: url('/images/HomepageHero.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
