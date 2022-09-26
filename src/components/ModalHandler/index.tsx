@@ -7,7 +7,7 @@ import { closeModal } from 'Root/store/modules/modal';
 import { IModalHandlerProps } from './types';
 
 const AppModalHandler: React.FunctionComponent<IModalHandlerProps> = ({
-  targetRenderedDiv = document.getElementById('app-modal'),
+  targetRenderedDiv,
 }) => {
   const dispatch = useDispatch();
   const { modalType, movieId } = useSelector(

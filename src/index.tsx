@@ -1,12 +1,24 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import App from 'Root/App';
-import 'Root/reset.css';
-import 'Root/index.css';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'Root/store';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
-ReactDOM.render(
+export const store = createStore(window.__PRELOADED_STATE__);
+
+delete window.__PRELOADED_STATE__;
+
+ReactDOM.hydrate(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <Router>
+        <App />
+        <ToastContainer theme="colored" />
+      </Router>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

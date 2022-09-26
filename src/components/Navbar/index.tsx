@@ -34,7 +34,7 @@ const Navbar: React.FunctionComponent<INavbarProps> = () => {
     [dispatch]
   );
 
-  useGlobalEventListener(window, 'scroll', handleNavbarBackground);
+  useGlobalEventListener('scroll', handleNavbarBackground);
 
   return (
     <NavContainer data-testid="NavbarContainer" ref={NavContainerRef}>
